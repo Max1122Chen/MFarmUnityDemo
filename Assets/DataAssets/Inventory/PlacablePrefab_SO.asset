@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d7d3c22d535c446b7ab8adc673bcfc, type: 3}
+  m_Name: PlacablePrefab_SO
+  m_EditorClassIdentifier: 
+  placablePrefabDataList:
+  - itemID: 3001
+    prefab: {fileID: 381030898867982195, guid: 76c198616b7f06348bcf528da587a5a6, type: 3}

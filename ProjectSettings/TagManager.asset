@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - CameraBounds
+  - SceneRoot
+  - MainCanvas
+  - Cursor
+  - Watered
+  - Dug
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Interactable
+  - Water
+  - UI
+  - Resource
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground Bottom
+    uniqueID: 3653387125
+    locked: 0
+  - name: Ground Middle
+    uniqueID: 1812838941
+    locked: 0
+  - name: Ground Top
+    uniqueID: 3103424753
+    locked: 0
+  - name: Stuff 1
+    uniqueID: 1084047115
+    locked: 0
+  - name: Stuff 2
+    uniqueID: 849900107
+    locked: 0
+  - name: Dug
+    uniqueID: 2161608467
+    locked: 0
+  - name: Watered
+    uniqueID: 1033194459
+    locked: 0
+  - name: Instance
+    uniqueID: 2767228991
+    locked: 0
+  - name: Front 1
+    uniqueID: 4174561107
+    locked: 0
+  - name: Front 2
+    uniqueID: 172471537
+    locked: 0
+  - name: Front 3
+    uniqueID: 801442847
+    locked: 0
+  - name: Collision
+    uniqueID: 4005003479
+    locked: 0
+  - name: TileInfo
+    uniqueID: 2102699517
+    locked: 0

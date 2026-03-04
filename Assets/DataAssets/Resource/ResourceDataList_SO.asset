@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ab8f6ee61d8af41ae1e7d0b5d2441a, type: 3}
+  m_Name: ResourceDataList_SO
+  m_EditorClassIdentifier: 
+  resourceDataList:
+  - resourceID: 2001
+    resourceType: 3
+    resourcePrefab: {fileID: 0}
+    growthStages:
+    - stageSprite: {fileID: -2058122700, guid: bd1655396b777431e85369611fc36aed, type: 3}
+      timeToNextStage: 10
+    - stageSprite: {fileID: 1098745238, guid: bd1655396b777431e85369611fc36aed, type: 3}
+      timeToNextStage: 10
+    - stageSprite: {fileID: -1012976577, guid: bd1655396b777431e85369611fc36aed, type: 3}
+      timeToNextStage: 10
+    - stageSprite: {fileID: -1730499155, guid: bd1655396b777431e85369611fc36aed, type: 3}
+      timeToNextStage: 10
+    - stageSprite: {fileID: -1080373613, guid: bd1655396b777431e85369611fc36aed, type: 3}
+      timeToNextStage: 10
+    productionInfos:
+    - producedItemID: 4001
+      growthStageIndex: -1
+      producedItemMinCount: 2
+      producedItemMaxCount: 5
+    dropProductsOnGround: 0
+    gatheringRequirements:
+    - requiredToolType: 0
+      requiredActionCount: 1
+      canGenerateProduct: 1
+    canBeGatheredMultipleTimes: 0
+    regrowthTime: 0
+    generatedObjectPrefabs: []
+    hasCollision: 0
+    colliderSize: {x: 1, y: 1}
+  - resourceID: 2010
+    resourceType: 1
+    resourcePrefab: {fileID: 0}
+    growthStages:
+    - stageSprite: {fileID: 21300000, guid: b344f2cee7ac54d7ab52e493a1bb4ee7, type: 3}
+      timeToNextStage: 10
+    - stageSprite: {fileID: 21300000, guid: c54002cd9727a43329d7f75c50778b57, type: 3}
+      timeToNextStage: 10
+    - stageSprite: {fileID: 21300000, guid: 4590cd3fefdd74b22ae749a122189ece, type: 3}
+      timeToNextStage: 10
+    productionInfos: []
+    dropProductsOnGround: 0
+    gatheringRequirements:
+    - requiredToolType: 6
+      requiredActionCount: 1
+      canGenerateProduct: 1
+    canBeGatheredMultipleTimes: 0
+    regrowthTime: 0
+    generatedObjectPrefabs:
+    - prefabType: 0
+      resourceID: 2011
+    hasCollision: 1
+    colliderSize: {x: 1, y: 1}
+  - resourceID: 2011
+    resourceType: 1
+    resourcePrefab: {fileID: 6766988929790210797, guid: c0c0f3ec022e4ed4e918fd535c5353dd, type: 3}
+    growthStages: []
+    productionInfos:
+    - producedItemID: 4002
+      growthStageIndex: -1
+      producedItemMinCount: 1
+      producedItemMaxCount: 10
+    dropProductsOnGround: 1
+    gatheringRequirements:
+    - requiredToolType: 6
+      requiredActionCount: 3
+      canGenerateProduct: 1
+    canBeGatheredMultipleTimes: 0
+    regrowthTime: 0
+    generatedObjectPrefabs:
+    - prefabType: 1
+      resourceID: 2012
+    hasCollision: 1
+    colliderSize: {x: 1, y: 1}
+  - resourceID: 2012
+    resourceType: 1
+    resourcePrefab: {fileID: 0}
+    growthStages:
+    - stageSprite: {fileID: 21300000, guid: f92caccf9fb8e45bcb3b3b1116dcbf48, type: 3}
+      timeToNextStage: 0
+    productionInfos: []
+    dropProductsOnGround: 0
+    gatheringRequirements:
+    - requiredToolType: 6
+      requiredActionCount: 3
+      canGenerateProduct: 1
+    canBeGatheredMultipleTimes: 0
+    regrowthTime: 0
+    generatedObjectPrefabs: []
+    hasCollision: 1
+    colliderSize: {x: 1, y: 1}

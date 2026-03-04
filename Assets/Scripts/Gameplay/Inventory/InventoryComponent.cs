@@ -1,0 +1,281 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+namespace InventorySystem
+{
+    public struct InventorySlotChangedInfo
+    {
+        public int slotIndex;
+        
+        public ItemInstance oldData;
+
+        public ItemInstance newData;
+
+        public ItemInstance OldData
+        {
+            get { return oldData; }
+        }
+
+        public ItemInstance NewData
+        {
+            get { return newData; }
+        }
+
+        public InventorySlotChangedInfo(int slotIndex, ItemInstance oldData, ItemInstance newData)
+        {
+            this.slotIndex = slotIndex;
+            this.oldData = oldData;
+            this.newData = newData;
+        }
+    }
+
+    public enum InventoryType
+    {
+        None,
+        Player,
+        Container,
+        Vendor
+    }
+
+    public class InventoryComponent : MonoBehaviour
+    {
+
+        [SerializeField] private Inventory_SO inventory_SO;
+
+        [SerializeField] private int inventorySize = 10;
+
+        [SerializeField] private InventoryType inventoryType;
+
+        public bool IsOpen { get; set; } = false;
+
+        public int selectedSlotIndex = -1;
+        public Action onToggleInventory;
+        public Action<InventorySlotChangedInfo> onInventorySlotChanged;
+
+        public Action<int, int> onSelectedSlotIndexChanged;
+
+
+        public Inventory_SO Inventory_SO
+        {
+            get { return inventory_SO; }
+        }
+        public InventoryType InventoryType
+        {
+            get { return inventoryType; }
+        }
+        public int InventorySize
+        {
+            get { return inventorySize; }
+        }
+
+        public virtual void Awake()
+        {
+            // Initialize inventory list if not already done
+            if(inventory_SO == null)
+            {
+                inventory_SO = ScriptableObject.CreateInstance<Inventory_SO>();
+            }
+            if(inventory_SO.slots == null ||inventory_SO.slots.Count != inventorySize)
+            {
+                inventory_SO.Initialize(inventorySize);
+            }
+
+        }
+
+        public virtual void Start()
+        {
+            InventorySubsystem.Instance.RegisterInventoryComponent(this);
+        }
+
+        public virtual void OnDestroy()
+        {
+            if(InventorySubsystem.Instance != null)
+            {
+                InventorySubsystem.Instance.UnregisterInventoryComponent(this);
+            }
+        }
+
+        public int TryAddItem(ItemDefinition itemDefinition, int count)
+        {
+            // Try to add to existing stacks first
+            for(int i = 0; i < inventory_SO.slots.Count; i++)
+            {
+                var slot = inventory_SO.slots[i];
+
+                // Check for existing stackable item
+                ItemInstance itemInstance = slot.itemInstance;
+                if(itemInstance != null && itemInstance.ItemDefinition != null && itemInstance.ItemDefinition.itemID == itemDefinition.itemID && itemInstance.stackCount < itemDefinition.maxStackCount)
+                {
+                    InventorySlotChangedInfo changeInfo = new InventorySlotChangedInfo(i, new ItemInstance(itemInstance), null);
+
+                    int spaceLeft = itemDefinition.maxStackCount - itemInstance.stackCount;
+                    int toAdd = Mathf.Min(spaceLeft, count);
+                    itemInstance.stackCount += toAdd;
+                    count -= toAdd;
+
+                    changeInfo.newData = new ItemInstance(itemInstance);
+                    onInventorySlotChanged?.Invoke(changeInfo);     // Notify about the change
+
+                    if(count <= 0)
+                    {
+                        return 0; // All items added
+                    }
+                }
+            }
+
+            // Try to add to empty slots
+            for(int i = 0; i < inventory_SO.slots.Count; i++)
+            {
+                var slot = inventory_SO.slots[i];
+
+                ItemInstance itemInstance = slot.itemInstance;
+                if(itemInstance.ItemDefinition == null || itemInstance.ItemDefinition.itemID == -1 || itemInstance.ItemDefinition.itemID == 0)
+                {
+                    InventorySlotChangedInfo changeInfo = new InventorySlotChangedInfo(i, new ItemInstance(itemInstance), null);
+
+                    int toAdd = Mathf.Min(itemDefinition.maxStackCount, count);
+                    itemInstance.ItemDefinition = itemDefinition;
+                    itemInstance.stackCount = toAdd;
+                    count -= toAdd;
+
+                    changeInfo.newData = new ItemInstance(itemInstance);
+                    onInventorySlotChanged?.Invoke(changeInfo);     // Notify about the change
+
+                    if(count <= 0)
+                    {
+                        return 0; // All items added
+                    }
+                }
+            }
+            return count;
+        }
+
+        public int TryAddItem(int itemID, int count)
+        {
+            ItemDefinition itemDefinition = InventorySubsystem.Instance.GetItemDefinition(itemID);
+            return TryAddItem(itemDefinition, count);
+        }
+        public int TryRemoveItem(ItemDefinition itemDefinition, int count)
+        {
+            for(int i = 0; i < inventory_SO.slots.Count; i++)
+            {
+                var slot = inventory_SO.slots[i];
+
+                ItemInstance itemInstance = slot.itemInstance;
+                if(itemInstance != null && itemInstance.ItemDefinition != null && itemInstance.ItemDefinition.itemID == itemDefinition.itemID)
+                {
+                    count = RemoveItemInSlot(count, i);
+
+                    if(count <= 0)
+                    {
+                        return 0; // All items removed
+                    }
+                }
+            }
+            return count;
+        }
+
+        public int TryRemoveItem(int itemID, int count)
+        {
+            ItemDefinition itemDefinition = InventorySubsystem.Instance.GetItemDefinition(itemID);
+            return TryRemoveItem(itemDefinition, count);
+        }
+        public int RemoveItemInSlot(int count, int index)
+        {
+            var slot = inventory_SO.slots[index];
+
+            InventorySlotChangedInfo changeInfo = new InventorySlotChangedInfo(index, new ItemInstance(slot.itemInstance), null);
+
+            int toRemove = Mathf.Min(slot.itemInstance.stackCount, count);
+            slot.itemInstance.stackCount -= toRemove;
+            count -= toRemove;
+
+            changeInfo.newData = new ItemInstance(slot.itemInstance);
+            onInventorySlotChanged?.Invoke(changeInfo);     // Notify about the change
+
+            return count;
+            
+        }
+
+        public void RemoveAllItemsInSlot(int index)
+        {
+            RemoveItemInSlot(inventory_SO.slots[index].itemInstance.stackCount, index);
+        }
+
+        public void SwapItemsBetweenSlots(int firstIndex, InventoryComponent targetInventory, int secondIndex)
+        {
+            if(firstIndex < 0 || firstIndex >= inventory_SO.slots.Count || secondIndex < 0 || secondIndex >= targetInventory.inventory_SO.slots.Count)
+            {
+                Debug.LogWarning("SwapItemsBetweenSlots: Invalid slot indices.");
+                return;
+            }
+
+            var firstSlot = inventory_SO.slots[firstIndex];
+            var secondSlot = targetInventory.inventory_SO.slots[secondIndex];
+
+            // Create change info for first slot
+            InventorySlotChangedInfo firstChangeInfo = new InventorySlotChangedInfo(firstIndex, new ItemInstance(firstSlot.itemInstance), null);
+            // Create change info for second slot
+            InventorySlotChangedInfo secondChangeInfo = new InventorySlotChangedInfo(secondIndex, new ItemInstance(secondSlot.itemInstance), null);
+
+            // Swap the items
+            var tempItem = firstSlot.itemInstance;
+            firstSlot.itemInstance = secondSlot.itemInstance;
+            secondSlot.itemInstance = tempItem;
+
+            // Update change info new data
+            firstChangeInfo.newData = new ItemInstance(firstSlot.itemInstance);
+            secondChangeInfo.newData = new ItemInstance(secondSlot.itemInstance);
+
+            // Invoke the change events
+            onInventorySlotChanged?.Invoke(firstChangeInfo);
+            targetInventory.onInventorySlotChanged?.Invoke(secondChangeInfo);
+        }
+
+        public virtual void SetSelectedSlotIndex(int newIndex)
+        {
+            // if newIndex is -1, it means deselect
+            if(newIndex >= inventory_SO.inventorySize)
+            {
+                Debug.LogError("SetSelectedSlotIndex: Invalid slot index.");
+                return;
+            }
+            Debug.Log($"Selected slot index changed, from {selectedSlotIndex} to {newIndex}");
+
+            int oldIndex = selectedSlotIndex;
+            selectedSlotIndex = oldIndex == newIndex ? -1 : newIndex;   // Toggle selection if same index is selected, otherwise select new index
+            onSelectedSlotIndexChanged?.Invoke(oldIndex, selectedSlotIndex);
+        }
+
+        // For hotkey input
+        public void ToggleInventory(bool forceClose = false)
+        {
+            int oldSelectedIndex = selectedSlotIndex;
+            selectedSlotIndex = -1;    // Deselect any selected slot when toggling inventory
+            onSelectedSlotIndexChanged?.Invoke(oldSelectedIndex, -1);   // Notify about deselection
+            if(forceClose)
+            {
+                if(IsOpen)
+                {
+                    IsOpen = false;
+                    onToggleInventory?.Invoke();
+                }
+            }
+            else
+            {
+                IsOpen = !IsOpen;
+                onToggleInventory?.Invoke();
+            }
+        }
+
+        // For UI button input, which should always toggle (not force close)
+        public void ToggleInventory()
+        {
+            ToggleInventory(false);
+        }
+    }
+
+
+}
