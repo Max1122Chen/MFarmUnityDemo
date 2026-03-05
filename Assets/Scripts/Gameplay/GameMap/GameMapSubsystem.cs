@@ -19,8 +19,9 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     private Tilemap dugTileMap;
     private Tilemap wateredTileMap;
 
-    public Action onNewSceneLoaded;
-    
+    public Action<string> onNewSceneLoaded;
+    public Action<string> onOldSceneStartUnloading;
+
     // Game Map Data
     [SerializeField] private List<GameMapData_SO> gameMapDataList = new List<GameMapData_SO>();
 
@@ -34,22 +35,35 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     public Grid currentGrid { get; private set; }
     public GameMapData_SO CurrentGameMapData => currentGameMapData;
 
+    [Header("Placable Prefab Data")]
+    public PlacablePrefab_SO placablePrefab_SO;
+
+    public Dictionary<int, GameObject> placablePrefabDict = new Dictionary<int, GameObject>();
+
     [Header(" Dropped Item Prefab")]
     public GameObject droppedItemPrefab;
+    private int droppedItemPoolIndex = -1; // Index of the dropped item prefab in the ObjectPoolManager's pool list, will be set in GameInstance when initializing the GameMapSubsystem
     private List<DropppedItem> droppedItemsInCurrentScene = new List<DropppedItem>();
 
-
-    void Start()
+    protected override void Awake()
     {
-        InitializeGameMapDataDict();
+        base.Awake();
+    }
 
+    public void Initialize(int droppedItemPoolIndex)
+    {
+        this.droppedItemPoolIndex = droppedItemPoolIndex;
+        InitializeGameMapDataDict();
+        InitializePlacablePrefabData();
+
+        // TODO: 
         if(!string.IsNullOrEmpty(initialSceneName))
         {
             StartCoroutine(SwitchScene(initialSceneName));
         }
         else
         {
-            Debug.LogError("Initial scene name is not set in GameMapSubsystem.");
+            Debug.LogWarning("Initial scene name is not set in GameMapSubsystem.");
         }
     }
 
@@ -77,8 +91,23 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
     }
 
+    public IEnumerator TeleportPlayerToScene(string targetSceneName, GameObject player, Vector2 spawnPosition)
+    {
+        yield return SwitchScene(targetSceneName);
+
+        // Wait for the fade out and fade in to complete before moving the player, to avoid the player being visible at the original position or the new position during the transition.
+        yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration * 2 - 0.2f);
+        player.transform.position = spawnPosition;
+    }
+
+
     private IEnumerator LoadScene(string sceneName)
     {
+        if(sceneName != initialSceneName)
+        {
+            yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
+        }
+
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         Scene newScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
@@ -111,7 +140,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         LoadGameMapData();
         InitializeTileVisuals();
 
-        onNewSceneLoaded?.Invoke();
+        onNewSceneLoaded?.Invoke(sceneName);
 
         Debug.Log("Loaded scene: " + sceneName);
     }
@@ -120,10 +149,15 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     {
         if(!String.IsNullOrEmpty(sceneName))
         {
+            onOldSceneStartUnloading?.Invoke(sceneName);
+
             SaveGameMapData();
+
+            yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
 
             yield return SceneManager.UnloadSceneAsync(sceneName);
             currentGameMapData = null;
+
             Debug.Log("Unloaded scene: " + sceneName);
         }
         else
@@ -131,6 +165,20 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             Debug.LogWarning("Tried to unload a scene with null or empty name.");
         }
         
+    }
+
+    void InitializePlacablePrefabData()
+    {
+        foreach(var data in placablePrefab_SO.placablePrefabDataList)
+        {
+            if(data != null && data.prefab != null)
+            {
+                if(!placablePrefabDict.ContainsKey(data.itemID))
+                {
+                    placablePrefabDict.Add(data.itemID, data.prefab);
+                }
+            }
+        }
     }
 
     // Game Map Data Management
@@ -232,11 +280,15 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
     }
 
+    public GameObject GetPlacablePrefab(int itemID)
+    {
+        return placablePrefabDict.ContainsKey(itemID) ? placablePrefabDict[itemID] : null;
+    }
     public void PlaceFurniture(TileInfo tile, ItemDefinition itemDef)
     {
         tile.hasThing = true;
         Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tile.position);
-        GameObject furniturePrefab = InventorySubsystem.Instance.GetPlacablePrefab(itemDef.itemID);
+        GameObject furniturePrefab = GetPlacablePrefab(itemDef.itemID);
         GameInstance.Instance.SpawnGameObjectInWorld(furniturePrefab, worldPos, Quaternion.identity);
     }
 
@@ -286,13 +338,18 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             {
                 DroppedItemSaveData itemData = new DroppedItemSaveData(item.itemID, item.itemCount, item.transform.position);
                 currentGameMapData.droppedItems.Add(itemData);
+                ReleaseDroppedItemToPool(item);
             }
+
+            // Unregister the item from the list regardless of whether it's null or not, to ensure that the list is cleared for the next time we load this scene. 
+            // This is important because when we load a scene, we will spawn new dropped items based on the saved data, and we don't want old dropped items from previous play sessions to be mixed in.
+            droppedItemsInCurrentScene.Clear();
         }
     }
 
     private void SaveAllResources()
     {
-        currentGameMapData.resources = ResourceSubsystem.Instance.SaveAllResources();
+        ResourceSubsystem.Instance.SaveAllResources(currentGameMapData.resources);
     }
 
     private void LoadGameMapData()
@@ -318,28 +375,40 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     {
         foreach(DroppedItemSaveData itemData in currentGameMapData.droppedItems)
         {
-            SpawnDroppedItemInWorld(itemData.itemID, itemData.itemCount, itemData.position);
+            RegisterDroppedItem(SpawnDroppedItemInWorld(itemData.itemID, itemData.itemCount, itemData.position));
         }
     }
 
-    public void SpawnDroppedItemInWorld(int itemID, int count, Vector3 spawnPosition)
+    public DropppedItem SpawnDroppedItemInWorld(int itemID, int count, Vector3 spawnPosition)
     {
         ItemDefinition itemDef = InventorySubsystem.Instance.GetItemDefinition(itemID);
-        SpawnDroppedItemInWorld(new ItemInstance(itemDef, count), spawnPosition);
+        if(itemDef != null)
+        {
+            GameObject droppedItem = ObjectPoolManager.Instance.GetObjectFromPool(droppedItemPoolIndex);
+            droppedItem.transform.position = spawnPosition;
+
+            DropppedItem droppedItemComp = droppedItem.GetComponent<DropppedItem>();
+            droppedItemComp.Initialize(itemID, count);
+            return droppedItemComp;
+        }
+        return null;
     }
 
-    public void SpawnDroppedItemInWorld(ItemInstance itemInstance, Vector3 spawnPosition)
+    public DropppedItem SpawnDroppedItemInWorld(ItemInstance itemInstance, Vector3 spawnPosition)
     {
         if(itemInstance == null || itemInstance.ItemDefinition == null || !itemInstance.ItemDefinition.IsValidItem())
         {
             Debug.LogWarning("Tried to spawn invalid item.");
-            return;
+            return null;
         }
-        var itemGO = GameInstance.Instance.SpawnGameObjectInWorld(droppedItemPrefab, spawnPosition, Quaternion.identity);
+        int itemID = itemInstance.ItemDefinition.itemID;
+        int count = itemInstance.stackCount;
+        return SpawnDroppedItemInWorld(itemID, count, spawnPosition);
+    }
 
-        DropppedItem droppedItemComponent = itemGO.GetComponent<DropppedItem>();
-        droppedItemComponent.itemID = itemInstance.ItemDefinition.itemID;
-        droppedItemComponent.itemCount = itemInstance.stackCount;
+    public void ReleaseDroppedItemToPool(DropppedItem item)
+    {
+        ObjectPoolManager.Instance.ReleaseObjectToPool(droppedItemPoolIndex, item.gameObject);
     }
 
     private void LoadAllResources()

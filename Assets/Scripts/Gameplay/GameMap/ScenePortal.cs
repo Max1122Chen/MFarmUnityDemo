@@ -12,9 +12,7 @@ public class ScenePortal : MonoBehaviour
     {
         if(character.CompareTag("Player"))
         {
-            // Start coroutine by using GameMapSubsystem's instance, otherwise if we start coroutine by using this ScenePortal's instance, the coroutine will be stopped when this ScenePortal is destroyed during scene transition, and the scene transition will not be completed.
-            GameMapSubsystem.Instance.StartCoroutine(GameMapSubsystem.Instance.SwitchScene(targetSceneName));
-            character.transform.position = characterSpawnPosition;
+            GameMapSubsystem.Instance.StartCoroutine(GameMapSubsystem.Instance.TeleportPlayerToScene(targetSceneName, character, characterSpawnPosition));
         }
         else
         {

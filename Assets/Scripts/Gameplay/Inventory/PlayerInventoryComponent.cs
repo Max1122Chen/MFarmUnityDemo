@@ -9,9 +9,10 @@ namespace InventorySystem
     {
         PlayerController pc;
 
+
         [Header("Hotbar Settings")]
         [SerializeField] private int hotBarSize = 0;
-        public int selectedHotBarIndex = -1;
+        public int selectedHotBarIndex = -1;   // -1 means no hotbar slot is selected.
 
         public Action<int, int> onSelectedHotBarIndexChanged;
 
@@ -27,6 +28,7 @@ namespace InventorySystem
         public override void Start()
         {
             base.Start();
+
             pc = GetComponent<PlayerController>();
             PlayerInputComponent inputComponent = GetComponent<PlayerInputComponent>();
             if(inputComponent != null)

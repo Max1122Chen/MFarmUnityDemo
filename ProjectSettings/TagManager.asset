@@ -10,6 +10,7 @@ TagManager:
   - Cursor
   - Watered
   - Dug
+  - InventoryUIRoot
   layers:
   - Default
   - TransparentFX

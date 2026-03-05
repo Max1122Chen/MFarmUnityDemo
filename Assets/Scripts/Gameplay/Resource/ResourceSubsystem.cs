@@ -19,7 +19,6 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
 
     protected override void Awake()
     {
-        Initialize();
         base.Awake();
     }
 
@@ -137,17 +136,17 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         }
     }
 
-    public void GenerateResource(TileInfo tileInfo,int resourceID, int growthStageIndex, int grownTime)
+    public Resource GenerateResource(TileInfo tileInfo,int resourceID, int growthStageIndex, int grownTime)
     {
         ResourceDefinition resourceDef = GetResourceDefinition(resourceID);
         if(resourceDef == null)
         {
-            return;
+            return null;
         }
-        GenerateResource(tileInfo, resourceDef, growthStageIndex, grownTime);
+        return GenerateResource(tileInfo, resourceDef, growthStageIndex, grownTime);
     }
 
-    public void GenerateResource(TileInfo tileInfo, ResourceDefinition resourceDef, int growthStageIndex, int grownTime)
+    public Resource GenerateResource(TileInfo tileInfo, ResourceDefinition resourceDef, int growthStageIndex, int grownTime)
     {
         Grid currentGrid = GameMapSubsystem.Instance.currentGrid;
         Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tileInfo.position);
@@ -159,19 +158,24 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         resource.Initialize(resourceDef.resourceID, growthStageIndex, grownTime);
 
         tileInfo.hasThing = true;
+        return resource;
     }
 
     // Saving and loading
-    public List<ResourceSaveData> SaveAllResources()
+    public void SaveAllResources(List<ResourceSaveData> saveDataList)
     {
-        List<ResourceSaveData> saveDataList = new List<ResourceSaveData>();
+        // Clear existing data.
+        saveDataList.Clear();
+
         foreach (var kvp in registeredResources)
         {
             Resource resource = kvp.Value;
             ResourceSaveData saveData = new ResourceSaveData(resource.resourceID, resource.transform.position, resource.currentGrowthStageIndex, resource.growthTimeCounter);
             saveDataList.Add(saveData);
         }
-        return saveDataList;
+
+        // Clear the registered resources list after saving to free up memory. We will re-register the resources when we load them back in.
+        registeredResources.Clear(); 
     }
 
     public void LoadAllResources(List<ResourceSaveData> saveDataList)
@@ -181,13 +185,14 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
             TileInfo tileInfo = GameMapSubsystem.Instance.GetTileInfoByWorldPos(saveData.position);
             if (tileInfo != null)
             {
-                GenerateResource(tileInfo, saveData.resourceID, saveData.growthStageIndex, saveData.growthTimeCounter);
+                RegisterResource(GenerateResource(tileInfo, saveData.resourceID, saveData.growthStageIndex, saveData.growthTimeCounter));
             }
             else
             {
                 Debug.LogError($"Failed to load resource at position {saveData.position} because no corresponding tile was found.");
             }
         }
+        saveDataList.Clear(); // Clear the save data list after loading to free up memory.
     }
 
     

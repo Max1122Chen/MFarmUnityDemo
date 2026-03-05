@@ -9,7 +9,7 @@ public class SetUpCameraBounds : MonoBehaviour
     {
         GameMapSubsystem.Instance.onNewSceneLoaded += SetUpConfinerShape;
     }
-    private void SetUpConfinerShape()
+    private void SetUpConfinerShape(string sceneName)
     {
         PolygonCollider2D confinerShape = GameObject.FindGameObjectWithTag("CameraBounds").GetComponent<PolygonCollider2D>();
 

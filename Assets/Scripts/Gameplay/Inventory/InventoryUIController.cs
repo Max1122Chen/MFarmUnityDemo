@@ -60,7 +60,7 @@ public class InventoryUIController : MonoBehaviour
                 inventoryComponent.SetSelectedSlotIndex(slotIndex);
             };
 
-            InventorySlot slotData = inventoryComponent.Inventory_SO.slots[i];
+            InventorySlot slotData = inventoryComponent.InventorySlots[i];
             slotUIs[i].UpdateSlot(slotData);
         }
     }
@@ -93,7 +93,7 @@ public class InventoryUIController : MonoBehaviour
 
         if(slotIndex >= 0 && slotIndex < slotUIs.Length)     // Ensure index is valid.
         {
-            InventorySlot slotData = inventoryComponent.Inventory_SO.slots[slotIndex];
+            InventorySlot slotData = inventoryComponent.InventorySlots[slotIndex];
             slotUIs[slotIndex].UpdateSlot(slotData);
         }
     }

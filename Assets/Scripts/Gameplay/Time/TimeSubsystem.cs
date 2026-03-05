@@ -14,6 +14,7 @@ namespace TimeSystem
     }
     public class TimeSubsystem : Singleton<TimeSubsystem>
     {
+        private bool isTimePaused = false;
         private float realTimeAccumulator; // Measured in seconds. To track the accumulated real time for converting to game time.
 
         // Record the time has passed in the game. Time is measured in game minutes, hours, days, months, years, and seasons.
@@ -30,6 +31,9 @@ namespace TimeSystem
 
         private void Start()
         {
+            GameMapSubsystem.Instance.onNewSceneLoaded += (string sceneName) => { isTimePaused = false; };
+            GameMapSubsystem.Instance.onOldSceneStartUnloading += (string sceneName) => { isTimePaused = true; };
+
             // TODO: For testing purposes, we can set the time to start at 6 AM on the first day of spring.
             gameMinute = 0;
             gameHour = 6; // Start at 6 AM
@@ -43,6 +47,11 @@ namespace TimeSystem
 
         public void Update()
         {
+            if(isTimePaused)
+            {
+                return;
+            }
+
             realTimeAccumulator += Time.deltaTime;
             while(realTimeAccumulator >= GameInstance.Instance.gameSettings.timePerGameMinute)
             {

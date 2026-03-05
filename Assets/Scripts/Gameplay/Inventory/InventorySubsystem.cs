@@ -12,9 +12,6 @@ namespace InventorySystem
         public ItemDataList_SO itemDataList_SO;
         public Dictionary<int, ItemDefinition> itemData = new Dictionary<int, ItemDefinition>();
 
-        [Header("Placable Prefab Data")]
-        public PlacablePrefab_SO placablePrefab_SO;
-        public Dictionary<int, GameObject> placablePrefabData = new Dictionary<int, GameObject>();
 
         [Header("Registered Inventory Components")]
         public List<InventoryComponent> registeredInventoryComponents;
@@ -29,32 +26,32 @@ namespace InventorySystem
         public GameObject containerUIPrefab;
 
 
-        public GameObject InventoryUIRoot;
+        public GameObject inventoryUIRoot;
         [SerializeField] private List<GameObject> currentOpenContainerUIs;
 
         public Action onInventoryToggled; // Event triggered when inventory is toggled (opened or closed)
 
-        private void Initialize()
+        public void Initialize()
         {
             foreach (var itemDef in itemDataList_SO.itemDataList)
             {
                 itemData[itemDef.itemID] = itemDef;
             }
-            foreach (var placableData in placablePrefab_SO.placablePrefabDataList)
-            {
-                placablePrefabData[placableData.itemID] = placableData.prefab;
-            }
         }
 
         protected override void Awake()
         {
-            Initialize();
             base.Awake();
         }
 
         void Start()
         {
             currentOpenContainerUIs = new List<GameObject>();
+            inventoryUIRoot = GameObject.FindWithTag("InventoryUIRoot");
+            if(inventoryUIRoot == null)
+            {
+                Debug.LogError("InventorySubsystem: No GameObject with tag 'InventoryUIRoot' found in the scene. Please add one to serve as the parent for inventory UIs.");
+            }
         }
 
         public void RegisterInventoryComponent(InventoryComponent inventoryComponent)
@@ -80,11 +77,6 @@ namespace InventorySystem
             return itemData.ContainsKey(itemID) ? itemData[itemID] : null;
         }
 
-        public GameObject GetPlacablePrefab(int itemID)
-        {
-            return placablePrefabData.ContainsKey(itemID) ? placablePrefabData[itemID] : null;
-        }
-
 
 
         public void InteractWithContainer(GameObject interactor, InventoryComponent containerInventory)
@@ -103,7 +95,8 @@ namespace InventorySystem
 
             }
             // Create new container UI and set it up with the container's inventory
-            GameObject newUI = GameInstance.Instance.CreateUI(containerUIPrefab, InventoryUIRoot.transform);
+            // TODO: here we hardcoded the position of the container UI, we can improve this in the future by making the container UI follow the container or player around, or we can make the container UI appear at the mouse position when player interacts with the container.
+            GameObject newUI = GameInstance.Instance.CreateUI(containerUIPrefab, new Vector2(0, 180), inventoryUIRoot.transform);
             currentOpenContainerUIs.Add(newUI);
 
             // Initialize the container UI with the container's inventory's size
@@ -112,6 +105,23 @@ namespace InventorySystem
 
             uiController.InventoryComponent = containerInventory;
             containerInventory.ToggleInventory();
+            
+        }
+
+        // Save and Load
+        public void SaveAllContainersInventory()
+        {
+            foreach(var containerInvComp in registeredInventoryComponents)
+            {
+                if(containerInvComp.InventoryType == InventoryType.Container)
+                {
+                    
+                }
+            }
+        }
+
+        public void LoadAllContainersInventory()
+        {
             
         }
     }

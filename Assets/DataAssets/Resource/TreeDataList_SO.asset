@@ -16,3 +16,6 @@ MonoBehaviour:
   - treeID: 2011
     crownSprite: {fileID: 21300000, guid: e12c6f18fb50544fea7f5245a9a2aeff, type: 3}
     stumpSprite: {fileID: 21300000, guid: c00b9352baa0c44639d70f0e2a96a856, type: 3}
+  - treeID: 2014
+    crownSprite: {fileID: 21300000, guid: a21492e2d90cf4f038c4b9ae2600c5ff, type: 3}
+    stumpSprite: {fileID: 21300000, guid: ab3861d4b685d4d048cd7cd1c18e9574, type: 3}

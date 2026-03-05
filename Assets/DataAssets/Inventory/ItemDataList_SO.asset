@@ -101,12 +101,34 @@ MonoBehaviour:
     isPlacable: 0
     isHoldable: 1
     heldSprite: {fileID: 0}
+  - itemID: 2004
+    itemName: Blue Berry Seed
+    maxStackCount: 99
+    value: 0
+    itemType: 3
+    itemIcon: {fileID: 21300000, guid: 145ecd71b23ff4ef1ae4b88ba1820deb, type: 3}
+    itemInWorldSprite: {fileID: 0}
+    itemDescription: 
+    isPlacable: 0
+    isHoldable: 1
+    heldSprite: {fileID: 0}
   - itemID: 2010
     itemName: Pine Tree Seed
     maxStackCount: 99
     value: 0
     itemType: 3
     itemIcon: {fileID: 21300000, guid: 3979be82862ab4b42be8e0b3222694bc, type: 3}
+    itemInWorldSprite: {fileID: 0}
+    itemDescription: 
+    isPlacable: 0
+    isHoldable: 1
+    heldSprite: {fileID: 0}
+  - itemID: 2013
+    itemName: Oak Tree Seed
+    maxStackCount: 99
+    value: 0
+    itemType: 3
+    itemIcon: {fileID: 21300000, guid: 83539708444bc497b8d9f5bba223cc6f, type: 3}
     itemInWorldSprite: {fileID: 0}
     itemDescription: 
     isPlacable: 0
@@ -134,7 +156,18 @@ MonoBehaviour:
     isPlacable: 0
     isHoldable: 1
     heldSprite: {fileID: 0}
-  - itemID: 4002
+  - itemID: 4003
+    itemName: Blue Berry
+    maxStackCount: 99
+    value: 0
+    itemType: 2
+    itemIcon: {fileID: 21300000, guid: 1683a58ffb6f243019e331431169e852, type: 3}
+    itemInWorldSprite: {fileID: 0}
+    itemDescription: 
+    isPlacable: 0
+    isHoldable: 1
+    heldSprite: {fileID: 0}
+  - itemID: 4010
     itemName: Wood
     maxStackCount: 99
     value: 0

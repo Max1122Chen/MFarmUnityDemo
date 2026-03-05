@@ -41,7 +41,7 @@ public class InventorySlot_UI :
             itemIconImage.enabled = true;
 
             // Modify the image size for some specific items if needed.
-            if(itemDef.itemType == ItemType.Furniture)
+            if(itemDef.itemType == ItemType.Placable)
             {
                 itemIconImage.rectTransform.sizeDelta = new Vector2(20, 20); // Example: set furniture icons to 20x20
             }

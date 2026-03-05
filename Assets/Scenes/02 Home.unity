@@ -1635,10 +1635,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.022357702, y: 0.24129128}
+  m_Offset: {x: -0.022357702, y: 0.301008}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1649,7 +1649,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.009879, y: 0.51741743}
+  m_Size: {x: 2.009879, y: 0.63685083}
   m_EdgeRadius: 0
 --- !u!114 &396460632
 MonoBehaviour:
@@ -1664,7 +1664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSceneName: 01 Farm
-  playerSpawnPosition: {x: 0, y: 0}
+  characterSpawnPosition: {x: 0, y: 0}
 --- !u!1 &520528380
 GameObject:
   m_ObjectHideFlags: 0

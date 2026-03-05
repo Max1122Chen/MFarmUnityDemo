@@ -20,35 +20,50 @@ namespace InventorySystem
 
         private void Start()
         {
+#if UNITY_EDITOR
+            // For testing purposes in the editor, we can set the itemID in the inspector and initialize the dropped item with that itemID when the game starts. 
+            // In the actual game, the itemID will be set when spawning the dropped item in the world, so this initialization will not be used.
             if(itemID != 0)
             {
-                Initialize(itemID);
+                Initialize(itemID, itemCount);
             }
+#endif
         }
 
-        public void Initialize(int ID)
+        public void Initialize(int itemID, int count)
         {
-            itemID = ID;
-            itemDefinition = InventorySubsystem.Instance.GetItemDefinition(itemID);
+            this.itemID = itemID;
+            this.itemCount = count;
+            itemDefinition = InventorySubsystem.Instance.GetItemDefinition(this.itemID);
             
             if(itemDefinition != null)
             {
                 spriteRenderer.sprite = itemDefinition.itemInWorldSprite == null ? itemDefinition.itemIcon : itemDefinition.itemInWorldSprite;
                 Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+                boxCollider.enabled = true;
                 boxCollider.size = spriteSize;
                 boxCollider.offset = new Vector2(0, spriteRenderer.sprite.bounds.center.y);
+                GameMapSubsystem.Instance.RegisterDroppedItem(this);
             }
             else
             {
-                Debug.LogError("ItemDefinition not found for itemID: " + itemID);
+                Debug.LogError("ItemDefinition not found for itemID: " + this.itemID);
             }
 
-            GameMapSubsystem.Instance.RegisterDroppedItem(this);
+
+        }
+
+        public void OnDisable()
+        {
+            GameMapSubsystem.Instance.UnregisterDroppedItem(this);
         }
 
         public void OnDestroy()
         {
-            GameMapSubsystem.Instance.UnregisterDroppedItem(this);
+            if(GameMapSubsystem.Instance != null)
+            {
+                GameMapSubsystem.Instance.UnregisterDroppedItem(this);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -61,7 +76,8 @@ namespace InventorySystem
                 if(itemCount == 0)
                 {
                     this.GetComponent<Collider2D>().enabled = false;   // Disable collider to prevent multiple pickups before destruction
-                    Destroy(gameObject);
+                    
+                    GameMapSubsystem.Instance.ReleaseDroppedItemToPool(this);
                 }
             }
         }

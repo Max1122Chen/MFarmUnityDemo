@@ -11,7 +11,7 @@ namespace InventorySystem
         Material,
 
         Seed,
-        Furniture,
+        Placable,
 
         // Tools
         Hoe,

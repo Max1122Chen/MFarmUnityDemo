@@ -24,6 +24,8 @@ public class Resource : MonoBehaviour
 
     public Action<GameObject> onBeingGathered; 
     public Action<GameObject> onFinishedGathering; 
+
+    [SerializeField] private Transform particleGenerationPoint = null; // The point where the gathering particle effect will be generated. This is optional, if not assigned, the particle effect will be generated at the resource's position.
     [SerializeField] private SpriteRenderer spriteForAnimation;
 
     [SerializeField] private BoxCollider2D boxCollider;
@@ -176,6 +178,9 @@ public class Resource : MonoBehaviour
     {
         onBeingGathered?.Invoke(gatherer);
 
+        // Play particle effect
+        PlayParticleEffect();
+
         if(gatheringActionCounter.ContainsKey(toolUsed.itemType))
         {
             Debug.Log($"Gathering resource {gameObject.name} using {toolUsed.itemName}. Current action count: {gatheringActionCounter[toolUsed.itemType]}");
@@ -194,8 +199,6 @@ public class Resource : MonoBehaviour
 
     public IEnumerator FinishedGathering(GameObject gatherer, bool generateProducts)
     {
-        // TODO: play gathering completion animation and sound effects.
-
         // Generate products based on the production info in the resource definition. We can consider adding some randomness to the produced item count in the future to make it more interesting.
 
         onFinishedGathering?.Invoke(gatherer);
@@ -211,7 +214,7 @@ public class Resource : MonoBehaviour
         if(resourceDef.canBeGatheredMultipleTimes)
         {
             // If the resource can be gathered multiple times, we will reset the growth stage to the previous stage (or the first stage if there is no previous stage), and reset the growth time counter as well, so that the resource can start regrowing again.
-            currentGrowthStageIndex = Mathf.Max(0, currentGrowthStageIndex - 1);
+            currentGrowthStageIndex = Mathf.Max(0, resourceDef.growthStages.Count - 2); // Set the growth stage to the previous stage. If there is only one stage, we will just set it to the first stage (index 0).
             growthTimeCounter = 0;
 
             // Update the sprite based on the new growth stage
@@ -223,6 +226,7 @@ public class Resource : MonoBehaviour
         }
     }
 
+    // Product generation logic:
     private void GenerateProducts(PlayerController player, int growthStageIndex)
     {
         if(player == null)
@@ -267,4 +271,11 @@ public class Resource : MonoBehaviour
         }
     }
 
+
+    // Particle effect logic:
+    private void PlayParticleEffect()
+    {
+        Vector3 effectPosition = particleGenerationPoint != null ? particleGenerationPoint.position : transform.position;
+        ParticleEffectManager.Instance.StartCoroutine(ParticleEffectManager.Instance.PlayParticleEffect(resourceDef.gatheringParticleEffectType, effectPosition));
+    }
 }

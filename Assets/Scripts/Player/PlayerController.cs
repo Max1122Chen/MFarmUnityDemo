@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public float toolUsingRadius = 1.5f;
     public float placingRadius = 2f;
     public float moveSpeed = 5f;
+
+    public bool isActionDisabled = false;   // This is used to disable player actions (e.g. movement, using tools/items, etc.) in certain situations, such as during cutscenes, dialogue, etc. It can be set to true or false by other scripts based on the game state.
     public bool isUsingTool = false;
     public bool canMove = true;
 
@@ -44,6 +46,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         BindInputCallbacks();
+
+        GameMapSubsystem.Instance.onNewSceneLoaded += (string sceneName) => {  isActionDisabled = false; };
+        GameMapSubsystem.Instance.onOldSceneStartUnloading += (string sceneName) => {  isActionDisabled = true; };
 
         // Bind scene switch callback
 
@@ -82,6 +87,8 @@ public class PlayerController : MonoBehaviour
     // Update
     void Update()
     {
+        if(isActionDisabled) return;
+
         GetMovementInput();
         GetMouseDirectionInput();
 
@@ -103,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(canMove)
+        if(canMove && !isActionDisabled)
         {
             Movement();
         }
@@ -143,17 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleMouseDown(int mouseButton)
     {
-        // if(mouseButton == 0)
-        // {
-        //     // Detect interactable object first
-        //     bool interactResult = DetectInteractable();
-
-        //     if(interactResult == false)
-        //     {
-        //         // Continue to try to do things like use item in hand.
-        //         UseItemInHand(mouseButton);
-        //     }           
-        // }
+        if(isActionDisabled) return;
 
         TryUseItemInHand(mouseButton);
     }
@@ -187,11 +184,18 @@ public class PlayerController : MonoBehaviour
     {
         // If no item is selected in hotbar, do nothing.
         int selectedHotBarIndex = (inventoryComponent as PlayerInventoryComponent).selectedHotBarIndex;
+
+        ItemInstance selectedItemInstance = null;
+
         if(selectedHotBarIndex == -1)
         {
-            return;
+            // Create an empty item instance to represent empty hand, so that we can still allow player to interact with the world using empty hand (e.g. gather resources, etc.) without having to add extra logic for empty hand case in DetectInteractable and other interaction logic.
+            selectedItemInstance = new ItemInstance() { ItemDefinition = new ItemDefinition() }; 
+        } 
+        else
+        {
+            selectedItemInstance = inventoryComponent.InventorySlots[selectedHotBarIndex].itemInstance;
         }
-        ItemInstance selectedItemInstance = inventoryComponent.Inventory_SO.slots[selectedHotBarIndex].itemInstance;
 
 
         Debug.Log($"Using item in hand: {selectedItemInstance.ItemDefinition.itemName}");
@@ -213,7 +217,7 @@ public class PlayerController : MonoBehaviour
                     if(isUsingTool) return;
                     StartCoroutine(UseToolCoroutine(selectedItemInstance.ItemDefinition, Input.mousePosition));
                     break;
-                case ItemType.Furniture:
+                case ItemType.Placable:
                     UsePlacable(selectedItemInstance.ItemDefinition, Input.mousePosition);
                     break;
                 case ItemType.Seed:
@@ -236,7 +240,7 @@ public class PlayerController : MonoBehaviour
                 bool itemUsed = false;
                 switch(selectedItemInstance.ItemDefinition.itemType)
                 {
-                    case ItemType.Furniture:
+                    case ItemType.Placable:
                         itemUsed = UsePlacable(selectedItemInstance.ItemDefinition, Input.mousePosition);
                         break;
                     case ItemType.Seed:
@@ -329,7 +333,7 @@ public class PlayerController : MonoBehaviour
             if(resource != null)
             {
                 int selectedHotBarIndex = inventoryComponent.selectedSlotIndex;
-                resource.BeingGathered(gameObject, inventoryComponent.Inventory_SO.slots[selectedHotBarIndex].itemInstance.ItemDefinition);
+                resource.BeingGathered(gameObject, inventoryComponent.InventorySlots[selectedHotBarIndex].itemInstance.ItemDefinition);
             }
         }
     }
@@ -414,7 +418,7 @@ public class PlayerController : MonoBehaviour
             onHeldItemChanged?.Invoke(new ItemDefinition());
             return;
         }
-        ItemDefinition itemDef = inventoryComponent.Inventory_SO.slots[newIndex].itemInstance.ItemDefinition;
+        ItemDefinition itemDef = inventoryComponent.InventorySlots[newIndex].itemInstance.ItemDefinition;
 
         if(itemDef != null && itemDef.IsValidItem() && itemDef.isHoldable == true)
         {

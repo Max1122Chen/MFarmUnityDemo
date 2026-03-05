@@ -25,8 +25,8 @@ public class ProductionInfo
 {
     public int producedItemID = -1;
     public int growthStageIndex = -1; // -1 means the last growth stage(ripe stage)
-    public int producedItemMinCount = 1;
-    public int producedItemMaxCount = 1;
+    public int producedItemMinCount = 0;
+    public int producedItemMaxCount = 0;
 }
 
 [System.Serializable]
@@ -73,6 +73,7 @@ public class ResourceDefinition
     public List<GatheringRequirement> gatheringRequirements;
 
     [Header("Gathering Behavior")]
+    public ParticleEffectType gatheringParticleEffectType; // The particle effect to play when the resource is being gathered.
     public bool canBeGatheredMultipleTimes = false; // Whether the resource can be gathered multiple times. If false, the resource will be destroyed after being gathered once. If true, the resource will not be destroyed after being gathered, and it can produce products and be gathered again after a certain regrowth time.
     public int regrowthTime = 0; // Time required for the resource to regrow to the next growth stage after being gathered, measured in game minute. This is only relevant if canBeGatheredMultipleTimes is true.
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InventorySystem;
 
 [System.Serializable]
 public enum TileType
@@ -65,12 +66,23 @@ public class ResourceSaveData
     }
 }
 
-
-[System.Serializable]
-public class PlacableInfo
+public class ContainerSaveData
 {
-    
+    public int containerID;
+    public Vector2 position;
+    public int inventorySize;
+    public List<ItemInstance> items;
+
+    public ContainerSaveData(int id, Vector2 pos, int inventorySize, List<ItemInstance> itemList)
+    {
+        containerID = id;
+        position = pos;
+        this.inventorySize = inventorySize;
+        items = itemList;
+    }
 }
+
+
 //
 [CreateAssetMenu(fileName = "GameMapData_SO", menuName = "GameMap/GameMapData_SO")]
 public class GameMapData_SO : ScriptableObject
@@ -80,7 +92,9 @@ public class GameMapData_SO : ScriptableObject
     public string SceneName => sceneName;
     public List<TileInfo> tileInfoList = new List<TileInfo>();
 
+    [Header("Saved Dynamic Objects Data")]
     public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
     public List<ResourceSaveData> resources = new List<ResourceSaveData>();
+    public List<ContainerSaveData> containers = new List<ContainerSaveData>();
 
 }

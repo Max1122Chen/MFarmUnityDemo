@@ -41,8 +41,11 @@ namespace InventorySystem
 
     public class InventoryComponent : MonoBehaviour
     {
-
-        [SerializeField] private Inventory_SO inventory_SO;
+        [SerializeField] private List<InventorySlot> inventorySlots;
+        public List<InventorySlot> InventorySlots
+        {
+            get { return inventorySlots; }
+        }
 
         [SerializeField] private int inventorySize = 10;
 
@@ -50,17 +53,12 @@ namespace InventorySystem
 
         public bool IsOpen { get; set; } = false;
 
-        public int selectedSlotIndex = -1;
+        public int selectedSlotIndex = -1;   // -1 means no slot is selected
         public Action onToggleInventory;
         public Action<InventorySlotChangedInfo> onInventorySlotChanged;
 
         public Action<int, int> onSelectedSlotIndexChanged;
 
-
-        public Inventory_SO Inventory_SO
-        {
-            get { return inventory_SO; }
-        }
         public InventoryType InventoryType
         {
             get { return inventoryType; }
@@ -72,21 +70,39 @@ namespace InventorySystem
 
         public virtual void Awake()
         {
-            // Initialize inventory list if not already done
-            if(inventory_SO == null)
-            {
-                inventory_SO = ScriptableObject.CreateInstance<Inventory_SO>();
-            }
-            if(inventory_SO.slots == null ||inventory_SO.slots.Count != inventorySize)
-            {
-                inventory_SO.Initialize(inventorySize);
-            }
-
+            Initialize(inventorySize);
         }
 
         public virtual void Start()
         {
             InventorySubsystem.Instance.RegisterInventoryComponent(this);
+        }
+
+        public void Initialize(int newSize)
+        {
+            inventorySlots = new List<InventorySlot>(newSize);
+            for(int i = 0; i < newSize; i++)
+            {
+                inventorySlots.Add(new InventorySlot(i));
+            }
+        }
+
+        public void Initialize(List<ItemInstance> items)
+        {
+            inventorySlots = new List<InventorySlot>(inventorySize);
+            for(int i = 0; i < inventorySize; i++)
+            {
+                if(i < items.Count)
+                {
+                    InventorySlot slot = new InventorySlot(i);
+                    slot.itemInstance = items[i];
+                    inventorySlots.Add(slot);
+                }
+                else
+                {
+                    inventorySlots.Add(new InventorySlot(i));
+                }
+            }
         }
 
         public virtual void OnDestroy()
@@ -100,9 +116,9 @@ namespace InventorySystem
         public int TryAddItem(ItemDefinition itemDefinition, int count)
         {
             // Try to add to existing stacks first
-            for(int i = 0; i < inventory_SO.slots.Count; i++)
+            for(int i = 0; i < inventorySlots.Count; i++)
             {
-                var slot = inventory_SO.slots[i];
+                var slot = inventorySlots[i];
 
                 // Check for existing stackable item
                 ItemInstance itemInstance = slot.itemInstance;
@@ -126,9 +142,9 @@ namespace InventorySystem
             }
 
             // Try to add to empty slots
-            for(int i = 0; i < inventory_SO.slots.Count; i++)
+            for(int i = 0; i < inventorySlots.Count; i++)
             {
-                var slot = inventory_SO.slots[i];
+                var slot = inventorySlots[i];
 
                 ItemInstance itemInstance = slot.itemInstance;
                 if(itemInstance.ItemDefinition == null || itemInstance.ItemDefinition.itemID == -1 || itemInstance.ItemDefinition.itemID == 0)
@@ -157,11 +173,21 @@ namespace InventorySystem
             ItemDefinition itemDefinition = InventorySubsystem.Instance.GetItemDefinition(itemID);
             return TryAddItem(itemDefinition, count);
         }
+
+        public int TryAddItem(ItemInstance itemInstance)
+        {
+            if(itemInstance == null || itemInstance.ItemDefinition == null)
+            {
+                Debug.LogError("TryAddItem: Invalid item instance.");
+                return 0;
+            }
+            return TryAddItem(itemInstance.ItemDefinition, itemInstance.stackCount);
+        }
         public int TryRemoveItem(ItemDefinition itemDefinition, int count)
         {
-            for(int i = 0; i < inventory_SO.slots.Count; i++)
+            for(int i = 0; i < inventorySlots.Count; i++)
             {
-                var slot = inventory_SO.slots[i];
+                var slot = inventorySlots[i];
 
                 ItemInstance itemInstance = slot.itemInstance;
                 if(itemInstance != null && itemInstance.ItemDefinition != null && itemInstance.ItemDefinition.itemID == itemDefinition.itemID)
@@ -184,7 +210,7 @@ namespace InventorySystem
         }
         public int RemoveItemInSlot(int count, int index)
         {
-            var slot = inventory_SO.slots[index];
+            var slot = inventorySlots[index];
 
             InventorySlotChangedInfo changeInfo = new InventorySlotChangedInfo(index, new ItemInstance(slot.itemInstance), null);
 
@@ -201,19 +227,19 @@ namespace InventorySystem
 
         public void RemoveAllItemsInSlot(int index)
         {
-            RemoveItemInSlot(inventory_SO.slots[index].itemInstance.stackCount, index);
+            RemoveItemInSlot(inventorySlots[index].itemInstance.stackCount, index);
         }
 
         public void SwapItemsBetweenSlots(int firstIndex, InventoryComponent targetInventory, int secondIndex)
         {
-            if(firstIndex < 0 || firstIndex >= inventory_SO.slots.Count || secondIndex < 0 || secondIndex >= targetInventory.inventory_SO.slots.Count)
+            if(firstIndex < 0 || firstIndex >= inventorySlots.Count || secondIndex < 0 || secondIndex >= targetInventory.inventorySlots.Count)
             {
                 Debug.LogWarning("SwapItemsBetweenSlots: Invalid slot indices.");
                 return;
             }
 
-            var firstSlot = inventory_SO.slots[firstIndex];
-            var secondSlot = targetInventory.inventory_SO.slots[secondIndex];
+            var firstSlot = inventorySlots[firstIndex];
+            var secondSlot = targetInventory.inventorySlots[secondIndex];
 
             // Create change info for first slot
             InventorySlotChangedInfo firstChangeInfo = new InventorySlotChangedInfo(firstIndex, new ItemInstance(firstSlot.itemInstance), null);
@@ -237,7 +263,7 @@ namespace InventorySystem
         public virtual void SetSelectedSlotIndex(int newIndex)
         {
             // if newIndex is -1, it means deselect
-            if(newIndex >= inventory_SO.inventorySize)
+            if(newIndex >= inventorySlots.Count)
             {
                 Debug.LogError("SetSelectedSlotIndex: Invalid slot index.");
                 return;
