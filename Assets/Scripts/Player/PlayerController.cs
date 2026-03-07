@@ -379,7 +379,7 @@ public class PlayerController : MonoBehaviour
 
         TileInfo tileInfo = GameMapSubsystem.Instance.GetTileInfoByWorldPos(mouseWorldPos);
 
-        if(tileInfo != null && tileInfo.furniturePlacable && tileInfo.hasThing == false)
+        if(tileInfo != null && tileInfo.thingPlacable && tileInfo.isOccupied == false)
         {
             Debug.Log($"Placed item {itemDef.itemName} at {tileInfo.position}!");
             GameMapSubsystem.Instance.PlaceFurniture(tileInfo, itemDef);
@@ -395,7 +395,7 @@ public class PlayerController : MonoBehaviour
 
         TileInfo tileInfo = GameMapSubsystem.Instance.GetTileInfoByWorldPos(mouseWorldPos);
 
-        if(tileInfo != null && tileInfo.diggable && tileInfo.hasThing == false)
+        if(tileInfo != null && tileInfo.diggable && tileInfo.isOccupied == false)
         {
             ResourceDefinition resourceDef = ResourceSubsystem.Instance.GetResourceDefinition(itemDef.itemID);
 

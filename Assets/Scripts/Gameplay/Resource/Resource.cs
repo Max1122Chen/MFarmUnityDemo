@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using InventorySystem;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,6 +17,7 @@ public class Resource : MonoBehaviour
     [NonSerialized]
     public TileInfo tileInfo = null; // The tile on which this resource is located. This will be set when the resource is generated.
 
+    [Header("Growth Info")]
     public int currentGrowthStageIndex = 0;
 
     public int growthTimeCounter = 0;   // Counter for tracking time spent in the current growth stage. Time is measured in game minutes.
@@ -31,6 +33,7 @@ public class Resource : MonoBehaviour
     [SerializeField] private BoxCollider2D boxCollider;
 
     [SerializeField] private float finishedGatheringDelay = 0.0f; 
+    [SerializeField] private float itemDroppingRadius = 0.5f; // The radius within which the produced items will be dropped around the resource position when the resource is gathered and the produced items are dropped on the ground.
 
     public void Awake()
     {
@@ -145,6 +148,7 @@ public class Resource : MonoBehaviour
 
     private void SpawnResourcePrefabIfAnyAndDestroySelf(ResourcePrefabType type)
     {
+        bool prefabFound = false;
         foreach(ResourcePrefabInfo prefabInfo in resourceDef.generatedObjectPrefabs)
         {
             if(prefabInfo.prefabType == type)
@@ -157,6 +161,7 @@ public class Resource : MonoBehaviour
                 }
 
                 ResourceSubsystem.Instance.GenerateResource(tileInfo, prefabResourceDef, 0, 0);
+                prefabFound = true;
                 Destroy(gameObject);
 
                 // TODO: maybe there will be mutiple prefabs with the same prefab type in the resource definition in the future, in that case we need to consider how to determine which prefab to spawn. 
@@ -166,8 +171,9 @@ public class Resource : MonoBehaviour
         }
 
         // In case there is no prefab to spawn, we will just keep the current resource object as it is if it becomes ripe, or destroy the resource object if it is gathered, depending on the prefab type. This is to make sure the resource object can be properly removed from the game world when it is gathered, even if there is no prefab assigned for the AfterGathering type.
-        if(type == ResourcePrefabType.AfterGathering)
+        if(type == ResourcePrefabType.AfterGathering && !prefabFound)
         {
+            tileInfo.isOccupied = false; // Set the tile to be unoccupied when the resource is gathered, so that new resources can be generated on this tile in the future.
             Destroy(gameObject);
         }
         
@@ -251,8 +257,13 @@ public class Resource : MonoBehaviour
                 {
                     if(resourceDef.dropProductsOnGround)
                     {
-                        // TODO: randomly scatter the produced items around the resource position instead of spawning them all at the same position to make it look more natural.
-                        GameMapSubsystem.Instance.SpawnDroppedItemInWorld(productionInfo.producedItemID, itemCount, transform.position);
+                        List<int> batches = SplitDropppedItemIntoDynamicBatches(itemCount);
+
+                        foreach(int batch in batches)
+                        {
+                            Vector2 randomPos = (Vector2)transform.position + UnityEngine.Random.insideUnitCircle * itemDroppingRadius; // Add some random offset to the drop position to make it more natural
+                            GameMapSubsystem.Instance.SpawnDroppedItemInWorld(productionInfo.producedItemID, batch, randomPos, DroppedItemSource.FromWorld);
+                        }
                     }
                     else
                     {
@@ -263,13 +274,105 @@ public class Resource : MonoBehaviour
 
                         if(remainder > 0)
                         {
-                            GameMapSubsystem.Instance.SpawnDroppedItemInWorld(productionInfo.producedItemID, remainder, transform.position);
+                            GameMapSubsystem.Instance.SpawnDroppedItemInWorld(productionInfo.producedItemID, remainder, transform.position, DroppedItemSource.FromWorld);
+                            Debug.Log("No enough inventory space to receive all produced items. Dropping the remainder on the ground.");
                         }
                     }
                 }
             }
         }
     }
+
+    private List<int> SplitDropppedItemIntoDynamicBatches(int itemCount)
+    {
+        List<int> batches = new List<int>();
+
+        if(itemCount <= 0)
+        {
+            return batches;
+        }
+
+        int batchCount = 0;
+
+        switch(itemCount)
+        {
+            case <= 5:
+                batchCount = 1; // 1 batch for 1-5 items
+                break;
+            case <= 10:
+                batchCount = UnityEngine.Random.Range(2, 5);    // 2-4 batches for 6-10 items
+                break;
+            case <= 20:
+                batchCount = UnityEngine.Random.Range(5, 10);   // 5-9 batches for 21-20 items
+                break;
+            default:
+                batchCount = UnityEngine.Random.Range(10, 20);  // 10-19 batches for more than 20 items
+                break;
+        }
+
+        if(batchCount == 1)
+        {
+            batches.Add(itemCount);
+            return batches;
+        }
+
+        int baseBatchSize = itemCount / batchCount;
+        int remainder = itemCount % batchCount;
+
+        // Split the items into fixed size batches first
+        for(int i = 0; i < batchCount; i++)
+        {
+            int batchSize = baseBatchSize + (i < remainder ? 1 : 0); // Distribute the remainder among the first few batches
+            batches.Add(batchSize);
+        }
+
+        // Then apply random offset to each batch size to make it more dynamic, while ensuring the total count remains the same
+        for(int i = 0; i < batches.Count; i++)
+        {
+            int offset = UnityEngine.Random.Range(-1, 2); // Random offset between -1 and 1
+            if(batches[i] + offset > 0) // Ensure the batch size does not become zero or negative
+            {
+                batches[i] += offset;
+            }
+        }
+
+        int offsetSum = 0;
+        foreach(int batch in batches)
+        {
+            offsetSum += batch;
+        }
+
+        int diff = offsetSum - itemCount;
+
+        // Adjust the batches to ensure the total count remains the same after applying random offset
+        while(diff != 0)
+        {
+            for(int i = 0; i < batches.Count; i++)
+            {
+                if(diff == 0)
+                {
+                    break;
+                }
+
+                if(diff > 0 && batches[i] > 1) // If we have more items than needed, try to reduce the batch size
+                {
+                    batches[i]--;
+                    diff--;
+                }
+                else if(diff < 0) // If we have fewer items than needed, try to increase the batch size
+                {
+                    batches[i]++;
+                    diff++;
+                }
+            }
+        }
+
+        batches.OrderBy(x => UnityEngine.Random.value).ToList(); // Shuffle the batches to make it more dynamic
+
+        return batches;
+    }
+
+
 
 
     // Particle effect logic:

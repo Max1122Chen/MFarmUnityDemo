@@ -1,0 +1,2237 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57a676e6ddc3e94782113f7caaeb130, type: 3}
+  m_Name: GameSaveDataList_SO
+  m_EditorClassIdentifier: 
+  gameSaveDataList:
+  - saveIndex: 0
+    playerName: 
+    gameMapSaveDataList:
+    - sceneName: 01 Farm
+      tileInfoList:
+      - position: {x: -13, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -13, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -12, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -11, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -10, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -9, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -8, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -7, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -6, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -5, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -4, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -3, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -2, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: -1, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 0, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 1, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 2, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 3, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 4, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 5, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 6, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 7, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 8, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 0}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 1}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 2}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 3}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 4}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 5}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 6}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 7}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 8}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 9}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 10}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      - position: {x: 9, y: 11}
+        diggable: 1
+        itemDroppable: 0
+        thingPlacable: 0
+        isWatered: 0
+        isOccupied: 0
+        daySinceDug: -1
+        seedID: -1
+      droppedItems:
+      - itemID: 1002
+        itemCount: 1
+        position: {x: -3, y: 3}
+      resources: []
+    - sceneName: 02 Home
+      tileInfoList: []
+      droppedItems: []
+      resources: []

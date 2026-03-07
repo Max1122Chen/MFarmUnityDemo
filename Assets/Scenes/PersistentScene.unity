@@ -220,12 +220,11 @@ MonoBehaviour:
   initialSceneName: 01 Farm
   dugTile: {fileID: 11400000, guid: 5ec600780aa40a342963818ee715c23f, type: 2}
   wateredTile: {fileID: 11400000, guid: 6e015f2762f18824db05db1e69b81d94, type: 2}
-  gameMapDataList:
+  persistentGameMapDataList:
   - {fileID: 11400000, guid: 6cadb3252cc2e6a438ca1b741661c47b, type: 2}
   - {fileID: 11400000, guid: 14e930208d8f6014b93cdd1e863e8cb7, type: 2}
-  currentGameMapData: {fileID: 0}
   currentSceneName: 
-  placablePrefab_SO: {fileID: 11400000, guid: 3136cd0a30fd3644b81093d9e9ff5420, type: 2}
+  placableItemDataList: {fileID: 11400000, guid: 3136cd0a30fd3644b81093d9e9ff5420, type: 2}
   droppedItemPrefab: {fileID: 7708925120792974642, guid: d3d502db45aece04fae9bd0ff856a069, type: 3}
 --- !u!1 &444170392
 GameObject:
@@ -270,6 +269,7 @@ Transform:
   - {fileID: 815067222}
   - {fileID: 792121034}
   - {fileID: 2015746161}
+  - {fileID: 1781074372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &444170394
@@ -1220,6 +1220,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd04c89829491e47a9e1952c58ad329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1781074371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1781074372}
+  - component: {fileID: 1781074373}
+  m_Layer: 0
+  m_Name: CollectingRange
+  m_TagString: CollectingRange
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1781074372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781074371}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 444170393}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1781074373
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781074371}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.42}
+  serializedVersion: 2
+  m_Radius: 2.595076
 --- !u!1 &1815012447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,6 +1627,14 @@ MonoBehaviour:
     ObjectFadeOutAlpha: 0.3
     ObjectFadeDuration: 0.5
     transitionFadeDuration: 0.3
+    itemFlyingSpeed: 2
+    pickupCD_FromWorld: 1
+    pickupCD_FromInventory: 2
+  gameSaveDataListSO: {fileID: 11400000, guid: 8496f463c0084154ab6d2f430433674f, type: 2}
+  currentGameSaveData:
+    saveIndex: 0
+    playerName: 
+    gameMapSaveDataList: []
 --- !u!114 &2103436481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1589,6 +1664,8 @@ MonoBehaviour:
     particleEffectPrefab: {fileID: 8835391450750339479, guid: 5679432e0f47f7a4c9b4ee3d29ca9e19, type: 3}
   - effectType: 2
     particleEffectPrefab: {fileID: 8835391450750339479, guid: 2d46c00c4734c104d9f962dc567753d3, type: 3}
+  - effectType: 3
+    particleEffectPrefab: {fileID: 2467739983100588515, guid: 2e4a288d268654442bd68e3a437dcaa8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

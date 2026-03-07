@@ -157,7 +157,7 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         Resource resource = resourceObj.GetComponent<Resource>();
         resource.Initialize(resourceDef.resourceID, growthStageIndex, grownTime);
 
-        tileInfo.hasThing = true;
+        tileInfo.isOccupied = true;
         return resource;
     }
 

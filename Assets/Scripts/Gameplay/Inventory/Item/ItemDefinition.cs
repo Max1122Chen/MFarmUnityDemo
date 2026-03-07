@@ -33,7 +33,6 @@ namespace InventorySystem
         [SerializeField] public Sprite itemIcon;
         [SerializeField] public Sprite itemInWorldSprite;
         [SerializeField] public string itemDescription;
-        [SerializeField] public bool isPlacable = false;
         [SerializeField] public bool isHoldable = false;
         [SerializeField] public Sprite heldSprite;   // Optional sprite to use when the item is held by the player.
         

@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class TileInfoCollector : MonoBehaviour
 {
     // gameMapData must be assigned in inspector before editing tilemap, and will be updated when the object is disabled (e.g. when exiting play mode or deselecting the object in editor).
-    public GameMapData_SO gameMapData;
+    public PersistentGameMapData_SO gameMapData;
     public TileType tileType;
     private Tilemap currentMap;
 
@@ -49,6 +49,10 @@ public class TileInfoCollector : MonoBehaviour
         Vector3Int startPos = currentMap.cellBounds.min;
         Vector3Int endPos = currentMap.cellBounds.max;
 
+        int mapWidth = endPos.x - startPos.x;
+        int mapHeight = endPos.y - startPos.y;
+        gameMapData.mapSize = new Vector2Int(mapWidth, mapHeight);
+
         for(int x = startPos.x; x < endPos.x; x++)
         {
             for(int y = startPos.y; y < endPos.y; y++)
@@ -80,8 +84,14 @@ public class TileInfoCollector : MonoBehaviour
                         case TileType.ItemDroppable:
                             tileInfo.itemDroppable = true;
                             break;
-                        case TileType.FurniturePlaceable:
-                            tileInfo.furniturePlacable = true;
+                        case TileType.FurniturePlacable:
+                            tileInfo.thingPlacable = true;
+                            break;
+                        case TileType.NPCObstacle:
+                            tileInfo.isOccupied = true;
+                            break;
+                        case TileType.TileMapRangeMarker:
+                            // Just generate the tile info and help to record the range of the tilemap, no need to set any property for this type.
                             break;
                     }
                     // Debug.Log($"Updated tile info at {tilePos}: {tileInfo}");

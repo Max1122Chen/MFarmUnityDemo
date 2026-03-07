@@ -12,33 +12,44 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     // Scene
     [SceneName] [SerializeField] private string initialSceneName;
 
-    // Tile visualization
-    [Header("Tile Visualization")]
+    // Tile visual
+    [Header("Tile Visual")]
     public RuleTile dugTile;
     public RuleTile wateredTile;
+    
+    // Tile map ref
     private Tilemap dugTileMap;
     private Tilemap wateredTileMap;
 
     public Action<string> onNewSceneLoaded;
     public Action<string> onOldSceneStartUnloading;
 
-    // Game Map Data
-    [SerializeField] private List<GameMapData_SO> gameMapDataList = new List<GameMapData_SO>();
+    // Persistent Game Map Data
+    [Header("Persistent Game Map Data")]
+    [SerializeField] private List<PersistentGameMapData_SO> persistentGameMapDataList = new List<PersistentGameMapData_SO>();
+    public List<PersistentGameMapData_SO> PersistentGameMapDataList => persistentGameMapDataList;
 
-    // Key: sceneName, Value: GameMapData_SO
-    private Dictionary<string, GameMapData_SO> gameMapDataDict = new Dictionary<string, GameMapData_SO>();
 
-    [SerializeField] private GameMapData_SO currentGameMapData;
+
+
+    // Game Map Save Data for current save file
+    private List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
+
+    // Key: sceneName, Value: GameMapSaveData
+    private Dictionary<string, GameMapSaveData> gameMapSaveDataDict = new Dictionary<string, GameMapSaveData>();
+
     public Dictionary<Vector2Int, TileInfo> currentTileInfoDict { get ; private set; } = new Dictionary<Vector2Int, TileInfo>();
+    public GameMapSaveData currentGameMapSaveData { get; private set; }
+
+    [Header("Current Scene Info")]
     [SerializeField] private string currentSceneName;
 
     public Grid currentGrid { get; private set; }
-    public GameMapData_SO CurrentGameMapData => currentGameMapData;
 
-    [Header("Placable Prefab Data")]
-    public PlacablePrefab_SO placablePrefab_SO;
+    [Header("Placable Item Data")]
+    public PlacableItemDataList_SO placableItemDataList;
 
-    public Dictionary<int, GameObject> placablePrefabDict = new Dictionary<int, GameObject>();
+    public Dictionary<int, GameObject> placableItemDataDict = new Dictionary<int, GameObject>();
 
     [Header(" Dropped Item Prefab")]
     public GameObject droppedItemPrefab;
@@ -50,9 +61,11 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         base.Awake();
     }
 
-    public void Initialize(int droppedItemPoolIndex)
+    public void Initialize(int droppedItemPoolIndex, List<GameMapSaveData> gameMapSaveDataList)
     {
         this.droppedItemPoolIndex = droppedItemPoolIndex;
+        this.gameMapSaveDataList = gameMapSaveDataList;
+
         InitializeGameMapDataDict();
         InitializePlacablePrefabData();
 
@@ -79,15 +92,15 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         yield return LoadScene(newSceneName);
         currentSceneName = newSceneName;
     
-        // Update currentGameMapData based on new scene name
-        if(gameMapDataDict.TryGetValue(newSceneName, out GameMapData_SO data))
+        // Update currentGameMapSaveData based on new scene name
+        if(gameMapSaveDataDict.TryGetValue(newSceneName, out GameMapSaveData data))
         {
-            currentGameMapData = data;
+            currentGameMapSaveData = data;
         }
         else
         {
             Debug.LogWarning($"No GameMapData found for scene {newSceneName}.");
-            currentGameMapData = null;
+            currentGameMapSaveData = null;
         }
     }
 
@@ -96,7 +109,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         yield return SwitchScene(targetSceneName);
 
         // Wait for the fade out and fade in to complete before moving the player, to avoid the player being visible at the original position or the new position during the transition.
-        yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration * 2 - 0.2f);
+        yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
         player.transform.position = spawnPosition;
     }
 
@@ -131,13 +144,14 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             Debug.LogError($"No Tilemap with tag 'Watered' found in scene {sceneName}.");
         }
 
-        currentGameMapData = gameMapDataDict.ContainsKey(sceneName) ? gameMapDataDict[sceneName] : null;
-        if(currentGameMapData == null)
+        currentGameMapSaveData = gameMapSaveDataDict.ContainsKey(sceneName) ? gameMapSaveDataDict[sceneName] : null;
+        if(currentGameMapSaveData == null)
         {
             Debug.LogError($"No GameMapData found for scene {sceneName}.");
         }
 
         LoadGameMapData();
+
         InitializeTileVisuals();
 
         onNewSceneLoaded?.Invoke(sceneName);
@@ -156,7 +170,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
 
             yield return SceneManager.UnloadSceneAsync(sceneName);
-            currentGameMapData = null;
+            currentGameMapSaveData = null;
 
             Debug.Log("Unloaded scene: " + sceneName);
         }
@@ -169,13 +183,13 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     void InitializePlacablePrefabData()
     {
-        foreach(var data in placablePrefab_SO.placablePrefabDataList)
+        foreach(var data in placableItemDataList.placableItemDataList)
         {
             if(data != null && data.prefab != null)
             {
-                if(!placablePrefabDict.ContainsKey(data.itemID))
+                if(!placableItemDataDict.ContainsKey(data.itemID))
                 {
-                    placablePrefabDict.Add(data.itemID, data.prefab);
+                    placableItemDataDict.Add(data.itemID, data.prefab);
                 }
             }
         }
@@ -184,14 +198,14 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     // Game Map Data Management
     void InitializeGameMapDataDict()
     {
-        gameMapDataDict.Clear();
-        foreach(GameMapData_SO data in gameMapDataList)
+        gameMapSaveDataDict.Clear();
+        foreach(GameMapSaveData data in gameMapSaveDataList)
         {
             if(data != null && !string.IsNullOrEmpty(data.SceneName))
             {
-                if(!gameMapDataDict.ContainsKey(data.SceneName))
+                if(!gameMapSaveDataDict.ContainsKey(data.SceneName))
                 {
-                    gameMapDataDict.Add(data.SceneName, data);
+                    gameMapSaveDataDict.Add(data.SceneName, data);
                 }
                 else
                 {
@@ -203,13 +217,13 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     void InitializeTileVisuals()
     {
-        if(currentGameMapData == null)
+        if(currentGameMapSaveData == null)
         {
             Debug.LogError($"Current GameMapData is null for scene {currentSceneName}. Cannot initialize tile visuals.");
             return;
         }
 
-        foreach(TileInfo tileInfo in currentGameMapData.tileInfoList)
+        foreach(TileInfo tileInfo in currentGameMapSaveData.tileInfoList)
         {
             if(tileInfo.daySinceDug >= 0)
             {
@@ -224,7 +238,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     public TileInfo GetTileInfoByGridPos(Vector2Int position)
     {
-        if(currentGameMapData == null)
+        if(currentGameMapSaveData == null)
         {
             Debug.LogError($"Current GameMapData is null for scene {currentSceneName}.");
             return null;
@@ -245,6 +259,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     {
         if(currentGrid == null)
         {
+            Debug.LogError($"Current Grid is null in scene {currentSceneName}. Cannot get tile info by world position.");
             return null;
         }
         Vector3Int cellPos = currentGrid.WorldToCell(position);
@@ -282,11 +297,11 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     public GameObject GetPlacablePrefab(int itemID)
     {
-        return placablePrefabDict.ContainsKey(itemID) ? placablePrefabDict[itemID] : null;
+        return placableItemDataDict.ContainsKey(itemID) ? placableItemDataDict[itemID] : null;
     }
     public void PlaceFurniture(TileInfo tile, ItemDefinition itemDef)
     {
-        tile.hasThing = true;
+        tile.isOccupied = true;
         Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tile.position);
         GameObject furniturePrefab = GetPlacablePrefab(itemDef.itemID);
         GameInstance.Instance.SpawnGameObjectInWorld(furniturePrefab, worldPos, Quaternion.identity);
@@ -294,14 +309,14 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     public void PlaceThing(TileInfo tile)
     {
-        tile.hasThing = true;
+        tile.isOccupied = true;
     }
 
 
     // Game Map Data Persistence
     private void SaveGameMapData()
     {
-        if(currentGameMapData == null)
+        if(currentGameMapSaveData == null)
         {
             Debug.LogError($"Current GameMapData is null for scene {currentSceneName}. Cannot save.");
             return;
@@ -330,37 +345,39 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     private void SaveAllDroppedItems()
     {
         // Clear existing dropped items data
-        currentGameMapData.droppedItems.Clear();
+        currentGameMapSaveData.droppedItems.Clear();
 
-        foreach(DropppedItem item in droppedItemsInCurrentScene)
+        // We cant use foreach loop here because we will be releasing the dropped item to pool in the loop, which will modify the droppedItemsInCurrentScene list and cause issues with the foreach loop. So we will use for loop instead and always access the first element in the list until the list is empty.
+        for(int i = 0; i < droppedItemsInCurrentScene.Count; i++)
         {
+            DropppedItem item = droppedItemsInCurrentScene[i];
             if(item != null)
             {
                 DroppedItemSaveData itemData = new DroppedItemSaveData(item.itemID, item.itemCount, item.transform.position);
-                currentGameMapData.droppedItems.Add(itemData);
+                currentGameMapSaveData.droppedItems.Add(itemData);
                 ReleaseDroppedItemToPool(item);
             }
-
-            // Unregister the item from the list regardless of whether it's null or not, to ensure that the list is cleared for the next time we load this scene. 
-            // This is important because when we load a scene, we will spawn new dropped items based on the saved data, and we don't want old dropped items from previous play sessions to be mixed in.
-            droppedItemsInCurrentScene.Clear();
         }
+
+        // Unregister the item from the list regardless of whether it's null or not, to ensure that the list is cleared for the next time we load this scene. 
+        // This is important because when we load a scene, we will spawn new dropped items based on the saved data, and we don't want old dropped items from previous play sessions to be mixed in.
+        droppedItemsInCurrentScene.Clear();
     }
 
     private void SaveAllResources()
     {
-        ResourceSubsystem.Instance.SaveAllResources(currentGameMapData.resources);
+        ResourceSubsystem.Instance.SaveAllResources(currentGameMapSaveData.resources);
     }
 
     private void LoadGameMapData()
     {
-        if(currentGameMapData == null)
+        if(currentGameMapSaveData == null)
         {
             Debug.LogError($"Current GameMapData is null for scene {currentSceneName}. Cannot read.");
             return;
         }
         currentTileInfoDict.Clear();
-        foreach(TileInfo tileInfo in currentGameMapData.tileInfoList)
+        foreach(TileInfo tileInfo in currentGameMapSaveData.tileInfoList)
         {
             currentTileInfoDict[tileInfo.position] = tileInfo;
         }
@@ -373,28 +390,45 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     private void LoadAllDroppedItems()
     {
-        foreach(DroppedItemSaveData itemData in currentGameMapData.droppedItems)
+        foreach(DroppedItemSaveData itemData in currentGameMapSaveData.droppedItems)
         {
-            RegisterDroppedItem(SpawnDroppedItemInWorld(itemData.itemID, itemData.itemCount, itemData.position));
+            RegisterDroppedItem(SpawnDroppedItemInWorld(itemData.itemID, itemData.itemCount, itemData.position, DroppedItemSource.FromSaveData));
         }
     }
 
-    public DropppedItem SpawnDroppedItemInWorld(int itemID, int count, Vector3 spawnPosition)
+    public DropppedItem SpawnDroppedItemInWorld(int itemID, int count, Vector3 spawnPosition, DroppedItemSource source)
     {
         ItemDefinition itemDef = InventorySubsystem.Instance.GetItemDefinition(itemID);
         if(itemDef != null)
         {
             GameObject droppedItem = ObjectPoolManager.Instance.GetObjectFromPool(droppedItemPoolIndex);
-            droppedItem.transform.position = spawnPosition;
 
             DropppedItem droppedItemComp = droppedItem.GetComponent<DropppedItem>();
+
             droppedItemComp.Initialize(itemID, count);
+            droppedItem.transform.position = spawnPosition;
+
+            // Only play dropping animation when the item is dropping from the world or a inventory.
+            switch(source)
+            {
+               case DroppedItemSource.FromSaveData:
+               case DroppedItemSource.FromGameDesign:
+                    break;
+                default:
+                    droppedItemComp.PlayDroppingAnim();
+                    break;
+            }
+
+            droppedItemComp.ResetPickupCD(source);
+            droppedItemComp.PickupCoolingDown();
+
+
             return droppedItemComp;
         }
         return null;
     }
 
-    public DropppedItem SpawnDroppedItemInWorld(ItemInstance itemInstance, Vector3 spawnPosition)
+    public DropppedItem SpawnDroppedItemInWorld(ItemInstance itemInstance, Vector3 spawnPosition, DroppedItemSource source)
     {
         if(itemInstance == null || itemInstance.ItemDefinition == null || !itemInstance.ItemDefinition.IsValidItem())
         {
@@ -403,7 +437,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
         int itemID = itemInstance.ItemDefinition.itemID;
         int count = itemInstance.stackCount;
-        return SpawnDroppedItemInWorld(itemID, count, spawnPosition);
+        return SpawnDroppedItemInWorld(itemID, count, spawnPosition, source);
     }
 
     public void ReleaseDroppedItemToPool(DropppedItem item)
@@ -413,6 +447,6 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     private void LoadAllResources()
     {
-        ResourceSubsystem.Instance.LoadAllResources(currentGameMapData.resources);
+        ResourceSubsystem.Instance.LoadAllResources(currentGameMapSaveData.resources);
     }
 }

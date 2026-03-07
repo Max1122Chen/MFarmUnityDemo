@@ -151,7 +151,7 @@ public class InventorySlot_UI :
 
 
             // Directly call the SpawnItemInWorld method from InventorySubSystem
-            GameMapSubsystem.Instance.SpawnDroppedItemInWorld(slotRef.itemInstance, pos);
+            GameMapSubsystem.Instance.SpawnDroppedItemInWorld(slotRef.itemInstance, pos, DroppedItemSource.FromInventory);
 
             sourceInventory.RemoveAllItemsInSlot(slotRef.slotIndex);
 

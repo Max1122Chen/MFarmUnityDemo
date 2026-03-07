@@ -33,7 +33,7 @@ namespace InventorySystem
             PlayerInputComponent inputComponent = GetComponent<PlayerInputComponent>();
             if(inputComponent != null)
             {
-                inputComponent.onNumberKeyDown += SelectHotBarSlotByHotkey;
+                inputComponent.onNumberKeyDown += (hotkeyNumber) => SelectHotBarSlotByHotkey((hotkeyNumber + 9) % 10); // Convert 1-0 number keys to 0-9 hotbar index.
             }
         }
 

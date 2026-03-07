@@ -4,37 +4,6 @@ using UnityEngine;
 using InventorySystem;
 
 [System.Serializable]
-public enum TileType
-{
-    None,
-    Diggable,
-    ItemDroppable,
-    FurniturePlaceable,
-}
-
-[System.Serializable]
-public class TileInfo
-{
-    public Vector2Int position;
-
-    // Tile Properties
-    public bool diggable = false;
-    public bool itemDroppable = false;
-    public bool furniturePlacable = false;
-
-    // Tile State
-    public bool isWatered = false;
-    public bool hasThing = false;
-    public int daySinceDug = -1;
-    public int seedID = -1;
-
-    public override string ToString()
-    {
-        return $"Pos: {position}, Diggable: {diggable}, ItemDroppable: {itemDroppable}, FurniturePlacable: {furniturePlacable}, DaySinceDug: {daySinceDug}, SeedID: {seedID}, HasThing: {hasThing}";
-    }
-}
-
-[System.Serializable]
 public class DroppedItemSaveData
 {
     public int itemID;
@@ -82,19 +51,40 @@ public class ContainerSaveData
     }
 }
 
-
-//
-[CreateAssetMenu(fileName = "GameMapData_SO", menuName = "GameMap/GameMapData_SO")]
-public class GameMapData_SO : ScriptableObject
+[System.Serializable]
+public class GameMapSaveData
 {
-    [SceneName] [SerializeField] private string sceneName;
-
+    [SerializeField] private string sceneName;
     public string SceneName => sceneName;
     public List<TileInfo> tileInfoList = new List<TileInfo>();
-
-    [Header("Saved Dynamic Objects Data")]
     public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
     public List<ResourceSaveData> resources = new List<ResourceSaveData>();
     public List<ContainerSaveData> containers = new List<ContainerSaveData>();
+
+    private GameMapSaveData() {} // Private constructor to prevent direct instantiation, we will use the constructor with PersistentGameMapData_SO parameter to create a new instance of GameMapSaveData.
+    public GameMapSaveData(PersistentGameMapData_SO persistentGameMapData)
+    {
+        sceneName = persistentGameMapData.sceneName;
+
+        tileInfoList = new List<TileInfo>(persistentGameMapData.tileInfoList.Count);
+
+        // Copy the persisten tile info data to the game map save data, we will update the tile info data when we save the game, so we need to copy the data here to avoid reference issue.
+        for (int i = 0; i < persistentGameMapData.tileInfoList.Count; i++)
+        {
+            tileInfoList.Add(new TileInfo(persistentGameMapData.tileInfoList[i]));
+        }
+    }
+}
+
+[System.Serializable]
+public class GameSaveData
+{
+    public int saveIndex;
+    public string playerName;
+
+    // public PlayerSaveData playerSaveData; // we will implement this later when we have the player data to save
+    public List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
+
+
 
 }

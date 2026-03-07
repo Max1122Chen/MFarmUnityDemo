@@ -8,6 +8,7 @@ public enum ParticleEffectType
     None,
     PineTreeLeafFalling,
     OakTreeLeafFalling,
+    StoneFragment,
 }
 
 // TODO: maybe use particle ID in more complex cases, but for now we can just use the enum as the key to get the prefab from the object pool manager
@@ -20,9 +21,11 @@ public class ParticleEffectDefinition
 
 public class ParticleEffectManager : Singleton<ParticleEffectManager>
 {
-    public List<ParticleEffectDefinition> particleEffectDefinitions; // List of particle effect definitions corresponding to different ParticleEffectTypes
+    // List of particle effect definitions corresponding to different ParticleEffectTypes
+    public List<ParticleEffectDefinition> particleEffectDefinitions; 
 
-    public Dictionary<ParticleEffectType, int> particleEffectTypeMapping; // Mapping from ParticleEffectType to the index of its prefab in the object pool list
+    // Mapping from ParticleEffectType to the index of its prefab in the object pool list
+    public Dictionary<ParticleEffectType, int> particleEffectTypeMapping; 
 
     protected override void Awake()
     {

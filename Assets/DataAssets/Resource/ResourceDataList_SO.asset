@@ -207,9 +207,9 @@ MonoBehaviour:
     colliderSize: {x: 1, y: 1}
   - resourceID: 2016
     resourceType: 2
-    resourcePrefab: {fileID: 0}
+    resourcePrefab: {fileID: 9163229088822169445, guid: b9d502b912979cd419c3baeed522e81a, type: 3}
     growthStages:
-    - stageSprite: {fileID: 21300000, guid: b40fde803efab463bbc950e4d29ee5ce, type: 3}
+    - stageSprite: {fileID: 21300000, guid: 51532cbb9bf104839b6330f0a739b933, type: 3}
       timeToNextStage: 0
     productionInfos:
     - producedItemID: 4002
@@ -221,9 +221,9 @@ MonoBehaviour:
     - requiredToolType: 7
       requiredActionCount: 3
       canGenerateProduct: 1
-    gatheringParticleEffectType: 0
+    gatheringParticleEffectType: 3
     canBeGatheredMultipleTimes: 0
     regrowthTime: 0
     generatedObjectPrefabs: []
     hasCollision: 1
-    colliderSize: {x: 1, y: 1}
+    colliderSize: {x: 1.1, y: 0.8}

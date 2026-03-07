@@ -11,6 +11,7 @@ TagManager:
   - Watered
   - Dug
   - InventoryUIRoot
+  - CollectingRange
   layers:
   - Default
   - TransparentFX
