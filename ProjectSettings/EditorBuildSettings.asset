@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/02 Home.unity
     guid: e0e920702338b7f41b10df640d428957
+  - enabled: 1
+    path: Assets/Scenes/AStarTest.unity
+    guid: a5fcb3af1f930b84aa09d3d9d8ac83de
   m_configObjects: {}

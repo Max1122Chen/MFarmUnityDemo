@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        Debug.Log($"Using item in hand: {selectedItemInstance.ItemDefinition.itemName}");
+        // Debug.Log($"Using item in hand: {selectedItemInstance.ItemDefinition.itemName}");
 
         // Left mouse button case
         if(mouseButton == 0)

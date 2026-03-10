@@ -49,10 +49,6 @@ public class TileInfoCollector : MonoBehaviour
         Vector3Int startPos = currentMap.cellBounds.min;
         Vector3Int endPos = currentMap.cellBounds.max;
 
-        int mapWidth = endPos.x - startPos.x;
-        int mapHeight = endPos.y - startPos.y;
-        gameMapData.mapSize = new Vector2Int(mapWidth, mapHeight);
-
         for(int x = startPos.x; x < endPos.x; x++)
         {
             for(int y = startPos.y; y < endPos.y; y++)
@@ -92,6 +88,10 @@ public class TileInfoCollector : MonoBehaviour
                             break;
                         case TileType.TileMapRangeMarker:
                             // Just generate the tile info and help to record the range of the tilemap, no need to set any property for this type.
+                            int mapWidth = endPos.x - startPos.x;
+                            int mapHeight = endPos.y - startPos.y;
+                            gameMapData.mapSize = new Vector2Int(mapWidth, mapHeight);
+                            gameMapData.lowerLeftTileOriginalPos = new Vector2Int(startPos.x, startPos.y);
                             break;
                     }
                     // Debug.Log($"Updated tile info at {tilePos}: {tileInfo}");

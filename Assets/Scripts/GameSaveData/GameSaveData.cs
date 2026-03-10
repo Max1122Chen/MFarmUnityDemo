@@ -57,6 +57,8 @@ public class GameMapSaveData
     [SerializeField] private string sceneName;
     public string SceneName => sceneName;
     public List<TileInfo> tileInfoList = new List<TileInfo>();
+    public Vector2Int mapSize;
+    public Vector2Int lowerLeftTileOriginalPos;
     public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
     public List<ResourceSaveData> resources = new List<ResourceSaveData>();
     public List<ContainerSaveData> containers = new List<ContainerSaveData>();
@@ -67,6 +69,8 @@ public class GameMapSaveData
         sceneName = persistentGameMapData.sceneName;
 
         tileInfoList = new List<TileInfo>(persistentGameMapData.tileInfoList.Count);
+        mapSize = persistentGameMapData.mapSize;
+        lowerLeftTileOriginalPos = persistentGameMapData.lowerLeftTileOriginalPos;
 
         // Copy the persisten tile info data to the game map save data, we will update the tile info data when we save the game, so we need to copy the data here to avoid reference issue.
         for (int i = 0; i < persistentGameMapData.tileInfoList.Count; i++)

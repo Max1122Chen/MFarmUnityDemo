@@ -32,7 +32,7 @@ public class TileInfo
 
     public override string ToString()
     {
-        return $"Pos: {position}, Diggable: {diggable}, ItemDroppable: {itemDroppable}, FurniturePlacable: {thingPlacable}, DaySinceDug: {daySinceDug}, SeedID: {seedID}, HasThing: {isOccupied}";
+        return $"Pos: {position}, Diggable: {diggable}, ItemDroppable: {itemDroppable}, FurniturePlacable: {thingPlacable}, DaySinceDug: {daySinceDug}, SeedID: {seedID}, isOccupied: {isOccupied}";
     }
 
     public TileInfo()
@@ -60,6 +60,8 @@ public class PersistentGameMapData_SO : ScriptableObject
     [Header("Tile Info List")]
     public List<TileInfo> tileInfoList = new List<TileInfo>();
     public Vector2Int mapSize;
+    public Vector2Int lowerLeftTileOriginalPos;
+
 
     [Header("Saved Dynamic Objects Data")]
     public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();

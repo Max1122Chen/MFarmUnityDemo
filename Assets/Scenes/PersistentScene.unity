@@ -217,12 +217,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85c89ebe6948794cb1ad5c2706fd6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSceneName: 01 Farm
+  loadInitialScene: 1
+  initialSceneName: AStarTest
   dugTile: {fileID: 11400000, guid: 5ec600780aa40a342963818ee715c23f, type: 2}
   wateredTile: {fileID: 11400000, guid: 6e015f2762f18824db05db1e69b81d94, type: 2}
   persistentGameMapDataList:
   - {fileID: 11400000, guid: 6cadb3252cc2e6a438ca1b741661c47b, type: 2}
   - {fileID: 11400000, guid: 14e930208d8f6014b93cdd1e863e8cb7, type: 2}
+  - {fileID: 11400000, guid: dda1354d868e0a645ae9f897d3557232, type: 2}
   currentSceneName: 
   placableItemDataList: {fileID: 11400000, guid: 3136cd0a30fd3644b81093d9e9ff5420, type: 2}
   droppedItemPrefab: {fileID: 7708925120792974642, guid: d3d502db45aece04fae9bd0ff856a069, type: 3}
@@ -880,6 +882,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &941510823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 941510824}
+  - component: {fileID: 941510825}
+  m_Layer: 0
+  m_Name: NavigationSubsystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &941510824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941510823}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2103436479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &941510825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941510823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1dd34340b56684e9eed24c9aed24e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1286934112
@@ -1607,6 +1653,7 @@ Transform:
   - {fileID: 1775704658}
   - {fileID: 236210547}
   - {fileID: 1286934113}
+  - {fileID: 941510824}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2103436480

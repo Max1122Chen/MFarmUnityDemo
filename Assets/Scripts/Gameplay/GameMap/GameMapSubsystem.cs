@@ -10,6 +10,8 @@ using UnityEngine.Tilemaps;
 public class GameMapSubsystem : Singleton<GameMapSubsystem>
 {
     // Scene
+    [Header("Initial Scene Settings")]
+    [SerializeField] private bool loadInitialScene = true;
     [SceneName] [SerializeField] private string initialSceneName;
 
     // Tile visual
@@ -70,13 +72,9 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         InitializePlacablePrefabData();
 
         // TODO: 
-        if(!string.IsNullOrEmpty(initialSceneName))
+        if(!string.IsNullOrEmpty(initialSceneName) && loadInitialScene)
         {
             StartCoroutine(SwitchScene(initialSceneName));
-        }
-        else
-        {
-            Debug.LogWarning("Initial scene name is not set in GameMapSubsystem.");
         }
     }
 
@@ -244,6 +242,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             return null;
         }
 
+        position = new Vector2Int(position.x, position.y);
         if(currentTileInfoDict.ContainsKey(position))
         {
             return currentTileInfoDict[position];
@@ -264,6 +263,16 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
         Vector3Int cellPos = currentGrid.WorldToCell(position);
         return GetTileInfoByGridPos((Vector2Int)cellPos);
+    }
+
+    public Vector3 GetWorldPositionByTileInfo(TileInfo tileInfo)
+    {
+        if(currentGrid == null)
+        {
+            Debug.LogError($"Current Grid is null in scene {currentSceneName}. Cannot get world position by tile info.");
+            return Vector3.zero;
+        }
+        return currentGrid.GetCellCenterWorld((Vector3Int)tileInfo.position);
     } 
 
     public void UpdateDugTile(TileInfo tile, bool isDug, int deltaDay)
