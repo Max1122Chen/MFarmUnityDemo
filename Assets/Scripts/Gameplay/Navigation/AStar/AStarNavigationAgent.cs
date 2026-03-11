@@ -52,7 +52,7 @@ namespace Navigation.AStar
         // Debug
         public Action onNewRoundStarted;
 
-        public List<Node> FindPath(Vector2Int startPos, Vector2Int targetPos, List<TileInfo> grid, Vector2Int gridSize)
+        public List<Node> FindPath(Vector2Int startPos, Vector2Int targetPos, Vector2Int gridSize)
         {
             if(isFindingPath)
             {
@@ -117,7 +117,7 @@ namespace Navigation.AStar
                 }
 
                 // Then deal with the neighbors of the current node.
-                List<Node> neighbors = GetNeighbors(currentNode, grid, gridSize, allNodes);
+                List<Node> neighbors = GetNeighbors(currentNode, gridSize, allNodes);
                 foreach(Node neighbor in neighbors)
                 {
                     if(closedSet.Contains(neighbor) || !neighbor.walkable)
@@ -148,7 +148,7 @@ namespace Navigation.AStar
 
         }
 
-        private List<Node> GetNeighbors(Node node, List<TileInfo> grid, Vector2Int gridSize, Dictionary<Vector2Int, Node> allNodes)
+        private List<Node> GetNeighbors(Node node, Vector2Int gridSize, Dictionary<Vector2Int, Node> allNodes)
         {
             List<Node> neighbors = new List<Node>();
 
@@ -174,6 +174,7 @@ namespace Navigation.AStar
                 if(neighborArrayPos.x >= 0 && neighborArrayPos.x < gridSize.x && neighborArrayPos.y >= 0 && neighborArrayPos.y < gridSize.y)
                 {
                     // We dont handle ignorance of obstacles when getting neighbors here, preventing multiple responsibilities for a single function.
+                    // TODO: in the future, we need to handle the case where the character can travel across the scene.
                     bool walkable = !GameMapSubsystem.Instance.GetTileInfoByGridPos(neighborPos).isOccupied;
 
                     if(allNodes.ContainsKey(neighborPos))

@@ -5,6 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class GameSettings
 {
+    // Initial Scene Name
+    [Header("Initial Scene Name")]
+    [SceneName] public string initialSceneName = "01 Farm";
+
     // Time Subsystem settings
     [Header("Time Subsystem Settings")]
     public float timePerGameMinute = 3f;

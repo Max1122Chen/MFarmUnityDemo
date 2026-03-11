@@ -33,6 +33,7 @@ namespace InventorySystem
 
         public void Initialize()
         {
+            // Initialize the item data dictionary for quick lookup by item ID
             foreach (var itemDef in itemDataList_SO.itemDataList)
             {
                 itemData[itemDef.itemID] = itemDef;
@@ -109,7 +110,13 @@ namespace InventorySystem
         }
 
         // Save and Load
-        public void SaveAllContainersInventory()
+        public void SavePlayerInventory(InventoryComponent playerInventory, GameSaveData gameSaveData)
+        {
+            gameSaveData.playerSaveData.playerInventory = playerInventory.GetInventorySaveData();
+        }
+
+        // TODO: we will implement the container inventory saving and loading later when we have the container inventory implemented, because we need to save the container inventory data in the game save data, and we also need to load the container inventory data when we load the game, so we will implement this later when we have the container inventory implemented.
+        public void SaveAllContainersInventory(GameMapSaveData gameMapSaveData)
         {
             foreach(var containerInvComp in registeredInventoryComponents)
             {
@@ -120,7 +127,7 @@ namespace InventorySystem
             }
         }
 
-        public void LoadAllContainersInventory()
+        public void LoadAllContainersInventory(GameMapSaveData gameMapSaveData)
         {
             
         }

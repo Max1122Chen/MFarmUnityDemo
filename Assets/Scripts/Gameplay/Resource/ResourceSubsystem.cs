@@ -34,10 +34,6 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
             {
                 resourceDefinitions.Add(resourceDef.resourceID, resourceDef);
             }
-            else
-            {
-                Debug.LogWarning($"Duplicate resourceID {resourceDef.resourceID} found in ResourceDataList_SO. Skipping.");
-            }
         }
 
         foreach (TreeDefinition treeDef in treeDataList_SO.treeDataList)
@@ -45,10 +41,6 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
             if (!treeDefinitions.ContainsKey(treeDef.treeID))
             {
                 treeDefinitions.Add(treeDef.treeID, treeDef);
-            }
-            else
-            {
-                Debug.LogWarning($"Duplicate treeID {treeDef.treeID} found in TreeDataList_SO. Skipping.");
             }
         }
     }

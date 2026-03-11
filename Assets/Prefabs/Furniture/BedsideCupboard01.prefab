@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1309305351388510637}
   - component: {fileID: 3816083966617697510}
   - component: {fileID: 6996499141364517305}
+  - component: {fileID: -4976517783095325143}
   m_Layer: 3
   m_Name: BedsideCupboard01
   m_TagString: Untagged
@@ -190,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c34fc7d6ee4f9d4b97c631a1e90f152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory_SO: {fileID: 0}
+  inventorySlots: []
   inventorySize: 20
   inventoryType: 2
   selectedSlotIndex: -1
@@ -207,3 +208,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRadius: 3
+--- !u!114 &-4976517783095325143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381030898867982195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cba297ffda569b4083febfcf9ddc484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderers: []

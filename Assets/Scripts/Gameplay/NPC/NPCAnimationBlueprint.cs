@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCAnimationBlueprint : MonoBehaviour
+public class NPCAnimationBlueprint : CharacterAnimationBlueprint
 {
-    // Start is called before the first frame update
-    void Start()
+    const string ANIM_PRAM_INPUT_X = "InputX";
+    const string ANIM_PRAM_INPUT_Y = "InputY";
+    public override void Awake()
     {
-        
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateAnimations()
     {
-        
+        base.UpdateAnimations();
     }
 }

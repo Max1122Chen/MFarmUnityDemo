@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using InventorySystem;
+
 
 public class GameInstance : Singleton<GameInstance>
 {
@@ -40,16 +40,6 @@ public class GameInstance : Singleton<GameInstance>
             currentGameSaveData = gameSaveDataListSO.gameSaveDataList[0]; // For now we will just load the first save file in the list, and we will implement the save/load system later to allow player to choose which save file to load.
         }
 
-        StartToPlay();
-    }
-
-    // Called after we choose a save file to load or start a new game, this function will initialize the game subsystems and enter the game.
-    public void StartToPlay()
-    {
-        // Load Game Data
-        // TODO: for now will just load the first save file in the list
-        LoadGame(0);
-
         InitializeGameSubsystems();
 
         // Find GO with tag "MainCanvas"
@@ -59,8 +49,16 @@ public class GameInstance : Singleton<GameInstance>
         {
             Debug.LogError("MainCanvas GameObject with tag 'MainCanvas' not found in the scene.");
         }
+        StartToPlay(0);
     }
 
+    // Called after we choose a save file to load or start a new game, this function will initialize the game subsystems and enter the game.
+    public void StartToPlay(int saveIndex)
+    {
+        LoadGame(saveIndex);
+    }
+
+    // Initialize all game subsystems. This will only be called once when the application starts.
     public void InitializeGameSubsystems()
     {
         List<GameObject> objectPoolPrefabs = new List<GameObject>();
@@ -81,7 +79,7 @@ public class GameInstance : Singleton<GameInstance>
         InventorySubsystem.Instance.Initialize();
 
         // Initialize the GameMapSubsystem
-        GameMapSubsystem.Instance.Initialize(objectPoolPrefabs.Count, currentGameSaveData.gameMapSaveDataList); // Pass the current count of object pool prefabs as the index for the dropped item prefab
+        GameMapSubsystem.Instance.Initialize(objectPoolPrefabs.Count); // Pass the current count of object pool prefabs as the index for the dropped item prefab
         objectPoolPrefabs.Add(GameMapSubsystem.Instance.droppedItemPrefab);
 
 
@@ -92,6 +90,8 @@ public class GameInstance : Singleton<GameInstance>
 
         // Initialize the ObjectPoolManager
         ObjectPoolManager.Instance.Initialize(objectPoolPrefabs);
+
+        NPCSubsystem.Instance.Initialize();
     }
 
     // Game Saving & Loading
@@ -100,19 +100,12 @@ public class GameInstance : Singleton<GameInstance>
     {
         GameSaveData newGameSaveData = new GameSaveData();
         newGameSaveData.saveIndex = gameSaveDataListSO.gameSaveDataList.Count; // Set the save index to the current count of save data in the list
+        newGameSaveData.currentScene = gameSettings.initialSceneName;
 
-        List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
 
-        // Copy the persistent data from the PersistentGameMapData_SO to the GameMapSaveData.
-        // we will update the game map save data when we save the game, so we need to copy the data here to avoid reference issue.
-        foreach (PersistentGameMapData_SO persistentGameMapData in GameMapSubsystem.Instance.PersistentGameMapDataList)
-        {
-            GameMapSaveData gameMapSaveData = new GameMapSaveData(persistentGameMapData);
-            gameMapSaveDataList.Add(gameMapSaveData);
-        }
+        GameMapSubsystem.Instance.HandleCreateNewGameSaveData(newGameSaveData);    
 
-        newGameSaveData.gameMapSaveDataList = gameMapSaveDataList;
-
+        NPCSubsystem.Instance.HandleCreateNewGameSaveData(newGameSaveData);
         gameSaveDataListSO.gameSaveDataList.Add(newGameSaveData);
     }
 
@@ -125,16 +118,19 @@ public class GameInstance : Singleton<GameInstance>
 
     public void LoadGame(int saveIndex)
     {
+        // TODO: Implement the game loading logic, such as loading the game map data, player data, NPC data, etc. We will use the currentGameSaveData to load the game data.
         currentGameSaveData = gameSaveDataListSO.gameSaveDataList[saveIndex];
 
-        // Game loading logic
+        // Load Player data
 
-        // Load game map data (SwithchScene(null))
+        // Load the game map data and load the scene.
+        GameMapSubsystem.Instance.LoadGameMapSaveDataList(currentGameSaveData.gameMapSaveDataList);
+        GameMapSubsystem.Instance.StartCoroutine(GameMapSubsystem.Instance.SwitchScene(currentGameSaveData.currentScene));
 
-        // Load player data
+        // Load NPC data and spawn NPCs in the world based on the NPC save data.
+
+        NPCSubsystem.Instance.LoadAllNPCs(currentGameSaveData.npcSaveDataList, currentGameSaveData.currentScene);
     }
-
-
 
     // Utility function to spawn game objects in the world.
     public GameObject SpawnGameObjectInWorld(GameObject prefab, Vector3 spawnPosition, Quaternion spawnRotation)

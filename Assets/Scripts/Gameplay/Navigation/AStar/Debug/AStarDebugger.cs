@@ -68,7 +68,7 @@ namespace Navigation.AStar
                     if(startPos != Vector2Int.zero && targetPos != Vector2Int.zero)
                     {
                         ClearVisuals();
-                        List<Node> path = agent.FindPath(startPos, targetPos, GameMapSubsystem.Instance.currentGameMapSaveData.tileInfoList, GameMapSubsystem.Instance.currentGameMapSaveData.mapSize);
+                        List<Node> path = agent.FindPath(startPos, targetPos, GameMapSubsystem.Instance.currentGameMapSaveData.mapSize);
                     }
                 }
                 else

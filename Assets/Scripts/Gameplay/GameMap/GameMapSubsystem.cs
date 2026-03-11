@@ -9,10 +9,6 @@ using UnityEngine.Tilemaps;
 
 public class GameMapSubsystem : Singleton<GameMapSubsystem>
 {
-    // Scene
-    [Header("Initial Scene Settings")]
-    [SerializeField] private bool loadInitialScene = true;
-    [SceneName] [SerializeField] private string initialSceneName;
 
     // Tile visual
     [Header("Tile Visual")]
@@ -63,19 +59,19 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         base.Awake();
     }
 
-    public void Initialize(int droppedItemPoolIndex, List<GameMapSaveData> gameMapSaveDataList)
+    public void Initialize(int droppedItemPoolIndex)
     {
         this.droppedItemPoolIndex = droppedItemPoolIndex;
-        this.gameMapSaveDataList = gameMapSaveDataList;
+        // this.gameMapSaveDataList = gameMapSaveDataList;
 
-        InitializeGameMapDataDict();
+        // InitializeGameMapDataDict();
         InitializePlacablePrefabData();
 
-        // TODO: 
-        if(!string.IsNullOrEmpty(initialSceneName) && loadInitialScene)
-        {
-            StartCoroutine(SwitchScene(initialSceneName));
-        }
+        // We dont load the scene here now
+        // if(!string.IsNullOrEmpty(initialSceneName) && loadInitialScene)
+        // {
+        //     StartCoroutine(SwitchScene(initialSceneName));
+        // }
     }
 
     // Scene Management
@@ -89,17 +85,6 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
         yield return LoadScene(newSceneName);
         currentSceneName = newSceneName;
-    
-        // Update currentGameMapSaveData based on new scene name
-        if(gameMapSaveDataDict.TryGetValue(newSceneName, out GameMapSaveData data))
-        {
-            currentGameMapSaveData = data;
-        }
-        else
-        {
-            Debug.LogWarning($"No GameMapData found for scene {newSceneName}.");
-            currentGameMapSaveData = null;
-        }
     }
 
     public IEnumerator TeleportPlayerToScene(string targetSceneName, GameObject player, Vector2 spawnPosition)
@@ -114,16 +99,19 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     private IEnumerator LoadScene(string sceneName)
     {
-        if(sceneName != initialSceneName)
-        {
-            yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
-        }
+        // // TODO: optimize this
+        // if(sceneName != initialSceneName)
+        // {
+        //     yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
+        // }
 
+        // Load Scene
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         Scene newScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
         SceneManager.SetActiveScene(newScene);
 
+        // Set up references to the grid and tilemaps in the new scene, we will use these references to convert between world position and tile position, and to update the tile visuals when the tile info changes.
         currentGrid = FindObjectOfType<Grid>();
 
         dugTileMap =     GameObject.FindWithTag("Dug").GetComponent<Tilemap>();
@@ -142,14 +130,10 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             Debug.LogError($"No Tilemap with tag 'Watered' found in scene {sceneName}.");
         }
 
-        currentGameMapSaveData = gameMapSaveDataDict.ContainsKey(sceneName) ? gameMapSaveDataDict[sceneName] : null;
-        if(currentGameMapSaveData == null)
-        {
-            Debug.LogError($"No GameMapData found for scene {sceneName}.");
-        }
+        // Load Game Map Data for the new scene
+        LoadGameMapSaveData(sceneName);
 
-        LoadGameMapData();
-
+        // After we load the game map data, we need to initialize the tile visuals based on the tile info data in the game map save data, because the tile visuals are not saved in the game map save data, we need to initialize them based on the tile info data when we load the scene. We also need to update the tile visuals when the tile info data changes, such as when the player digs a tile or waters a tile, we will update the corresponding tile info data and then update the tile visuals accordingly.
         InitializeTileVisuals();
 
         onNewSceneLoaded?.Invoke(sceneName);
@@ -163,7 +147,8 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         {
             onOldSceneStartUnloading?.Invoke(sceneName);
 
-            SaveGameMapData();
+            GameMapSaveData gameMapSaveData = gameMapSaveDataDict.ContainsKey(sceneName) ? gameMapSaveDataDict[sceneName] : null;
+            SaveGameMapData(gameMapSaveData);
 
             yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
 
@@ -321,18 +306,33 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         tile.isOccupied = true;
     }
 
+    public void HandleCreateNewGameSaveData(GameSaveData newGameSaveData)
+    {
+        List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
+
+        // Copy the persistent data from the PersistentGameMapData_SO to the GameMapSaveData.
+        // we will update the game map save data when we save the game, so we need to copy the data here to avoid reference issue.
+        foreach (PersistentGameMapData_SO persistentGameMapData in PersistentGameMapDataList)
+        {
+            GameMapSaveData gameMapSaveData = new GameMapSaveData(persistentGameMapData);
+            gameMapSaveDataList.Add(gameMapSaveData);
+        }
+
+        newGameSaveData.gameMapSaveDataList = gameMapSaveDataList;
+    }
+
 
     // Game Map Data Persistence
-    private void SaveGameMapData()
+    private void SaveGameMapData(GameMapSaveData gameMapSaveData)
     {
-        if(currentGameMapSaveData == null)
+        if(gameMapSaveData == null)
         {
-            Debug.LogError($"Current GameMapData is null for scene {currentSceneName}. Cannot save.");
+            Debug.LogError($"GameMapData is null. Cannot save.");
             return;
         }
 
-        SaveAllDroppedItems();
-        SaveAllResources();
+        SaveAllDroppedItems(gameMapSaveData);
+        SaveAllResources(gameMapSaveData);
     }
 
     public void RegisterDroppedItem(DropppedItem item)
@@ -351,10 +351,10 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
     }
 
-    private void SaveAllDroppedItems()
+    private void SaveAllDroppedItems(GameMapSaveData gameMapSaveData)
     {
         // Clear existing dropped items data
-        currentGameMapSaveData.droppedItems.Clear();
+        gameMapSaveData.droppedItems.Clear();
 
         // We cant use foreach loop here because we will be releasing the dropped item to pool in the loop, which will modify the droppedItemsInCurrentScene list and cause issues with the foreach loop. So we will use for loop instead and always access the first element in the list until the list is empty.
         for(int i = 0; i < droppedItemsInCurrentScene.Count; i++)
@@ -363,7 +363,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             if(item != null)
             {
                 DroppedItemSaveData itemData = new DroppedItemSaveData(item.itemID, item.itemCount, item.transform.position);
-                currentGameMapSaveData.droppedItems.Add(itemData);
+                gameMapSaveData.droppedItems.Add(itemData);
                 ReleaseDroppedItemToPool(item);
             }
         }
@@ -373,18 +373,30 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         droppedItemsInCurrentScene.Clear();
     }
 
-    private void SaveAllResources()
+    private void SaveAllResources(GameMapSaveData gameMapSaveData)
     {
-        ResourceSubsystem.Instance.SaveAllResources(currentGameMapSaveData.resources);
+        ResourceSubsystem.Instance.SaveAllResources(gameMapSaveData.resources);
     }
 
-    private void LoadGameMapData()
+    public void LoadGameMapSaveDataList(List<GameMapSaveData> saveDataList)
     {
-        if(currentGameMapSaveData == null)
+        gameMapSaveDataList = saveDataList;
+        InitializeGameMapDataDict();
+    }
+    
+    private void LoadGameMapSaveData(string sceneName)
+    {
+        if(gameMapSaveDataDict.TryGetValue(sceneName, out GameMapSaveData data))
         {
-            Debug.LogError($"Current GameMapData is null for scene {currentSceneName}. Cannot read.");
-            return;
+            currentGameMapSaveData = data;
         }
+        else
+        {
+            Debug.LogError($"No GameMapData found for scene {sceneName}.");
+
+        }
+
+        // TODO: maybe we can optimize this
         currentTileInfoDict.Clear();
         foreach(TileInfo tileInfo in currentGameMapSaveData.tileInfoList)
         {
@@ -393,13 +405,13 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         
         InitializeTileVisuals();
 
-        LoadAllDroppedItems();
-        LoadAllResources();
+        LoadAllDroppedItems(currentGameMapSaveData);
+        LoadAllResources(currentGameMapSaveData);
     }
 
-    private void LoadAllDroppedItems()
+    private void LoadAllDroppedItems(GameMapSaveData gameMapSaveData)
     {
-        foreach(DroppedItemSaveData itemData in currentGameMapSaveData.droppedItems)
+        foreach(DroppedItemSaveData itemData in gameMapSaveData.droppedItems)
         {
             RegisterDroppedItem(SpawnDroppedItemInWorld(itemData.itemID, itemData.itemCount, itemData.position, DroppedItemSource.FromSaveData));
         }
@@ -454,8 +466,8 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         ObjectPoolManager.Instance.ReleaseObjectToPool(droppedItemPoolIndex, item.gameObject);
     }
 
-    private void LoadAllResources()
+    private void LoadAllResources(GameMapSaveData gameMapSaveData)
     {
-        ResourceSubsystem.Instance.LoadAllResources(currentGameMapSaveData.resources);
+        ResourceSubsystem.Instance.LoadAllResources(gameMapSaveData.resources);
     }
 }

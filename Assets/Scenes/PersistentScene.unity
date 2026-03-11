@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadInitialScene: 1
-  initialSceneName: AStarTest
+  initialSceneName: 01 Farm
   dugTile: {fileID: 11400000, guid: 5ec600780aa40a342963818ee715c23f, type: 2}
   wateredTile: {fileID: 11400000, guid: 6e015f2762f18824db05db1e69b81d94, type: 2}
   persistentGameMapDataList:
@@ -928,6 +928,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1dd34340b56684e9eed24c9aed24e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1224483875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1224483876}
+  - component: {fileID: 1224483877}
+  m_Layer: 0
+  m_Name: NPCSubsystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1224483876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224483875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2103436479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224483877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224483875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b77ea78f8ac7f4b8823dc535f781fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcDataList: {fileID: 11400000, guid: 46e289d552296274ea057f9beeb191d3, type: 2}
 --- !u!1 &1286934112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,6 +1699,7 @@ Transform:
   - {fileID: 236210547}
   - {fileID: 1286934113}
   - {fileID: 941510824}
+  - {fileID: 1224483876}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2103436480
@@ -1680,8 +1726,13 @@ MonoBehaviour:
   gameSaveDataListSO: {fileID: 11400000, guid: 8496f463c0084154ab6d2f430433674f, type: 2}
   currentGameSaveData:
     saveIndex: 0
-    playerName: 
+    currentScene: 
+    playerSaveData:
+      playerName: 
+      position: {x: 0, y: 0}
+      inventorySlots: []
     gameMapSaveDataList: []
+    npcSaveDataList: []
 --- !u!114 &2103436481
 MonoBehaviour:
   m_ObjectHideFlags: 0

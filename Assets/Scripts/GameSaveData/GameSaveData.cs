@@ -81,14 +81,37 @@ public class GameMapSaveData
 }
 
 [System.Serializable]
+public class NPCSaveData
+{
+    public string npcName;  // Also used as the unique identifier for the NPC, we will use this to find the corresponding NPCData in the NPC subsystem when we load the game.
+    [SceneName] public string currentScene;
+    public Vector2 position;
+}
+
+[System.Serializable]
+public class InventoryItemSaveData
+{
+    public int slotIndex;
+    public int itemID;
+    public int stackCount;
+}
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    public string playerName;
+    public Vector2 position;
+    public List<InventoryItemSaveData> playerInventory = new List<InventoryItemSaveData>();
+}
+
+[System.Serializable]
 public class GameSaveData
 {
     public int saveIndex;
-    public string playerName;
+    public string currentScene; // we will use this to determine which scene to load when we load the game, and we will also use this to determine which NPCs to spawn in the world based on the NPC save data.
 
-    // public PlayerSaveData playerSaveData; // we will implement this later when we have the player data to save
+    public PlayerSaveData playerSaveData; // we will implement this later when we have the player data to save
     public List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
-
-
+    public List<NPCSaveData> npcSaveDataList = new List<NPCSaveData>();
 
 }

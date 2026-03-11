@@ -4,11 +4,44 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using InventorySystem;
 
+[System.Serializable]
+public enum PlayerAnimationPart
+{
+    None,
+    Body,
+    Arm,
+    Hair,
+    Tool
+
+}
+
+public enum PlayerAnimationAction
+{
+    Normal,
+    Hold,
+    Hoe,
+    Axe,
+    Pickaxe,
+    WateringCan,
+    Harvest
+}
+
+[System.Serializable]
+public struct PlayerAnimationData
+{
+    public PlayerAnimationPart animationPart;
+    public PlayerAnimationAction animationAction;
+    public AnimatorOverrideController aoc;
+}
+
+
 public class PlayerAnimationBlueprint : CharacterAnimationBlueprint
 {
     private PlayerController pc;
 
     [SerializeField] private SpriteRenderer heldItemSpriteRenderer;
+
+    private Dictionary<string, Animator> animatorDict = new Dictionary<string, Animator>();
 
     protected const string ANIM_PARAM_INPUT_X = "InputX";
     protected const string ANIM_PARAM_INPUT_Y = "InputY";
@@ -79,12 +112,12 @@ public class PlayerAnimationBlueprint : CharacterAnimationBlueprint
         {
             heldItemSpriteRenderer.sprite = itemDef.heldSprite != null ? itemDef.heldSprite : itemDef.itemIcon;   // Use heldSprite if available, otherwise fallback to itemIcon.
             heldItemSpriteRenderer.enabled = true;
-            SwitchAOC(CharacterAnimationAction.Hold);
+            SwitchAOC(PlayerAnimationAction.Hold);
         }
         else
         {
             heldItemSpriteRenderer.enabled = false;
-            SwitchAOC(CharacterAnimationAction.Normal);
+            SwitchAOC(PlayerAnimationAction.Normal);
         }
     }
 
@@ -95,19 +128,19 @@ public class PlayerAnimationBlueprint : CharacterAnimationBlueprint
             switch(itemDef.itemType)
             {
                 case ItemType.Hoe:
-                    SwitchAOC(CharacterAnimationAction.Hoe);
+                    SwitchAOC(PlayerAnimationAction.Hoe);
                     break;
                 case ItemType.Axe:
-                    SwitchAOC(CharacterAnimationAction.Axe);
+                    SwitchAOC(PlayerAnimationAction.Axe);
                     break;
                 case ItemType.Pickaxe:
-                    SwitchAOC(CharacterAnimationAction.Pickaxe);
+                    SwitchAOC(PlayerAnimationAction.Pickaxe);
                     break;
                 case ItemType.WateringCan:
-                    SwitchAOC(CharacterAnimationAction.WateringCan);
+                    SwitchAOC(PlayerAnimationAction.WateringCan);
                     break;
                 default:
-                    SwitchAOC(CharacterAnimationAction.Normal);
+                    SwitchAOC(PlayerAnimationAction.Normal);
                     break;
             }
 
@@ -120,6 +153,23 @@ public class PlayerAnimationBlueprint : CharacterAnimationBlueprint
                 animator.SetFloat(ANIM_PARAM_MOUSE_X, pc.mouseX);
                 animator.SetFloat(ANIM_PARAM_MOUSE_Y, pc.mouseY);
                 animator.SetTrigger(ANIM_PARAM_USE_TOOL);
+            }
+        }
+    }
+
+    public void SwitchAOC(PlayerAnimationAction animationAction)
+    {
+        foreach(var animationData in animationDataList)
+        {
+            if(animationData.animationAction == animationAction)
+            {
+                if(animationData.aoc != null)
+                {
+                    if(animatorDict.TryGetValue(animationData.animationPart.ToString(), out Animator animator))
+                    {
+                        animator.runtimeAnimatorController = animationData.aoc;
+                    }
+                }
             }
         }
     }

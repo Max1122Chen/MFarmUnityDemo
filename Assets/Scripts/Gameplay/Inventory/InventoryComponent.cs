@@ -87,23 +87,23 @@ namespace InventorySystem
             }
         }
 
-        public void Initialize(List<ItemInstance> items)
-        {
-            inventorySlots = new List<InventorySlot>(inventorySize);
-            for(int i = 0; i < inventorySize; i++)
-            {
-                if(i < items.Count)
-                {
-                    InventorySlot slot = new InventorySlot(i);
-                    slot.itemInstance = items[i];
-                    inventorySlots.Add(slot);
-                }
-                else
-                {
-                    inventorySlots.Add(new InventorySlot(i));
-                }
-            }
-        }
+        // public void Initialize(List<ItemInstance> items)
+        // {
+        //     inventorySlots = new List<InventorySlot>(inventorySize);
+        //     for(int i = 0; i < inventorySize; i++)
+        //     {
+        //         if(i < items.Count)
+        //         {
+        //             InventorySlot slot = new InventorySlot(i);
+        //             slot.itemInstance = items[i];
+        //             inventorySlots.Add(slot);
+        //         }
+        //         else
+        //         {
+        //             inventorySlots.Add(new InventorySlot(i));
+        //         }
+        //     }
+        // }
 
         public virtual void OnDestroy()
         {
@@ -300,6 +300,57 @@ namespace InventorySystem
         public void ToggleInventory()
         {
             ToggleInventory(false);
+        }
+
+        // Save and Load
+        public List<InventoryItemSaveData> GetInventorySaveData()
+        {
+            List<InventoryItemSaveData> inventoryData = new List<InventoryItemSaveData>();
+            foreach(var slot in inventorySlots)
+            {
+                if(slot.itemInstance != null && slot.itemInstance.ItemDefinition != null && slot.itemInstance.ItemDefinition.itemID > 0)
+                {
+                    InventoryItemSaveData itemData = new InventoryItemSaveData
+                    {
+                        slotIndex = slot.slotIndex,
+                        itemID = slot.itemInstance.ItemDefinition.itemID,
+                        stackCount = slot.itemInstance.stackCount
+                    };
+                    inventoryData.Add(itemData);
+                }
+            }
+            return inventoryData;
+        }
+
+        public void LoadInventoryFromSaveData(List<InventoryItemSaveData> inventoryData)
+        {
+            // Clear current inventory
+            for(int i = 0; i < inventorySlots.Count; i++)
+            {
+                inventorySlots[i].itemInstance = new ItemInstance();
+            }
+
+            // Load from save data
+            foreach(var itemData in inventoryData)
+            {
+                if(itemData.slotIndex >= 0 && itemData.slotIndex < inventorySlots.Count)
+                {
+                    ItemDefinition itemDefinition = InventorySubsystem.Instance.GetItemDefinition(itemData.itemID);
+                    if(itemDefinition != null)
+                    {
+                        inventorySlots[itemData.slotIndex].itemInstance = new ItemInstance(itemDefinition, itemData.stackCount);
+                        onInventorySlotChanged?.Invoke(new InventorySlotChangedInfo(itemData.slotIndex, null, new ItemInstance(inventorySlots[itemData.slotIndex].itemInstance)));
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"LoadInventoryFromSaveData: Invalid item ID {itemData.itemID} in save data.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"LoadInventoryFromSaveData: Invalid slot index {itemData.slotIndex} in save data.");
+                }
+            }
         }
     }
 
