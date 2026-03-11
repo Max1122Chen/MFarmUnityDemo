@@ -217,8 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85c89ebe6948794cb1ad5c2706fd6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadInitialScene: 1
-  initialSceneName: 01 Farm
   dugTile: {fileID: 11400000, guid: 5ec600780aa40a342963818ee715c23f, type: 2}
   wateredTile: {fileID: 11400000, guid: 6e015f2762f18824db05db1e69b81d94, type: 2}
   persistentGameMapDataList:
@@ -1715,6 +1713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings:
+    initialSceneName: 01 Farm
     timePerGameMinute: 3
     timeScale: 10
     ObjectFadeOutAlpha: 0.3
@@ -1730,7 +1729,7 @@ MonoBehaviour:
     playerSaveData:
       playerName: 
       position: {x: 0, y: 0}
-      inventorySlots: []
+      playerInventory: []
     gameMapSaveDataList: []
     npcSaveDataList: []
 --- !u!114 &2103436481

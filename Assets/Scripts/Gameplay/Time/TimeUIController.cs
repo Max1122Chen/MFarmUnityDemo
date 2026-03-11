@@ -45,7 +45,7 @@ public class TimeUIController : MonoBehaviour
         {
             lastGameHour = gameHour;
             UpdateDayProgress(displayHour);
-            UpdateDayNightIcon(displayHour);
+            UpdateDayTimeIcon(displayHour);
         }
         if(gameSeason != lastGameSeason)
         {
@@ -63,9 +63,25 @@ public class TimeUIController : MonoBehaviour
         }
     }
 
-    private void UpdateDayNightIcon(int hour)
+    private void UpdateDayTimeIcon(int hour)
     {
-        
+        if(hour == 6 || hour == 10 || hour == 16 || hour == 20)
+        {
+            StartCoroutine(UpdateDayTimeIconCoroutine());
+        }
+    }
+
+    private IEnumerator UpdateDayTimeIconCoroutine()
+    {
+        float elapsedTime = 0f;
+        float animationDuration = 1f;
+        // Rotate the icon 90 degrees anti-clockwise over the course of the animation duration
+        while(elapsedTime < animationDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            dayTimeIcon.transform.Rotate(Vector3.forward, 90f * Time.deltaTime / animationDuration);
+            yield return null;
+        }
     }
 
     private void UpdateSeasonIcon(GameSeason season)
