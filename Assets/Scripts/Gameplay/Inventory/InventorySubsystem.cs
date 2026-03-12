@@ -25,7 +25,7 @@ namespace InventorySystem
         [Header("Container UI Prefab")]
         public GameObject containerUIPrefab;
 
-
+        [Header("Inventory UI Root")]
         public GameObject inventoryUIRoot;
         [SerializeField] private List<GameObject> currentOpenContainerUIs;
 

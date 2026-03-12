@@ -88,10 +88,15 @@ public class GameInstance : Singleton<GameInstance>
         // objectPoolPrefabs.Add(ResourceSubsystem.Instance.resourcedefaultPrefab);
         // TODO: use object pool to optimize resource generation and destruction in the future, currently we are still using Instantiate and Destroy for resources, so we will not add the resource prefab to the object pool for now, but we will keep this in mind for future optimization.
 
+
+        // Initialize the NPCSubsystem
+        NPCSubsystem.Instance.Initialize();
+
+        // Initialize the EconomySubsystem
+        EconomySubsystem.Instance.Initialize();
+
         // Initialize the ObjectPoolManager
         ObjectPoolManager.Instance.Initialize(objectPoolPrefabs);
-
-        NPCSubsystem.Instance.Initialize();
     }
 
     // Game Saving & Loading

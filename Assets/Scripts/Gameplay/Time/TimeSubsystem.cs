@@ -5,12 +5,50 @@ using UnityEngine;
 
 namespace TimeSystem
 {
+    [System.Serializable]
     public enum GameSeason
     {
         Spring,
         Summer,
         Autumn,
         Winter
+    }
+
+    [System.Serializable]
+    public class GameTime : IComparable<GameTime>
+    {
+        public int minute;
+        public int hour;
+        public int day;
+        public int month;
+        public int year;
+        public GameSeason season { 
+            get
+            {
+                return (GameSeason)(((month - 1) / 3) % 4);
+            }
+        }
+
+        public GameTime(int minute, int hour, int day, int month, int year)
+        {
+            this.minute = minute;
+            this.hour = hour;
+            this.day = day;
+            this.month = month;
+            this.year = year;
+        }
+
+        public int CompareTo(GameTime other)
+        {
+            if (other == null) return 1;
+
+            if (year != other.year) return year.CompareTo(other.year);
+            if (month != other.month) return month.CompareTo(other.month);
+            if (day != other.day) return day.CompareTo(other.day);
+            if (hour != other.hour) return hour.CompareTo(other.hour);
+            if (minute != other.minute) return minute.CompareTo(other.minute);
+            return 0;
+        }
     }
     public class TimeSubsystem : Singleton<TimeSubsystem>
     {
@@ -27,8 +65,13 @@ namespace TimeSystem
         public Action<int> onMonthPassed;
         public Action<int> onYearPassed;
         public Action<GameSeason> onSeasonPassed;
-        public Action<int, int, int, int, int, GameSeason> OnTimeChanged;
+        public Action<GameTime> OnTimeChanged;
 
+        // TODO:
+        public void Initialize(GameSaveData saveData)
+        {
+            
+        }
         private void Start()
         {
             GameMapSubsystem.Instance.onNewSceneLoaded += (string sceneName) => { isTimePaused = false; };
@@ -60,6 +103,11 @@ namespace TimeSystem
             }
         }
 
+        public GameTime GetCurrentGameTime()
+        {
+            return new GameTime(gameMinute, gameHour, gameDay, gameMonth, gameYear);
+        }
+
         private void UpdateGameTime(int minutesToAdd)
         {
             minutesToAdd = Mathf.RoundToInt(minutesToAdd * GameInstance.Instance.gameSettings.timeScale);
@@ -78,45 +126,46 @@ namespace TimeSystem
             gameYear = (gameMonth - 1) / 12;
             gameSeason = (GameSeason)(((gameMonth - 1) / 3) % 4);
 
-            BroadcastTimePassedEvents(oldMinute, oldHour, oldDay, oldMonth, oldYear, oldSeason);
+            BroadcastTimePassedEvents(new GameTime(oldMinute, oldHour, oldDay, oldMonth, oldYear));
             BroadcastTimeChangedEvent();
 
         }
 
-        private void BroadcastTimePassedEvents(int oldMinute, int oldHour, int oldDay, int oldMonth, int oldYear, GameSeason oldSeason)
+        private void BroadcastTimePassedEvents(GameTime oldTime)
         {
-            if(gameMinute != oldMinute)
+            if(gameMinute != oldTime.minute)
             {
-                onMinutePassed?.Invoke(gameMinute - oldMinute);
+                onMinutePassed?.Invoke(gameMinute - oldTime.minute);
             }
-            if(gameHour != oldHour)
+            if(gameHour != oldTime.hour)
             {
-                onHourPassed?.Invoke(gameHour - oldHour);
+                onHourPassed?.Invoke(gameHour - oldTime.hour);
             }
-            if(gameDay != oldDay)
+            if(gameDay != oldTime.day)
             {
-                onDayPassed?.Invoke(gameDay - oldDay);
+                onDayPassed?.Invoke(gameDay - oldTime.day);
             }
-            if(gameMonth != oldMonth)
+            if(gameMonth != oldTime.month)
             {
-                onMonthPassed?.Invoke(gameMonth - oldMonth);
+                onMonthPassed?.Invoke(gameMonth - oldTime.month);
             }
-            if(gameYear != oldYear)
+            if(gameYear != oldTime.year)
             {
-                onYearPassed?.Invoke(gameYear - oldYear);
+                onYearPassed?.Invoke(gameYear - oldTime.year);
             }
-            if(gameSeason != oldSeason)
+            if(gameSeason != oldTime.season)
             {
                 onSeasonPassed?.Invoke(gameSeason);
             }
 
-            OnTimeChanged?.Invoke(gameMinute, gameHour, gameDay, gameMonth, gameYear, gameSeason);
+            GameTime time = new GameTime(gameMinute, gameHour, gameDay, gameMonth, gameYear);
         }
 
         private void BroadcastTimeChangedEvent()
         {
             // Debug.Log($"Time Changed: minute={gameMinute}, hour={gameHour}, day={gameDay}, month={gameMonth}, year={gameYear}, season={gameSeason}");
-            OnTimeChanged?.Invoke(gameMinute, gameHour, gameDay, gameMonth, gameYear, gameSeason);
+            GameTime time = new GameTime(gameMinute, gameHour, gameDay, gameMonth, gameYear);
+            OnTimeChanged?.Invoke(time);
         }
     }
 

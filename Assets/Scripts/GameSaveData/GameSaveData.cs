@@ -104,6 +104,15 @@ public class PlayerSaveData
     public List<InventoryItemSaveData> playerInventory = new List<InventoryItemSaveData>();
 }
 
+
+
+[System.Serializable]
+public class VendorSaveData
+{
+    public int vendorID;    // we will use this to find the corresponding VendorData in the Vendor subsystem when we load the game.
+    public List<CommodityInstance> commoditySaveDataList;   // we will use this to update the commodity list of the vendor when we load the game, so we need to save the commodity list here.
+}
+
 [System.Serializable]
 public class GameSaveData
 {
@@ -113,5 +122,7 @@ public class GameSaveData
     public PlayerSaveData playerSaveData; // we will implement this later when we have the player data to save
     public List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
     public List<NPCSaveData> npcSaveDataList = new List<NPCSaveData>();
+
+    public List<VendorSaveData> vendorSaveDataList = new List<VendorSaveData>();
 
 }

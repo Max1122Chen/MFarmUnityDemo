@@ -36,7 +36,7 @@ namespace InventorySystem
         None,
         Player,
         Container,
-        Vendor
+
     }
 
     public class InventoryComponent : MonoBehaviour

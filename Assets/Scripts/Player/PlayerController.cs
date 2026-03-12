@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
 
         if(hit.collider != null)
         {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            Interactable interactable = hit.collider.GetComponentInParent<Interactable>();
             if(interactable != null)
             {
                 return interactable.Interact(gameObject, mouseButton);

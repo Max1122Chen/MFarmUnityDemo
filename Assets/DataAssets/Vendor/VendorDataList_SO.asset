@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8811097779e2124297f4e43d7edabbb, type: 3}
+  m_Name: VendorDataList_SO
+  m_EditorClassIdentifier: 
+  vendorList:
+  - vendorID: 5001
+    shopKeeperName: Girl01
+    commodityList:
+    - itemID: 2001
+      price: 10
+      quantity: 2147483647
+      saleStartTime:
+        minute: 0
+        hour: 0
+        day: 0
+        month: 0
+        year: 0
+      saleEndTime:
+        minute: 0
+        hour: 0
+        day: 0
+        month: 0
+        year: 10

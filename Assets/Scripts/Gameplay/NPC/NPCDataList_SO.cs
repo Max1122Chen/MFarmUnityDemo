@@ -20,6 +20,7 @@ public class NPCScheduleDefinition
 public class NPCData
 {
     public string npcName;
+    public Sprite npcPortrait;
 
     // The prefab to spawn for this NPC, it should have the NPCController component on it.
     // It only serves as a "model" for the NPC, without any specific data assigned to it. When we spawn the NPC in the world, we will create a new instance of this prefab and then initialize it with the specific NPCData.

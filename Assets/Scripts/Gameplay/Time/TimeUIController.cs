@@ -30,26 +30,26 @@ public class TimeUIController : MonoBehaviour
     {
     }
 
-    void HandleTimeChanged(int gameMinute, int gameHour, int gameDay, int gameMonth, int gameYear, GameSeason gameSeason)
+    void HandleTimeChanged(GameTime time)
     {
-        int displayMinute = (gameMinute % 60 / 10) * 10; // Round down to nearest 10
-        int displayHour = gameHour % 24; // Ensure hour wraps around after 23
-        int displayDay = gameDay % 31;
-        int displayMonth = gameMonth % 13;
-        GameSeason displaySeason = gameSeason;
+        int displayMinute = (time.minute % 60 / 10) * 10; // Round down to nearest 10
+        int displayHour = time.hour % 24; // Ensure hour wraps around after 23
+        int displayDay = time.day % 31;
+        int displayMonth = time.month % 13;
+        GameSeason displaySeason = time.season;
 
-        gameDateText.text = $"{displayDay:00}/{displayMonth:00}/{gameYear:0000}";
+        gameDateText.text = $"{displayDay:00}/{displayMonth:00}/{time.year:0000}";
         gameTimeText.text = $"{displayHour:00}:{displayMinute:00}";
 
-        if(gameHour != lastGameHour)
+        if(time.hour != lastGameHour)
         {
-            lastGameHour = gameHour;
+            lastGameHour = time.hour;
             UpdateDayProgress(displayHour);
             UpdateDayTimeIcon(displayHour);
         }
-        if(gameSeason != lastGameSeason)
+        if(time.season != lastGameSeason)
         {
-            lastGameSeason = gameSeason;
+            lastGameSeason = time.season;
             UpdateSeasonIcon(displaySeason);
         }
     }

@@ -7,11 +7,17 @@ using UnityEngine.UI;
 
 public class VenderCommodityEntry_UI : MonoBehaviour
 {
+    [Header("UI References")]
     public Image itemIcon;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI priceText;
 
-    public void UpdateEntry(Commodity commodity)
+
+    public void Initialize(CommodityInstance commodity)
+    {
+        UpdateEntry(commodity);
+    }
+    public void UpdateEntry(CommodityInstance commodity)
     {
         ItemDefinition itemDef = InventorySubsystem.Instance.GetItemDefinition(commodity.itemID);
 
