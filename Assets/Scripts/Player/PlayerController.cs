@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using InventorySystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+    private PlayerIMC playerIMC;
+
+    private InputAction moveAction;
     private PlayerInputComponent inputComponent;
     private Rigidbody2D rb;
     private PlayerAnimationBlueprint abp;
@@ -41,95 +45,122 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         abp = GetComponent<PlayerAnimationBlueprint>();
         inventoryComponent = GetComponent<PlayerInventoryComponent>();
+
+        playerIMC = new PlayerIMC();
+        inputComponent.AddMappingContext(playerIMC.asset);
+        BindInputCallbacks();
     }
 
     void Start()
     {
-        BindInputCallbacks();
-
+        // Bind scene switch callback
         GameMapSubsystem.Instance.onNewSceneLoaded += (string sceneName) => {  isActionDisabled = false; };
         GameMapSubsystem.Instance.onOldSceneStartUnloading += (string sceneName) => {  isActionDisabled = true; };
-
-        // Bind scene switch callback
+        
 
         // Bind inventory hotbar index change callback to update held item info in ABP.
         inventoryComponent.onSelectedHotBarIndexChanged += HandleHotBarIndexChanged;
     }
 
-    void BindInputCallbacks()
+    public void FixedUpdate()
     {
-        inputComponent.onMouseScroll += (scrollValue) =>
+        if(isActionDisabled) return;
+        if(canMove)
         {
-            if(isUsingTool) return;
-
-            if(scrollValue > 0f)
+            rb.MovePosition(rb.position + movementInput * moveSpeed * Time.deltaTime);
+            if(movementInput.y > 0)
             {
-                inventoryComponent.RollHotBarIndex(-1);
+                heldItemSpriteRenderer.sortingOrder = 0;
             }
-            else if(scrollValue < 0f)
+            else
             {
-                inventoryComponent.RollHotBarIndex(1);
+                heldItemSpriteRenderer.sortingOrder = 2;
             }
-        };
-        inputComponent.onMouseButtonDown += HandleMouseDown;
-        inputComponent.onMouseButtonHeld += HandleMouseDown;   // For simplicity, treat held mouse button the same as mouse button down. Can be changed later if needed.
-
-        inputComponent.onToggleInventoryInput += () =>
-        {
-            inventoryComponent.ToggleInventory();
-        };
-        inputComponent.onESCInput += () =>
-        {
-            inventoryComponent.ToggleInventory(true);   // Force close inventory when ESC is pressed.
-        };
+        }
     }
 
-    // Update
-    void Update()
+    // Input Callbacks
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        Debug.Log("Move input: " + context.ReadValue<Vector2>());
+        movementInput = context.ReadValue<Vector2>();
+        inputX = movementInput.x;
+        inputY = movementInput.y;
+    }
+
+    public void OnMouseMove(InputAction.CallbackContext context)
+    {
+        Vector2 mousePos = context.ReadValue<Vector2>();
+        GetMouseDirectionInput(mousePos);
+    }
+
+    public void OnMousScroll(InputAction.CallbackContext context)
+    {
+        float scrollValue = context.ReadValue<float>();
+
+        if(isUsingTool) return;
+
+        if(scrollValue > 0f)
+        {
+            inventoryComponent.RollHotBarIndex(-1);
+        }
+        else if(scrollValue < 0f)
+        {
+            inventoryComponent.RollHotBarIndex(1);
+        }
+    }
+
+    public void OnToggleInventory(InputAction.CallbackContext context)
+    {
+        inventoryComponent.ToggleInventory();
+    }
+
+    public void OnLeftMouseButtonClicked(InputAction.CallbackContext context)
     {
         if(isActionDisabled) return;
 
-        GetMovementInput();
-        GetMouseDirectionInput();
-
-        if(movementInput.y > 0)
-        {
-            heldItemSpriteRenderer.sortingOrder = 0;
-        }
-        else
-        {
-            heldItemSpriteRenderer.sortingOrder = 2;
-        }
+        TryUseItemInHand(0);
     }
 
+    public void OnRightMouseButtonClicked(InputAction.CallbackContext context)
+    {
+        if(isActionDisabled) return;
+
+        TryUseItemInHand(1);
+    }
+
+    public void OnNumberKeyPressed(InputAction.CallbackContext context)
+    {
+        if(isActionDisabled) return;
+
+        int hotkeyNumber = (int)context.ReadValue<float>();
+        (inventoryComponent as PlayerInventoryComponent).SelectHotBarSlotByHotkey((hotkeyNumber + 9) % 10); // Convert 1-0 number keys to 0-9 hotbar index.
+    }
+
+    void BindInputCallbacks()
+    {
+        inputComponent.BindAction(playerIMC.Normal.Move, InputActionPhase.Performed, OnMove);
+        inputComponent.BindAction(playerIMC.Normal.Move, InputActionPhase.Canceled, OnMove);
+        inputComponent.BindAction(playerIMC.Normal.MouseMove, InputActionPhase.Performed, OnMouseMove);
+        inputComponent.BindAction(playerIMC.Normal.MouseScroll, InputActionPhase.Performed, OnMousScroll);
+        inputComponent.BindAction(playerIMC.Normal.ToggleInventory, InputActionPhase.Performed, OnToggleInventory);
+        inputComponent.BindAction(playerIMC.Normal.LeftMouseButtonClicked, InputActionPhase.Performed, OnLeftMouseButtonClicked);
+        inputComponent.BindAction(playerIMC.Normal.RightMouseButtonClicked, InputActionPhase.Performed, OnRightMouseButtonClicked);
+        inputComponent.BindAction(playerIMC.Normal.NumberKeyPressed, InputActionPhase.Performed, OnNumberKeyPressed);
+
+    }
 
     void LateUpdate()
     {
         onLateUpdate?.Invoke();
     }
-
-    void FixedUpdate()
-    {
-        if(canMove && !isActionDisabled)
-        {
-            Movement();
-        }
-    }
     
     // Handle Input
-    private void GetMovementInput()
-    {
-        inputX = Input.GetAxisRaw("Horizontal");
-        inputY = Input.GetAxisRaw("Vertical");
 
-        movementInput = new Vector2(inputX, inputY);
-        movementInput = inputX != 0 && inputY != 0 ? movementInput.normalized : movementInput;
-    }
-
-    private void GetMouseDirectionInput()
+    private void GetMouseDirectionInput(Vector2 mousePos)
     {
-        float mouseWorldX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-        float mouseWorldY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+        float mouseWorldX = Camera.main.ScreenToWorldPoint(mousePos).x;
+        float mouseWorldY = Camera.main.ScreenToWorldPoint(mousePos).y;
         mouseX = mouseWorldX - transform.position.x;
         mouseY = mouseWorldY - transform.position.y;
         
@@ -141,18 +172,6 @@ public class PlayerController : MonoBehaviour
         {
             mouseX = 0;
         }
-    }
-
-    private void Movement()
-    {
-        rb.MovePosition(rb.position + movementInput * moveSpeed * Time.deltaTime);
-    }
-
-    public void HandleMouseDown(int mouseButton)
-    {
-        if(isActionDisabled) return;
-
-        TryUseItemInHand(mouseButton);
     }
 
     // Interaction related
@@ -203,7 +222,8 @@ public class PlayerController : MonoBehaviour
         // Left mouse button case
         if(mouseButton == 0)
         {
-            bool interactResult = DetectInteractable(mouseButton);   // Try to detect interactable object first before using item in hand, to allow interaction with objects even when holding an item that can be used.
+            // Try to detect interactable object first before using item in hand, to allow interaction with objects even when holding an item that can be used.
+            bool interactResult = DetectInteractable(mouseButton);   
             if(interactResult) return;
 
             switch(selectedItemInstance.ItemDefinition.itemType)

@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad2164aea3fcb741a152ef541c51a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IMC_default: {fileID: -944628639613478452, guid: 70f8f33316bb7ac46b51dc7fa6eb2d9d, type: 3}
   heldItemSpriteRenderer: {fileID: 2015746162}
   toolUsingRadius: 2
   placingRadius: 5
