@@ -223,6 +223,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6cadb3252cc2e6a438ca1b741661c47b, type: 2}
   - {fileID: 11400000, guid: 14e930208d8f6014b93cdd1e863e8cb7, type: 2}
   - {fileID: 11400000, guid: dda1354d868e0a645ae9f897d3557232, type: 2}
+  - {fileID: 11400000, guid: 8376240590bbd5444a7b41e84609bdb9, type: 2}
   currentSceneName: 
   placableItemDataList: {fileID: 11400000, guid: 3136cd0a30fd3644b81093d9e9ff5420, type: 2}
   droppedItemPrefab: {fileID: 7708925120792974642, guid: d3d502db45aece04fae9bd0ff856a069, type: 3}
@@ -323,7 +324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad2164aea3fcb741a152ef541c51a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IMC_default: {fileID: -944628639613478452, guid: 70f8f33316bb7ac46b51dc7fa6eb2d9d, type: 3}
+  playerSaveData:
+    playerName: 
+    position: {x: 0, y: 0}
+    money: 0
+    playerInventory: []
   heldItemSpriteRenderer: {fileID: 2015746162}
   toolUsingRadius: 2
   placingRadius: 5
@@ -397,6 +402,7 @@ MonoBehaviour:
   inventorySize: 26
   inventoryType: 1
   selectedSlotIndex: -1
+  pc: {fileID: 0}
   hotBarSize: 10
   selectedHotBarIndex: -1
 --- !u!114 &444170400
@@ -1772,6 +1778,9 @@ MonoBehaviour:
     itemFlyingSpeed: 2
     pickupCD_FromWorld: 1
     pickupCD_FromInventory: 2
+    playerInitialPosition: {x: 0, y: 0}
+    startingMoney: 1000
+    playerStartingItems: []
   gameSaveDataListSO: {fileID: 11400000, guid: 8496f463c0084154ab6d2f430433674f, type: 2}
   currentGameSaveData:
     saveIndex: 0
@@ -1779,10 +1788,12 @@ MonoBehaviour:
     playerSaveData:
       playerName: 
       position: {x: 0, y: 0}
+      money: 0
       playerInventory: []
     gameMapSaveDataList: []
     npcSaveDataList: []
     vendorSaveDataList: []
+  localPlayer: {fileID: 0}
 --- !u!114 &2103436481
 MonoBehaviour:
   m_ObjectHideFlags: 0

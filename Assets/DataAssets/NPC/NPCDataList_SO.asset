@@ -14,7 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcDataList:
   - npcName: OldMan
+    npcPortrait: {fileID: 21300000, guid: 63a5eb4156cc3417896789f322630021, type: 3}
     npcPrefab: {fileID: 2849035663605844587, guid: 4d566c07cfb2b0548bf58315a05ddc72, type: 3}
+    initialScene: 01 Farm
+    initialPosition: {x: 3, y: 3}
+    scheduleList: []
+  - npcName: Girl01
+    npcPortrait: {fileID: 21300000, guid: bcb4accdbcb044b98bc839a4ab34d0f6, type: 3}
+    npcPrefab: {fileID: 2849035663605844587, guid: 4f9ab9e97aa096b45981931944f82f91, type: 3}
     initialScene: 01 Farm
     initialPosition: {x: 0, y: 0}
     scheduleList: []

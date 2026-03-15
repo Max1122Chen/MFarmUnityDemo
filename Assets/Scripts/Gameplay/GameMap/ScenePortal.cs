@@ -3,16 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class ScenePortal : MonoBehaviour
+public class ScenePortal : Interactable
 {
     [SceneName][SerializeField] private string targetSceneName;
+    public bool needInteraction = false; // If true, player needs to interact (e.g. press a key) to trigger the teleportation. If false, teleportation will be triggered immediately upon entering the portal.
+    public bool keepX = false;
+    public bool keepY = false;
     [SerializeField] private Vector2 characterSpawnPosition;
 
     protected void teleport(GameObject character)
     {
         if(character.CompareTag("Player"))
         {
-            GameMapSubsystem.Instance.StartCoroutine(GameMapSubsystem.Instance.TeleportPlayerToScene(targetSceneName, character, characterSpawnPosition));
+            Vector2 finalSpawnPosition = characterSpawnPosition;
+            if(keepX)
+            {
+                finalSpawnPosition.x = character.transform.position.x;
+            }
+            if(keepY)
+            {
+                finalSpawnPosition.y = character.transform.position.y;
+            }
+            GameMapSubsystem.Instance.StartCoroutine(GameMapSubsystem.Instance.TeleportPlayerToScene(targetSceneName, character, finalSpawnPosition));
         }
         else
         {
@@ -22,8 +34,27 @@ public class ScenePortal : MonoBehaviour
 
     }
 
+    public override bool Interact(GameObject interactor, int mouseButton)
+    {
+        if(mouseButton != 1) // Only respond to right-click interactions
+        {
+            return false;
+        }
+
+        if(!CheckIfPlayerInInteractionRange(interactor))
+        {
+            return false;
+        }
+
+        teleport(interactor);
+        return true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        teleport(collision.gameObject);
+        if(!needInteraction)
+        {
+            teleport(collision.gameObject);
+        }
     }
 }

@@ -25,4 +25,9 @@ public class GameSettings
     public float itemFlyingSpeed = 5f;
     public float pickupCD_FromWorld = 0.5f;
     public float pickupCD_FromInventory = 2f;
+
+    [Header("Player Settings")]
+    public Vector2 playerInitialPosition = new Vector2(0, 0);
+    public int startingMoney = 1000;
+    public List<InventoryItemSaveData> playerStartingItems = new List<InventoryItemSaveData>();
 }

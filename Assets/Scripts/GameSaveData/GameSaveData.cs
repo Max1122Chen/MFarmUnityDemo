@@ -91,9 +91,9 @@ public class NPCSaveData
 [System.Serializable]
 public class InventoryItemSaveData
 {
-    public int slotIndex;
-    public int itemID;
-    public int stackCount;
+    public int slotIndex = -1;
+    public int itemID = -1;
+    public int stackCount = 0;
 }
 
 [System.Serializable]
@@ -101,6 +101,7 @@ public class PlayerSaveData
 {
     public string playerName;
     public Vector2 position;
+    public int money;
     public List<InventoryItemSaveData> playerInventory = new List<InventoryItemSaveData>();
 }
 

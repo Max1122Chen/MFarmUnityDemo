@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using InventorySystem;
 using UnityEngine.UI;
+using System;
 
 public class PlayerInventoryUIController : InventoryUIController
 {
+    PlayerController pc;
+    // UI references
     private Button inventoryToggleButton;
+
+    // <old money, new money>
+    public Action<int, int> onPlayerMoneyChanged;
+
+
     public override void Start()
     {
         // Find the player's inventory component.
@@ -15,9 +23,17 @@ public class PlayerInventoryUIController : InventoryUIController
             if(invComp.InventoryType == InventoryType.Player)
             {
                 inventoryComponent = invComp;
+                pc = (inventoryComponent as PlayerInventoryComponent).pc;
                 break;
             }
         }
+
+        // Bind the money change event to update the UI.
+        if(pc != null)
+        {
+            pc.onPlayerMoneyChanged += (oldMoney, newMoney) => onPlayerMoneyChanged?.Invoke(oldMoney, newMoney);
+        }
+
 
         // Bind the toggle button.
         inventoryToggleButton = GameObject.Find("InventoryToggleButton").GetComponent<Button>();

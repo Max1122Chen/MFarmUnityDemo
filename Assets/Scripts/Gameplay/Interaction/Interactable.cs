@@ -11,4 +11,11 @@ public class Interactable : MonoBehaviour
         return true;
     }
 
+    protected bool CheckIfPlayerInInteractionRange(GameObject interactor, float interactionRange = -1f)
+    {
+        float distance = Vector2.Distance(interactor.transform.position, transform.position);
+        float range = interactionRange > 0 ? interactionRange : float.MaxValue; // If interactionRange is not provided, default to no range limit
+        return distance <= range;
+    }
+
 }

@@ -17,6 +17,8 @@ public class GameInstance : Singleton<GameInstance>
     // Reference to the current game save data.
     [SerializeField] GameSaveData currentGameSaveData;
 
+    public PlayerController localPlayer;
+
     private GameObject MainCanvasObject;
 
     protected override void Awake()
@@ -33,7 +35,7 @@ public class GameInstance : Singleton<GameInstance>
         // TODO: we will truly enter game when we choose a specific save file to load, for now we will just directly enter game when we start the game, and we will implement the save/load system later.
         if(gameSaveDataListSO.gameSaveDataList.Count == 0)
         {
-            CreateNewSaveGameData();
+            CreateNewSaveGameData("Player");
         }
         else
         {
@@ -44,6 +46,9 @@ public class GameInstance : Singleton<GameInstance>
 
         // Find GO with tag "MainCanvas"
         MainCanvasObject = GameObject.FindGameObjectWithTag("MainCanvas");
+
+        // Find the player in the scene and set the localPlayer reference, we will use this reference to pass to the vendor when we interact with the vendor, so we can process the buy/sell requests in the vendor based on the player data.
+        localPlayer = FindObjectOfType<PlayerController>();
         
         if(MainCanvasObject == null)
         {
@@ -101,17 +106,34 @@ public class GameInstance : Singleton<GameInstance>
 
     // Game Saving & Loading
     // TODO: maybe we will provide more info when create a new save game data, such as player name, etc.
-    public void CreateNewSaveGameData()
+    public void CreateNewSaveGameData(string playerName)
     {
         GameSaveData newGameSaveData = new GameSaveData();
         newGameSaveData.saveIndex = gameSaveDataListSO.gameSaveDataList.Count; // Set the save index to the current count of save data in the list
         newGameSaveData.currentScene = gameSettings.initialSceneName;
 
+        CreateNewPlayerSaveData(newGameSaveData, playerName);
 
         GameMapSubsystem.Instance.HandleCreateNewGameSaveData(newGameSaveData);    
 
         NPCSubsystem.Instance.HandleCreateNewGameSaveData(newGameSaveData);
+
         gameSaveDataListSO.gameSaveDataList.Add(newGameSaveData);
+    }
+
+    public void CreateNewPlayerSaveData(GameSaveData gameSaveData, string playerName)
+    {
+        PlayerSaveData playerSaveData = new PlayerSaveData();
+        playerSaveData.playerName = playerName;
+        gameSaveData.playerSaveData = playerSaveData;
+
+        playerSaveData.position = gameSettings.playerInitialPosition;
+        playerSaveData.money = gameSettings.startingMoney;
+        
+        foreach (InventoryItemSaveData itemData in gameSettings.playerStartingItems)
+        {
+            playerSaveData.playerInventory.Add(itemData);
+        }
     }
 
     public void SaveGame(int saveIndex)
@@ -127,6 +149,7 @@ public class GameInstance : Singleton<GameInstance>
         currentGameSaveData = gameSaveDataListSO.gameSaveDataList[saveIndex];
 
         // Load Player data
+        localPlayer.Initialze(currentGameSaveData.playerSaveData);
 
         // Load the game map data and load the scene.
         GameMapSubsystem.Instance.LoadGameMapSaveDataList(currentGameSaveData.gameMapSaveDataList);

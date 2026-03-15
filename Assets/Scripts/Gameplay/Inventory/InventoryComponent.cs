@@ -275,6 +275,35 @@ namespace InventorySystem
             onSelectedSlotIndexChanged?.Invoke(oldIndex, selectedSlotIndex);
         }
 
+        // Return the available space for a given item
+        public int CheckForAvailableSpaceForItem(ItemDefinition itemDefinition)
+        {
+            int availableSpace = 0;
+            foreach(var slot in inventorySlots)
+            {
+                if(slot.itemInstance == null || slot.itemInstance.ItemDefinition == null || slot.itemInstance.ItemDefinition.itemID == -1)
+                {
+                    availableSpace += itemDefinition.maxStackCount;
+                }
+                else if(slot.itemInstance.ItemDefinition == itemDefinition && slot.itemInstance.stackCount < slot.itemInstance.ItemDefinition.maxStackCount)
+                {
+                    availableSpace += slot.itemInstance.ItemDefinition.maxStackCount - slot.itemInstance.stackCount;
+                }
+            }
+            return availableSpace;
+        }
+
+        public int CheckForAvailableSpaceForItem(int itemID)
+        {
+            ItemDefinition itemDefinition = InventorySubsystem.Instance.GetItemDefinition(itemID);
+            if(itemDefinition == null)
+            {
+                Debug.LogError($"CheckForAvailableSpaceForItem: Invalid item ID {itemID}.");
+                return 0;
+            }
+            return CheckForAvailableSpaceForItem(itemDefinition);
+        }
+
         // For hotkey input
         public void ToggleInventory(bool forceClose = false)
         {
@@ -348,7 +377,7 @@ namespace InventorySystem
                 }
                 else
                 {
-                    Debug.LogWarning($"LoadInventoryFromSaveData: Invalid slot index {itemData.slotIndex} in save data.");
+                    // Just ignore invalid slot index in save data, we will not load the item if the slot index is invalid.
                 }
             }
         }

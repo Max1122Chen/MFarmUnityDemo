@@ -8,8 +8,9 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+    // Player Data
+    public PlayerSaveData playerSaveData = null;
     private PlayerIMC playerIMC;
-
     private InputAction moveAction;
     private PlayerInputComponent inputComponent;
     private Rigidbody2D rb;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public Action<ItemDefinition> onHeldItemChanged;
 
     public Action<ItemDefinition> onUseTool;
+    public Action<int, int> onPlayerMoneyChanged;   // <old money, new money>
 
     public float toolUsingRadius = 1.5f;
     public float placingRadius = 2f;
@@ -62,6 +64,15 @@ public class PlayerController : MonoBehaviour
         inventoryComponent.onSelectedHotBarIndexChanged += HandleHotBarIndexChanged;
     }
 
+    public void Initialze(PlayerSaveData saveData)
+    {
+        // This function will be called by the GameInstance after loading the game save data, to initialize the player data (e.g. position, inventory, etc.) based on the loaded game save data.
+        playerSaveData = saveData;
+        
+        transform.position = saveData.position;
+        inventoryComponent.LoadInventoryFromSaveData(saveData.playerInventory);
+    }
+
     public void FixedUpdate()
     {
         if(isActionDisabled) return;
@@ -82,7 +93,6 @@ public class PlayerController : MonoBehaviour
     // Input Callbacks
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Move input: " + context.ReadValue<Vector2>());
         movementInput = context.ReadValue<Vector2>();
         inputX = movementInput.x;
         inputY = movementInput.y;
@@ -135,6 +145,11 @@ public class PlayerController : MonoBehaviour
 
         int hotkeyNumber = (int)context.ReadValue<float>();
         (inventoryComponent as PlayerInventoryComponent).SelectHotBarSlotByHotkey((hotkeyNumber + 9) % 10); // Convert 1-0 number keys to 0-9 hotbar index.
+    }
+
+    public void OnEscape(InputAction.CallbackContext context)
+    {
+        
     }
 
     void BindInputCallbacks()
@@ -195,6 +210,21 @@ public class PlayerController : MonoBehaviour
         }
         return false;
 
+    }
+
+    // Money related
+    public void AddMoney(int amount)
+    {
+        int oldMoney = playerSaveData.money;
+        playerSaveData.money += amount;
+        onPlayerMoneyChanged?.Invoke(oldMoney, playerSaveData.money);
+    }
+
+    public void ReduceMoney(int amount)
+    {
+        int oldMoney = playerSaveData.money;
+        playerSaveData.money -= amount; // TODO: Add check to prevent money from going below 0 if needed?
+        onPlayerMoneyChanged?.Invoke(oldMoney, playerSaveData.money);
     }
 
     // Inventory related

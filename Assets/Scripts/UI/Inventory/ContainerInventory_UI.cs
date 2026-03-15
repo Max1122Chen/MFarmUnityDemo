@@ -4,16 +4,16 @@ using InventorySystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ContainerInventory_UI : MonoBehaviour, IDragHandler
+public class ContainerInventory_UI : MonoBehaviour, IDragHandler, IUIClosable
 {
-    [SerializeField] private Transform SlotsParent;
-    [SerializeField] private GameObject SlotPrefab;
+    [SerializeField] private Transform slotsParent;
+    [SerializeField] private GameObject slotPrefab;
     public void Initialize(InventoryComponent containerInventory)
     {
         // Create UI slots based on the container inventory size
         for(int i = 0; i < containerInventory.InventorySize; i++)
         {
-            Instantiate(SlotPrefab, SlotsParent);
+            GameInstance.Instance.CreateUI(slotPrefab, Vector2.zero, slotsParent);
         }
     }
 
@@ -21,6 +21,12 @@ public class ContainerInventory_UI : MonoBehaviour, IDragHandler
     {
         // Allow dragging the container UI around the screen
         this.transform.position = eventData.position;
+    }
+
+    public void CloseUI()
+    {
+        // Close the container UI
+        this.gameObject.SetActive(false);
     }
 
 

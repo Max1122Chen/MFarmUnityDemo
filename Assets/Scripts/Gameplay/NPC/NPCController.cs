@@ -10,7 +10,8 @@ public class NPCController : MonoBehaviour
     private NPCAnimationBlueprint npcABP;
 
     // NPC Data Reference
-    [SerializeField] private NPCData npcData;
+    private NPCData npcData;
+    public string NPCName => npcData != null ? npcData.npcName : "Unknown NPC";
 
     // Movement Parameters
     [SerializeField] private float moveSpeed = 2f;

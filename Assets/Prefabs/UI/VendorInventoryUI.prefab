@@ -734,9 +734,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   commoditiesRoot: {fileID: 6215308560716220811}
-  commodityEntryUIList: []
-  VendorProtrait: {fileID: 1808594910958960503}
-  VendorWords: {fileID: 6596399436950497022}
+  vendorPortrait: {fileID: 0}
+  vendorWords: {fileID: 0}
+  closeButton: {fileID: 2661852647710336355}
 --- !u!114 &8111019101062979920
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ TagManager:
   - Dug
   - InventoryUIRoot
   - CollectingRange
+  - NPC
   layers:
   - Default
   - TransparentFX

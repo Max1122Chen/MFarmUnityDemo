@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 491882070921317343}
   m_Layer: 0
   m_Name: OldMan
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,12 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2042a7ecdfa191f41b1d0021b757ed33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcData:
-    npcName: 
-    npcPrefab: {fileID: 0}
-    initialScene: PersistentScene
-    initialPosition: {x: 0, y: 0}
-    scheduleList: []
   moveSpeed: 2
 --- !u!114 &491882070921317343
 MonoBehaviour:

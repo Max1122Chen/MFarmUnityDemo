@@ -180,5 +180,6 @@ MonoBehaviour:
   growthTimeCounter: 0
   particleGenerationPoint: {fileID: 794287605295113167}
   spriteForAnimation: {fileID: 0}
-  boxCollider: {fileID: 0}
+  boxCollider: {fileID: 3539925203960104664}
   finishedGatheringDelay: 0
+  itemDroppingRadius: 0.5

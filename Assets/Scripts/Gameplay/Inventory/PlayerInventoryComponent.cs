@@ -7,7 +7,7 @@ namespace InventorySystem
 {
     public class PlayerInventoryComponent : InventoryComponent
     {
-        PlayerController pc;
+        public PlayerController pc;
 
 
         [Header("Hotbar Settings")]
@@ -24,6 +24,7 @@ namespace InventorySystem
         public override void Awake()
         {
             base.Awake();
+            pc = GetComponent<PlayerController>();
         }
         public override void Start()
         {

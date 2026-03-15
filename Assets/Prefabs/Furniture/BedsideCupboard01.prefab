@@ -207,7 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a4a7e4a033f5841baf07edbe436e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionRadius: 3
 --- !u!114 &-4976517783095325143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,4 +219,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cba297ffda569b4083febfcf9ddc484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderers: []
+  spriteRenderers:
+  - {fileID: 6429795713283848097}

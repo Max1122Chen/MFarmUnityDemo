@@ -45,6 +45,11 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         }
     }
 
+    public void RandomlyGenerateResourcesOnMap()
+    {
+        
+    }
+
     public void RegisterResource(Resource resource)
     {
         // In case the resource is generated without providing tileInfo, we can get the tileInfo based on the resource's world position and set it to the resource, so that we can keep track of the resource based on its tile position.

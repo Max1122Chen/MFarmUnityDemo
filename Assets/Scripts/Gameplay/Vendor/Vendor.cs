@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TimeSystem;
 using System;
+using InventorySystem;
 
 [System.Serializable]
 public class CommodityInstance
@@ -36,10 +37,18 @@ public class Vendor : Interactable
     // Cached reference to the vendor data for quick access
     private VendorData vendorData;
 
+    // Commodity Data
     // Key: itemID, Value: CommodityDefinition. This is used for quick lookup of the commodity definition when we need to check if a commodity is on sale or not.
     private Dictionary<int, CommodityDefinition> commodityDict = new Dictionary<int, CommodityDefinition>();
     private List<CommodityInstance> commoditiesOnSale = new List<CommodityInstance>();
+    public List<CommodityInstance> CommoditiesOnSale => commoditiesOnSale;
     private int currentCommodityIndex = 0; // This is used to assign a unique index to each commodity instance for UI reference
+
+    [Header("Shop Keeper Info")]
+    public Transform shopKeeperStandPoint;
+    public bool hasShopKeeper;
+    public PlayerController currentInteractingPlayer; // This is the player who is currently interacting with the vendor, used for processing buy/sell requests
+    public bool uiOpened = false;
 
     // Callbacks
     public Action<CommodityInstance, CommodityInstance> onCommodityChanged; // (oldCommodity, newCommodity)
@@ -48,6 +57,7 @@ public class Vendor : Interactable
     {
         EconomySubsystem.Instance.RegisterVendor(this);
         Initialize(vendorID);
+
     }
 
     public void Initialize(int vendorID)
@@ -79,11 +89,52 @@ public class Vendor : Interactable
 
     public override bool Interact(GameObject interactor, int mouseButton)
     {
-        Debug.Log($"Interacting with vendor {vendorID} using mouse button {mouseButton}. Opening vendor inventory UI.");
+        if(mouseButton != 1) // Only respond to right-click interactions
+        {
+            return false;
+        }
+
+        if(!CheckIfPlayerInInteractionRange(interactor))
+        {
+            return false;
+        }
+
+        // TODO: We might want to check for the presence of the shop keeper NPC at the stand point before allowing interaction with the vendor. This is to ensure that the player can only interact with the vendor when the shop keeper is present.
+        // if(!hasShopKeeper)
+        // {
+        //     return false;
+        // }
+
+        if(uiOpened)
+        {
+            return false; // If the UI is already opened, we don't want to open it again
+        }
+        uiOpened = true;
+
+        currentInteractingPlayer = interactor.GetComponent<PlayerController>();
         EconomySubsystem.Instance.InteractWithVendor(interactor, this);
         return true;
     }
 
+    private bool CheckForShopKeeperPresence()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(shopKeeperStandPoint.position, new Vector2(0.5f, 0.5f), 0f);
+        foreach(var collider in colliders)
+        {
+            NPCController npc = collider.GetComponent<NPCController>();
+            if(npc != null && npc.NPCName == vendorData.shopKeeperName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool CheckIfPlayerInInteractionRange(GameObject player)
+    {
+        float distance = Vector2.Distance(player.transform.position, transform.position);
+        return distance <= 2f; // Assuming 2 units is the interaction range
+    }
     public void UpdateCommoditiesOnSale()
     {
         // Get the current game time from the TimeSubsystem
@@ -155,8 +206,66 @@ public class Vendor : Interactable
                currentGameTime.CompareTo(commodityDict[itemID].saleEndTime) <= 0;
     }
 
-    public void SellItem(int itemID, int quantity, PlayerController player)
+    public void SellItem(int commodityIndex, int quantity, PlayerController player)
     {
-    
+        CommodityInstance commodity = commoditiesOnSale.Find(c => c.index == commodityIndex);
+        if(commodity == null) return;
+
+        // Check the available space of the player's inventory first.
+        int availableSpace = player.inventoryComponent.CheckForAvailableSpaceForItem(commodity.itemID);
+
+        // Check if the player has enough money to buy the item
+        int playerMoney = player.playerSaveData.money;
+        int playerAffordableQuantity = playerMoney / commodity.price;
+
+        int quantityToSell = Math.Min(quantity, playerAffordableQuantity);
+        quantityToSell = Math.Min(quantityToSell, availableSpace);
+
+        if(quantityToSell <= 0)
+        {
+            if(playerAffordableQuantity <= 0)
+            {
+                Debug.Log($"Player cannot afford to buy {commodity.itemID}. Required money: {commodity.price}, Player money: {playerMoney}");
+            }
+            else if(availableSpace <= 0)
+            {
+                Debug.Log($"Player does not have enough inventory space to buy {commodity.itemID}. Required space: 1, Available space: {availableSpace}");
+            }
+            return;
+        }
+
+        // Process the transaction: add the item to the player's inventory and deduct the quantity from the vendor's commodity list
+        ItemDefinition itemDef = InventorySubsystem.Instance.GetItemDefinition(commodity.itemID);
+        ItemInstance itemInstance = new ItemInstance(itemDef, quantityToSell);
+        player.inventoryComponent.TryAddItem(itemInstance);
+
+        // TODO: for now we just simply subtract player's money based on the quantity they want to buy.
+        player.ReduceMoney(quantityToSell * commodity.price);
+
+        Debug.Log($"Player bought {quantityToSell} of {itemDef.itemName} for {quantityToSell * commodity.price} money.");
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("NPC"))
+        {
+            NPCController npc = collision.GetComponent<NPCController>();
+            if(npc != null && npc.NPCName == vendorData.shopKeeperName)
+            {
+                hasShopKeeper = true;
+            }
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("NPC"))
+        {
+            NPCController npc = collision.GetComponent<NPCController>();
+            if(npc != null && npc.NPCName == vendorData.shopKeeperName)
+            {
+                hasShopKeeper = false;
+            }
+        }
     }
 }
