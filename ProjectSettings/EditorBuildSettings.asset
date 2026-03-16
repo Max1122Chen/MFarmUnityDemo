@@ -23,4 +23,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/03 Town.unity
     guid: 4ce50402c05fdbb4491adba3706cb1ae
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 8849ca6d1e4ced542acf54c143645e68, type: 2}

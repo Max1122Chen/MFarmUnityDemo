@@ -17,7 +17,8 @@ public enum TileType
 [System.Serializable]
 public class TileInfo
 {
-    public Vector2Int position;
+    public Vector2Int gridPos;
+    public Vector2 worldPos;
 
     // Tile Properties
     public bool diggable = false;
@@ -32,14 +33,15 @@ public class TileInfo
 
     public override string ToString()
     {
-        return $"Pos: {position}, Diggable: {diggable}, ItemDroppable: {itemDroppable}, FurniturePlacable: {thingPlacable}, DaySinceDug: {daySinceDug}, SeedID: {seedID}, isOccupied: {isOccupied}";
+        return $"Pos: {gridPos}, Diggable: {diggable}, ItemDroppable: {itemDroppable}, FurniturePlacable: {thingPlacable}, DaySinceDug: {daySinceDug}, SeedID: {seedID}, isOccupied: {isOccupied}";
     }
 
     public TileInfo()
     {}
     public TileInfo(TileInfo other)
     {
-        position = other.position;
+        gridPos = other.gridPos;
+        worldPos = other.worldPos;
         diggable = other.diggable;
         itemDroppable = other.itemDroppable;
         thingPlacable = other.thingPlacable;
@@ -60,7 +62,7 @@ public class PersistentGameMapData_SO : ScriptableObject
     [Header("Tile Info List")]
     public List<TileInfo> tileInfoList = new List<TileInfo>();
     public Vector2Int mapSize;
-    public Vector2Int lowerLeftTileOriginalPos;
+    public Vector2Int mapOffset;
 
 
     [Header("Saved Dynamic Objects Data")]

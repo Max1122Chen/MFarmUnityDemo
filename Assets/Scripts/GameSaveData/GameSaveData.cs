@@ -58,7 +58,7 @@ public class GameMapSaveData
     public string SceneName => sceneName;
     public List<TileInfo> tileInfoList = new List<TileInfo>();
     public Vector2Int mapSize;
-    public Vector2Int lowerLeftTileOriginalPos;
+    public Vector2Int mapOffset;
     public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
     public List<ResourceSaveData> resources = new List<ResourceSaveData>();
     public List<ContainerSaveData> containers = new List<ContainerSaveData>();
@@ -70,7 +70,7 @@ public class GameMapSaveData
 
         tileInfoList = new List<TileInfo>(persistentGameMapData.tileInfoList.Count);
         mapSize = persistentGameMapData.mapSize;
-        lowerLeftTileOriginalPos = persistentGameMapData.lowerLeftTileOriginalPos;
+        mapOffset = persistentGameMapData.mapOffset;
 
         // Copy the persisten tile info data to the game map save data, we will update the tile info data when we save the game, so we need to copy the data here to avoid reference issue.
         for (int i = 0; i < persistentGameMapData.tileInfoList.Count; i++)
@@ -118,6 +118,7 @@ public class VendorSaveData
 public class GameSaveData
 {
     public int saveIndex;
+    public bool firstTimePlaying = true; // we can use this to determine whether it's the player's first time playing the game, and we can show some tutorial tips or something like that based on this flag.
     public string currentScene; // we will use this to determine which scene to load when we load the game, and we will also use this to determine which NPCs to spawn in the world based on the NPC save data.
 
     public PlayerSaveData playerSaveData; // we will implement this later when we have the player data to save

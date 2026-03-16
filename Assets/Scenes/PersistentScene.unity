@@ -224,6 +224,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 14e930208d8f6014b93cdd1e863e8cb7, type: 2}
   - {fileID: 11400000, guid: dda1354d868e0a645ae9f897d3557232, type: 2}
   - {fileID: 11400000, guid: 8376240590bbd5444a7b41e84609bdb9, type: 2}
+  gameMapSaveDataList: []
   currentSceneName: 
   placableItemDataList: {fileID: 11400000, guid: 3136cd0a30fd3644b81093d9e9ff5420, type: 2}
   droppedItemPrefab: {fileID: 7708925120792974642, guid: d3d502db45aece04fae9bd0ff856a069, type: 3}
@@ -1769,9 +1770,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings:
+    removeSaveDataOnStart: 1
     initialSceneName: 01 Farm
     timePerGameMinute: 3
-    timeScale: 10
+    timeScale: 1
     ObjectFadeOutAlpha: 0.3
     ObjectFadeDuration: 0.5
     transitionFadeDuration: 0.3
@@ -1781,9 +1783,22 @@ MonoBehaviour:
     playerInitialPosition: {x: 0, y: 0}
     startingMoney: 1000
     playerStartingItems: []
+    initialResourceInfos:
+    - resourceID: 2010
+      weight: 0.1
+    - resourceID: 2011
+      weight: 0.1
+    - resourceID: 2013
+      weight: 0.1
+    - resourceID: 2014
+      weight: 0.1
+    - resourceID: 2016
+      weight: 0.2
+    resourceGenerateRadius: 5
   gameSaveDataListSO: {fileID: 11400000, guid: 8496f463c0084154ab6d2f430433674f, type: 2}
   currentGameSaveData:
     saveIndex: 0
+    firstTimePlaying: 1
     currentScene: 
     playerSaveData:
       playerName: 

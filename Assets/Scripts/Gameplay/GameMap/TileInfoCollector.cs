@@ -49,6 +49,12 @@ public class TileInfoCollector : MonoBehaviour
         Vector3Int startPos = currentMap.cellBounds.min;
         Vector3Int endPos = currentMap.cellBounds.max;
 
+        if(tileType == TileType.TileMapRangeMarker)
+        {
+            gameMapData.mapSize = new Vector2Int(endPos.x - startPos.x, endPos.y - startPos.y);
+            gameMapData.mapOffset = new Vector2Int(startPos.x, startPos.y);
+        }
+
         for(int x = startPos.x; x < endPos.x; x++)
         {
             for(int y = startPos.y; y < endPos.y; y++)
@@ -61,14 +67,15 @@ public class TileInfoCollector : MonoBehaviour
                     Vector2Int tilePos = new Vector2Int(x, y);
                     TileInfo tileInfo;
 
-                    if (gameMapData.tileInfoList.Exists(t => t.position == tilePos))
+                    if (gameMapData.tileInfoList.Exists(t => t.gridPos == tilePos))
                     {
-                        tileInfo = gameMapData.tileInfoList.Find(t => t.position == tilePos);
+                        tileInfo = gameMapData.tileInfoList.Find(t => t.gridPos == tilePos);
                     }
                     else
                     {
                         tileInfo = new TileInfo();
-                        tileInfo.position = tilePos;
+                        tileInfo.gridPos = tilePos;
+                        tileInfo.worldPos = currentMap.CellToWorld(currentPos);
                         gameMapData.tileInfoList.Add(tileInfo);
                     }
 
@@ -87,11 +94,6 @@ public class TileInfoCollector : MonoBehaviour
                             tileInfo.isOccupied = true;
                             break;
                         case TileType.TileMapRangeMarker:
-                            // Just generate the tile info and help to record the range of the tilemap, no need to set any property for this type.
-                            int mapWidth = endPos.x - startPos.x;
-                            int mapHeight = endPos.y - startPos.y;
-                            gameMapData.mapSize = new Vector2Int(mapWidth, mapHeight);
-                            gameMapData.lowerLeftTileOriginalPos = new Vector2Int(startPos.x, startPos.y);
                             break;
                     }
                     // Debug.Log($"Updated tile info at {tilePos}: {tileInfo}");

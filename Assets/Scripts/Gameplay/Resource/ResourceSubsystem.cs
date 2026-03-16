@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TimeSystem;
@@ -45,9 +46,76 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         }
     }
 
-    public void RandomlyGenerateResourcesOnMap()
+    [System.Serializable]
+    public struct ResourceGenerationInfo
     {
-        
+        public int resourceID;
+        public float weight;
+    }
+    public List<Tuple<string, int>> RandomlyGenerateResourcesOnAllMaps(List<ResourceGenerationInfo> generationInfo)
+    {
+        // Key: sceneName, Value: number of resources generated on that map. 
+        List<Tuple<string, int>> generatedResources = new List<Tuple<string, int>>();
+        foreach (GameMapSaveData gameMapSaveData in GameMapSubsystem.Instance.gameMapSaveDataList)
+        {
+            int generatedCount = RandomlyGenerateResourcesOnMap(generationInfo, gameMapSaveData.SceneName);
+            generatedResources.Add(new Tuple<string, int>(gameMapSaveData.SceneName, generatedCount));
+        }
+        return generatedResources;
+    }
+
+    public int RandomlyGenerateResourcesOnMap(List<ResourceGenerationInfo> generationInfo, string sceneName)
+    {
+        GameMapSaveData gameMapSaveData = GameMapSubsystem.Instance.GetGameMapSaveData(sceneName);
+        int generatedCount = 0;
+        if(gameMapSaveData != null)
+        {
+            List<Vector2> randomPoints = PoissonDiskSampler.GeneratePoints(GameInstance.Instance.gameSettings.resourceGenerateRadius, new Vector2(gameMapSaveData.mapSize.x, gameMapSaveData.mapSize.y));
+            foreach (Vector2 point in randomPoints)
+            {
+                Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(point.x) + gameMapSaveData.mapOffset.x, Mathf.FloorToInt(point.y) + gameMapSaveData.mapOffset.y);
+                TileInfo tileInfo = GameMapSubsystem.Instance.GetTileInfoByGridPos(gridPos, sceneName);
+                if (tileInfo != null && tileInfo.diggable && !tileInfo.isOccupied)
+                {
+                    // Pick a random kind of resource to generate from the provided resourceIDs list. 
+                    int totalWeight = 0;
+                    foreach (ResourceGenerationInfo info in generationInfo)                    {
+                        totalWeight += (int)(info.weight * 100); // Multiply by 100 to convert the weight to an integer for better precision.
+                    }
+                    int randomIndex = UnityEngine.Random.Range(0, totalWeight);
+                    int cumulativeWeight = 0;
+                    int resourceID = -1;
+                    foreach (ResourceGenerationInfo info in generationInfo)
+                    {
+                        cumulativeWeight += (int)(info.weight * 100);
+                        if (randomIndex < cumulativeWeight)
+                        {
+                            resourceID = info.resourceID;
+                            break;
+                        }
+                    }
+                    ResourceDefinition resourceDef = GetResourceDefinition(resourceID);
+                    if(resourceDef != null)
+                    {
+                        int growthStageIndex = UnityEngine.Random.Range(0, resourceDef.growthStages.Count); // Randomly assign a growth stage index to the generated resource.
+                        int grownTime = 0;
+                        for (int i = 0; i < growthStageIndex; i++)
+                        {
+                            grownTime += resourceDef.growthStages[i].timeToNextStage;
+                        }
+                        if(growthStageIndex > 0)
+                        {
+                            grownTime += UnityEngine.Random.Range(0, resourceDef.growthStages[growthStageIndex].timeToNextStage); // Randomly assign a growth time counter within the current growth stage to make the generated resources look more natural.
+                        }
+                        ResourceSaveData saveData = GenerateResource(tileInfo, resourceDef, growthStageIndex, grownTime);
+                        gameMapSaveData.resources.Add(saveData);
+                        generatedCount++;
+                        Debug.Log(tileInfo.gridPos + ": Generated resource with ID " + resourceID + " at growth stage index " + growthStageIndex + " with grown time " + grownTime);
+                    }
+                }
+            }   
+        }
+        return generatedCount;
     }
 
     public void RegisterResource(Resource resource)
@@ -60,7 +128,7 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
             resource.SetTileInfo(tileInfo);
         }
 
-        Vector2Int position = resource.tileInfo.position;
+        Vector2Int position = resource.tileInfo.gridPos;
         if (!registeredResources.ContainsKey(position))
         {
             registeredResources.Add(position, resource);
@@ -75,7 +143,7 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
 
     public void UnregisterResource(Resource resource)
     {
-        Vector2Int position = resource.tileInfo.position;
+        Vector2Int position = resource.tileInfo.gridPos;
         if (registeredResources.ContainsKey(position))
         {
             registeredResources.Remove(position);
@@ -133,20 +201,28 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         }
     }
 
-    public Resource GenerateResource(TileInfo tileInfo,int resourceID, int growthStageIndex, int grownTime)
+    public ResourceSaveData GenerateResource(TileInfo tileInfo, ResourceDefinition resourceDef, int growthStageIndex, int grownTime)
+    {
+        ResourceSaveData saveData = new ResourceSaveData(resourceDef.resourceID, tileInfo.gridPos, growthStageIndex, grownTime);
+
+        tileInfo.isOccupied = true; // Mark the tile as occupied when generating a resource on it.
+
+        return saveData;
+    }
+    public Resource SpawnResource(TileInfo tileInfo,int resourceID, int growthStageIndex, int grownTime)
     {
         ResourceDefinition resourceDef = GetResourceDefinition(resourceID);
         if(resourceDef == null)
         {
             return null;
         }
-        return GenerateResource(tileInfo, resourceDef, growthStageIndex, grownTime);
+        return SpawnResource(tileInfo, resourceDef, growthStageIndex, grownTime);
     }
 
-    public Resource GenerateResource(TileInfo tileInfo, ResourceDefinition resourceDef, int growthStageIndex, int grownTime)
+    public Resource SpawnResource(TileInfo tileInfo, ResourceDefinition resourceDef, int growthStageIndex, int grownTime)
     {
         Grid currentGrid = GameMapSubsystem.Instance.currentGrid;
-        Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tileInfo.position);
+        Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tileInfo.gridPos);
 
         GameObject prefabToUse = resourceDef.resourcePrefab != null ? resourceDef.resourcePrefab : resourcedefaultPrefab;
 
@@ -182,7 +258,7 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
             TileInfo tileInfo = GameMapSubsystem.Instance.GetTileInfoByWorldPos(saveData.position);
             if (tileInfo != null)
             {
-                RegisterResource(GenerateResource(tileInfo, saveData.resourceID, saveData.growthStageIndex, saveData.growthTimeCounter));
+                RegisterResource(SpawnResource(tileInfo, saveData.resourceID, saveData.growthStageIndex, saveData.growthTimeCounter));
             }
             else
             {

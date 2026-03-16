@@ -108,7 +108,7 @@ public class PlayerAnimationBlueprint : CharacterAnimationBlueprint
 
     private void HandleHeldItemChanged(ItemDefinition itemDef)
     {
-        if(itemDef != null && itemDef.IsValidItem() && itemDef.isHoldable == true)
+        if(itemDef != null && itemDef.IsValidItem() && itemDef.IsHoldable())
         {
             heldItemSpriteRenderer.sprite = itemDef.heldSprite != null ? itemDef.heldSprite : itemDef.itemIcon;   // Use heldSprite if available, otherwise fallback to itemIcon.
             heldItemSpriteRenderer.enabled = true;

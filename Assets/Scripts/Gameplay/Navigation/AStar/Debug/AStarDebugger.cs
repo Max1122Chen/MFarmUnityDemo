@@ -68,7 +68,7 @@ namespace Navigation.AStar
                     if(startPos != Vector2Int.zero && targetPos != Vector2Int.zero)
                     {
                         ClearVisuals();
-                        List<Node> path = agent.FindPath(startPos, targetPos, GameMapSubsystem.Instance.currentGameMapSaveData.mapSize);
+                        List<Node> path = agent.FindPath(startPos, targetPos, GameMapSubsystem.Instance.currentSceneName);
                     }
                 }
                 else
@@ -86,7 +86,7 @@ namespace Navigation.AStar
             TileInfo tileInfo = GameMapSubsystem.Instance.GetTileInfoByWorldPos(mousePos);
 
             // We need to 
-            return tileInfo != null ? tileInfo.position: Vector2Int.zero;
+            return tileInfo != null ? tileInfo.gridPos: Vector2Int.zero;
         }
         
         private void DrawFindingPathProgress()

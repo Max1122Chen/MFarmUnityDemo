@@ -398,7 +398,7 @@ public class PlayerController : MonoBehaviour
         // TODO: when there is furniture, need to check if the furniture is in the way before allowing player to till soil or place items.
         if(tileInfo != null && tileInfo.diggable)
         {
-            Debug.Log($"Tilled soil at {tileInfo.position}!");
+            Debug.Log($"Tilled soil at {tileInfo.gridPos}!");
             GameMapSubsystem.Instance.UpdateDugTile(tileInfo, true, 1);
         }
     }
@@ -414,7 +414,7 @@ public class PlayerController : MonoBehaviour
 
         if(tileInfo != null && tileInfo.diggable && tileInfo.daySinceDug >= 0)   // Only allow watering on tilled soil.
         {
-            Debug.Log($"Watered soil at {tileInfo.position}!");
+            Debug.Log($"Watered soil at {tileInfo.gridPos}!");
             GameMapSubsystem.Instance.UpdateWateredTile(tileInfo, true);
         }
     }
@@ -431,7 +431,7 @@ public class PlayerController : MonoBehaviour
 
         if(tileInfo != null && tileInfo.thingPlacable && tileInfo.isOccupied == false)
         {
-            Debug.Log($"Placed item {itemDef.itemName} at {tileInfo.position}!");
+            Debug.Log($"Placed item {itemDef.itemName} at {tileInfo.gridPos}!");
             GameMapSubsystem.Instance.PlaceFurniture(tileInfo, itemDef);
             inventoryComponent.RemoveItemInSlot(inventoryComponent.selectedSlotIndex, 1);
             return true;
@@ -451,8 +451,8 @@ public class PlayerController : MonoBehaviour
 
             if((resourceDef.resourceType == ResourceType.Crop && tileInfo.daySinceDug >= 0) || resourceDef.resourceType == ResourceType.Tree)   // If planting crop, only allow planting on tilled soil. If planting non-crop resource, allow planting on untilled soil as well.
             {
-                Debug.Log($"Planted seed {itemDef.itemName} at {tileInfo.position}!");
-                ResourceSubsystem.Instance.GenerateResource(tileInfo, itemDef.itemID, 0, 0);  
+                Debug.Log($"Planted seed {itemDef.itemName} at {tileInfo.gridPos}!");
+                ResourceSubsystem.Instance.SpawnResource(tileInfo, itemDef.itemID, 0, 0);  
                 inventoryComponent.RemoveItemInSlot(inventoryComponent.selectedSlotIndex, 1);
                 return true;
             }
@@ -470,7 +470,7 @@ public class PlayerController : MonoBehaviour
         }
         ItemDefinition itemDef = inventoryComponent.InventorySlots[newIndex].itemInstance.ItemDefinition;
 
-        if(itemDef != null && itemDef.IsValidItem() && itemDef.isHoldable == true)
+        if(itemDef != null && itemDef.IsValidItem() && itemDef.IsHoldable())
         {
             onHeldItemChanged?.Invoke(itemDef);
 

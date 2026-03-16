@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ResourcesGrowStageSprite
+  m_EditorClassIdentifier: 
+  m_GroupName: ResourcesGrowStageSprite
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b86dd5f2b84d5ce4681aac0aa7dd7f4a
+  m_SerializeEntries:
+  - m_GUID: 95e7e06c6bf4644f3a4bc7b164e261bf
+    m_Address: Assets/M Studio/Art/Items/New Plant/blueberry_growth.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d9056fff19ccaaf4a8782f8830db8e19, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 83eb23b709d41f64885c1557c374b981, type: 2}
+    - {fileID: 11400000, guid: b3b086ac185b14c49ac2d1f379149daa, type: 2}

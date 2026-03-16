@@ -31,16 +31,17 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
 
     // Game Map Save Data for current save file
-    private List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
+    public List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
 
     // Key: sceneName, Value: GameMapSaveData
     private Dictionary<string, GameMapSaveData> gameMapSaveDataDict = new Dictionary<string, GameMapSaveData>();
 
     public Dictionary<Vector2Int, TileInfo> currentTileInfoDict { get ; private set; } = new Dictionary<Vector2Int, TileInfo>();
+    public Dictionary<string, Dictionary<Vector2Int, TileInfo>> allTileInfoDict = new Dictionary<string, Dictionary<Vector2Int, TileInfo>>();
     public GameMapSaveData currentGameMapSaveData { get; private set; }
 
     [Header("Current Scene Info")]
-    [SerializeField] private string currentSceneName;
+    public string currentSceneName;
 
     public Grid currentGrid { get; private set; }
 
@@ -198,6 +199,23 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
     }
 
+    void InitilizeAllTileInfoDict()
+    {
+        allTileInfoDict.Clear();
+        foreach(var kvp in gameMapSaveDataDict)
+        {
+            string sceneName = kvp.Key;
+            GameMapSaveData data = kvp.Value;
+
+            Dictionary<Vector2Int, TileInfo> tileInfoDict = new Dictionary<Vector2Int, TileInfo>();
+            foreach(TileInfo tileInfo in data.tileInfoList)
+            {
+                tileInfoDict[tileInfo.gridPos] = tileInfo;
+            }
+            allTileInfoDict[sceneName] = tileInfoDict;
+        }
+    }
+
     void InitializeTileVisuals()
     {
         if(currentGameMapSaveData == null)
@@ -210,12 +228,38 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         {
             if(tileInfo.daySinceDug >= 0)
             {
-                dugTileMap.SetTile((Vector3Int)tileInfo.position, dugTile);
+                dugTileMap.SetTile((Vector3Int)tileInfo.gridPos, dugTile);
             }
             if(tileInfo.isWatered)
             {
-                wateredTileMap.SetTile((Vector3Int)tileInfo.position, wateredTile);
+                wateredTileMap.SetTile((Vector3Int)tileInfo.gridPos, wateredTile);
             }
+        }
+    }
+
+    public GameMapSaveData GetGameMapSaveData(string sceneName)
+    {
+        if(gameMapSaveDataDict.TryGetValue(sceneName, out GameMapSaveData data))
+        {
+            return data;
+        }
+        else
+        {
+            Debug.LogError($"No GameMapData found for scene {sceneName}.");
+            return null;
+        }
+    }
+
+    public Vector2Int GetGridSizeOfScene(string sceneName)
+    {
+        if(gameMapSaveDataDict.TryGetValue(sceneName, out GameMapSaveData data))
+        {
+            return data.mapSize;
+        }
+        else
+        {
+            Debug.LogError($"No GameMapData found for scene {sceneName}. Cannot get grid size.");
+            return Vector2Int.zero;
         }
     }
 
@@ -239,6 +283,19 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
     }
 
+    public TileInfo GetTileInfoByGridPos(Vector2Int position, string sceneName)
+    {
+        if(allTileInfoDict.ContainsKey(sceneName))
+        {
+            Dictionary<Vector2Int, TileInfo> tileInfoDict = allTileInfoDict[sceneName];
+            if(tileInfoDict.ContainsKey(position))
+            {
+                return tileInfoDict[position];
+            }
+        }
+        return null;
+    }
+
     public TileInfo GetTileInfoByWorldPos(Vector3 position)
     {
         if(currentGrid == null)
@@ -257,12 +314,12 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
             Debug.LogError($"Current Grid is null in scene {currentSceneName}. Cannot get world position by tile info.");
             return Vector3.zero;
         }
-        return currentGrid.GetCellCenterWorld((Vector3Int)tileInfo.position);
+        return currentGrid.GetCellCenterWorld((Vector3Int)tileInfo.gridPos);
     } 
 
     public void UpdateDugTile(TileInfo tile, bool isDug, int deltaDay)
     {
-        Vector3Int cellPos = (Vector3Int)tile.position;
+        Vector3Int cellPos = (Vector3Int)tile.gridPos;
         if(isDug)
         {
             tile.daySinceDug += deltaDay;
@@ -277,7 +334,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
     public void UpdateWateredTile(TileInfo tile, bool isWatered)
     {
-        Vector3Int cellPos = (Vector3Int)tile.position;
+        Vector3Int cellPos = (Vector3Int)tile.gridPos;
         tile.isWatered = isWatered;
         if(isWatered)
         {
@@ -296,7 +353,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     public void PlaceFurniture(TileInfo tile, ItemDefinition itemDef)
     {
         tile.isOccupied = true;
-        Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tile.position);
+        Vector3 worldPos = currentGrid.GetCellCenterWorld((Vector3Int)tile.gridPos);
         GameObject furniturePrefab = GetPlacablePrefab(itemDef.itemID);
         GameInstance.Instance.SpawnGameObjectInWorld(furniturePrefab, worldPos, Quaternion.identity);
     }
@@ -382,6 +439,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     {
         gameMapSaveDataList = saveDataList;
         InitializeGameMapDataDict();
+        InitilizeAllTileInfoDict();
     }
     
     private void LoadGameMapSaveData(string sceneName)
@@ -400,7 +458,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         currentTileInfoDict.Clear();
         foreach(TileInfo tileInfo in currentGameMapSaveData.tileInfoList)
         {
-            currentTileInfoDict[tileInfo.position] = tileInfo;
+            currentTileInfoDict[tileInfo.gridPos] = tileInfo;
         }
         
         InitializeTileVisuals();

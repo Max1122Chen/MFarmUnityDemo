@@ -160,7 +160,7 @@ public class Resource : MonoBehaviour
                     Debug.LogWarning($"Prefab for resource {gameObject.name} with prefab type {type} does not have a valid resourceID. It is recommended to assign a valid resourceID to the prefab so that the prefab can have the correct ResourceDefinition and be properly registered in the ResourceSubsystem.");
                 }
 
-                ResourceSubsystem.Instance.GenerateResource(tileInfo, prefabResourceDef, 0, 0);
+                ResourceSubsystem.Instance.SpawnResource(tileInfo, prefabResourceDef, 0, 0);
                 prefabFound = true;
                 Destroy(gameObject);
 

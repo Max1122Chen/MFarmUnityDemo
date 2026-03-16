@@ -14,6 +14,7 @@ namespace InventorySystem
         Placable,
 
         // Tools
+        // For more complex situations, we might want to have a separate ToolType enum and have itemType be Tool, but for now this is simpler.
         Hoe,
         Axe,
         Pickaxe,
@@ -25,16 +26,18 @@ namespace InventorySystem
     [System.Serializable]
     public class ItemDefinition
     {
-        [SerializeField] public int itemID = -1; // -1 is invalid ID
-        [SerializeField] public string itemName;
-        [SerializeField] public int maxStackCount = 1;
-        [SerializeField] public int value = 0;
-        [SerializeField] public ItemType itemType;
-        [SerializeField] public Sprite itemIcon;
-        [SerializeField] public Sprite itemInWorldSprite;
-        [SerializeField] public string itemDescription;
-        [SerializeField] public bool isHoldable = false;
-        [SerializeField] public Sprite heldSprite;   // Optional sprite to use when the item is held by the player.
+        public int itemID = -1; // -1 is invalid ID
+        public string itemName;
+        public int maxStackCount = 1;
+        public int value = 0;
+        public ItemType itemType;
+        public string itemDescription;
+        public string itemIconKey;
+        public string itemInWorldSpriteKey;
+        public string heldSpriteKey;
+        public Sprite itemIcon;
+        public Sprite itemInWorldSprite;
+        public Sprite heldSprite;   // Optional sprite to use when the item is held by the player.
         
 
         public ItemDefinition(int id, string name, int maxStack, int value, ItemType type, Sprite icon, Sprite worldSprite, string description)
@@ -64,6 +67,11 @@ namespace InventorySystem
         public bool IsValidItem()
         {
             return itemID > 0;
+        }
+
+        public bool IsHoldable()
+        {
+            return itemType == ItemType.Hoe || itemType == ItemType.Axe || itemType == ItemType.Pickaxe || itemType == ItemType.WateringCan || itemType == ItemType.Sickle;
         }
 
     }

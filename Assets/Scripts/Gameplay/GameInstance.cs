@@ -32,6 +32,11 @@ public class GameInstance : Singleton<GameInstance>
 
     public void Start()
     {   
+        if(gameSettings.removeSaveDataOnStart)
+        {
+            gameSaveDataListSO.gameSaveDataList.Clear();
+        }
+
         // TODO: we will truly enter game when we choose a specific save file to load, for now we will just directly enter game when we start the game, and we will implement the save/load system later.
         if(gameSaveDataListSO.gameSaveDataList.Count == 0)
         {
@@ -153,6 +158,17 @@ public class GameInstance : Singleton<GameInstance>
 
         // Load the game map data and load the scene.
         GameMapSubsystem.Instance.LoadGameMapSaveDataList(currentGameSaveData.gameMapSaveDataList);
+
+        // Randomly generate resources on the map if it's the player's first time playing the game.
+        if(currentGameSaveData.firstTimePlaying)
+        {
+            currentGameSaveData.firstTimePlaying = false;
+            List<System.Tuple<string, int>> generatedResources = ResourceSubsystem.Instance.RandomlyGenerateResourcesOnAllMaps(gameSettings.initialResourceInfos);
+            foreach(var resource in generatedResources)
+            {
+                Debug.Log("Generated resource with ID: " + resource.Item1 + " on map: " + resource.Item2);
+            }
+        }
         GameMapSubsystem.Instance.StartCoroutine(GameMapSubsystem.Instance.SwitchScene(currentGameSaveData.currentScene));
 
         // Load NPC data and spawn NPCs in the world based on the NPC save data.

@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class GameSettings
 {
+    [Header("Debug Settings")]
+    public bool removeSaveDataOnStart = false; // For debugging purpose, if this is true, we will remove all the existing save data when we start the game, so we can start with a clean slate every time we start the game during development. We will set this to false in the final build.
+
     // Initial Scene Name
     [Header("Initial Scene Name")]
     [SceneName] public string initialSceneName = "01 Farm";
@@ -30,4 +33,8 @@ public class GameSettings
     public Vector2 playerInitialPosition = new Vector2(0, 0);
     public int startingMoney = 1000;
     public List<InventoryItemSaveData> playerStartingItems = new List<InventoryItemSaveData>();
+
+    [Header("Resource Generation Settings")]
+    public List<ResourceSubsystem.ResourceGenerationInfo> initialResourceInfos = new List<ResourceSubsystem.ResourceGenerationInfo>();
+    public int resourceGenerateRadius = 5;
 }

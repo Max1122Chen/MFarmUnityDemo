@@ -1585,6 +1585,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSceneName: 01 Farm
+  needInteraction: 0
+  keepX: 0
+  keepY: 0
   characterSpawnPosition: {x: 0, y: 0}
 --- !u!1 &520528380
 GameObject:
