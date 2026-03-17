@@ -20,8 +20,11 @@ public class TransitionFader : MonoBehaviour
 
     void OnDestroy()
     {
-        GameMapSubsystem.Instance.onNewSceneLoaded -= HandleNewSceneLoaded;
-        GameMapSubsystem.Instance.onOldSceneStartUnloading -= HandleOldSceneStartUnloading;
+        if(GameMapSubsystem.Instance != null)  // Check if the instance is not null before trying to unsubscribe, to avoid potential null reference errors during application quit.
+        {
+            GameMapSubsystem.Instance.onNewSceneLoaded -= HandleNewSceneLoaded;
+            GameMapSubsystem.Instance.onOldSceneStartUnloading -= HandleOldSceneStartUnloading;
+        }
     }
 
     private void HandleNewSceneLoaded(string sceneName)

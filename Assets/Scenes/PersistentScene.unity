@@ -224,6 +224,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 14e930208d8f6014b93cdd1e863e8cb7, type: 2}
   - {fileID: 11400000, guid: dda1354d868e0a645ae9f897d3557232, type: 2}
   - {fileID: 11400000, guid: 8376240590bbd5444a7b41e84609bdb9, type: 2}
+  sceneAdjacencies:
+  - sceneName: 01 Farm
+    bridgesToOtherScenes:
+    - toScene: 03 Town
+      fromPos: {x: 26, y: 7}
+      toPos: {x: 29, y: 7}
   gameMapSaveDataList: []
   currentSceneName: 
   placableItemDataList: {fileID: 11400000, guid: 3136cd0a30fd3644b81093d9e9ff5420, type: 2}
@@ -261,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 444170392}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.76, y: 5.64, z: 0}
+  m_LocalPosition: {x: 10.35, y: 5.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1115,7 +1121,7 @@ Transform:
   m_GameObject: {fileID: 1402140108}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7599995, y: 5.6399994, z: -10}
+  m_LocalPosition: {x: 10.35, y: 5.6399994, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1584,7 +1590,7 @@ Transform:
   m_GameObject: {fileID: 2013082674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7599995, y: 5.6399994, z: -10}
+  m_LocalPosition: {x: 10.35, y: 5.6399994, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1780,7 +1786,7 @@ MonoBehaviour:
     itemFlyingSpeed: 2
     pickupCD_FromWorld: 1
     pickupCD_FromInventory: 2
-    playerInitialPosition: {x: 0, y: 0}
+    playerInitialPosition: {x: 10, y: 5}
     startingMoney: 1000
     playerStartingItems: []
     initialResourceInfos:

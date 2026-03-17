@@ -1523,7 +1523,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -16, y: 2}
@@ -1532,7 +1532,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -16, y: 3}
@@ -1541,7 +1541,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -16, y: 4}
@@ -1712,7 +1712,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -15, y: 1}
@@ -1721,7 +1721,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -15, y: 2}
@@ -1730,7 +1730,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -15, y: 3}
@@ -1739,7 +1739,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -15, y: 4}
@@ -1748,7 +1748,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -15, y: 5}
@@ -1919,7 +1919,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -14, y: 1}
@@ -1928,7 +1928,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -14, y: 2}
@@ -1937,7 +1937,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -14, y: 3}
@@ -1946,7 +1946,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -14, y: 4}
@@ -1955,7 +1955,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -14, y: 5}
@@ -2126,7 +2126,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -13, y: 1}
@@ -2135,7 +2135,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -13, y: 2}
@@ -2144,7 +2144,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -13, y: 3}
@@ -2153,7 +2153,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -13, y: 4}
@@ -2162,7 +2162,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -13, y: 5}
@@ -2333,7 +2333,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -12, y: 1}
@@ -2342,7 +2342,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -12, y: 2}
@@ -2351,7 +2351,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -12, y: 3}
@@ -2360,7 +2360,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -12, y: 4}
@@ -2369,7 +2369,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -12, y: 5}
@@ -2549,7 +2549,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -11, y: 2}
@@ -2558,7 +2558,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -11, y: 3}
@@ -2567,7 +2567,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -11, y: 4}
@@ -2576,7 +2576,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -11, y: 5}
@@ -2765,7 +2765,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -10, y: 3}
@@ -2774,7 +2774,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: -10, y: 4}
@@ -7058,7 +7058,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 15, y: -14}
@@ -9920,7 +9920,7 @@ MonoBehaviour:
     itemDroppable: 1
     thingPlacable: 1
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 13, y: 11}
@@ -10541,7 +10541,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 0, y: 7}
@@ -10550,7 +10550,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 0, y: 8}
@@ -10559,7 +10559,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 0, y: 9}
@@ -10568,7 +10568,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 0, y: 10}
@@ -10577,7 +10577,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 1, y: 6}
@@ -10586,7 +10586,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 1, y: 7}
@@ -10595,7 +10595,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 1, y: 8}
@@ -10604,7 +10604,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 1, y: 9}
@@ -10613,7 +10613,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 1, y: 10}
@@ -10622,7 +10622,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 2, y: 6}
@@ -10631,7 +10631,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 2, y: 7}
@@ -10640,7 +10640,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 2, y: 8}
@@ -10649,7 +10649,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 2, y: 9}
@@ -10658,7 +10658,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 2, y: 10}
@@ -10667,7 +10667,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 3, y: 6}
@@ -10676,7 +10676,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 3, y: 7}
@@ -10685,7 +10685,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 3, y: 8}
@@ -10694,7 +10694,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 3, y: 9}
@@ -10703,7 +10703,7 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 3, y: 10}
@@ -10712,7 +10712,556 @@ MonoBehaviour:
     itemDroppable: 0
     thingPlacable: 0
     isWatered: 0
-    isOccupied: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 4, y: 6}
+    worldPos: {x: 4, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 4, y: 7}
+    worldPos: {x: 4, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 4, y: 8}
+    worldPos: {x: 4, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 4, y: 9}
+    worldPos: {x: 4, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 4, y: 10}
+    worldPos: {x: 4, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 5, y: 6}
+    worldPos: {x: 5, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 5, y: 7}
+    worldPos: {x: 5, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 5, y: 8}
+    worldPos: {x: 5, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 5, y: 9}
+    worldPos: {x: 5, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 5, y: 10}
+    worldPos: {x: 5, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 6, y: 6}
+    worldPos: {x: 6, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 6, y: 7}
+    worldPos: {x: 6, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 6, y: 8}
+    worldPos: {x: 6, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 6, y: 9}
+    worldPos: {x: 6, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 6, y: 10}
+    worldPos: {x: 6, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 7, y: 5}
+    worldPos: {x: 7, y: 5}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 7, y: 6}
+    worldPos: {x: 7, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 7, y: 7}
+    worldPos: {x: 7, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 7, y: 8}
+    worldPos: {x: 7, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 7, y: 9}
+    worldPos: {x: 7, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 7, y: 10}
+    worldPos: {x: 7, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 8, y: 5}
+    worldPos: {x: 8, y: 5}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 8, y: 6}
+    worldPos: {x: 8, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 8, y: 7}
+    worldPos: {x: 8, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 8, y: 8}
+    worldPos: {x: 8, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 8, y: 9}
+    worldPos: {x: 8, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 8, y: 10}
+    worldPos: {x: 8, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 9, y: 5}
+    worldPos: {x: 9, y: 5}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 9, y: 6}
+    worldPos: {x: 9, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 9, y: 7}
+    worldPos: {x: 9, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 9, y: 8}
+    worldPos: {x: 9, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 9, y: 9}
+    worldPos: {x: 9, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 9, y: 10}
+    worldPos: {x: 9, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 10, y: 5}
+    worldPos: {x: 10, y: 5}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 10, y: 6}
+    worldPos: {x: 10, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 10, y: 7}
+    worldPos: {x: 10, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 10, y: 8}
+    worldPos: {x: 10, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 10, y: 9}
+    worldPos: {x: 10, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 10, y: 10}
+    worldPos: {x: 10, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 11, y: 5}
+    worldPos: {x: 11, y: 5}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 11, y: 6}
+    worldPos: {x: 11, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 11, y: 7}
+    worldPos: {x: 11, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 11, y: 8}
+    worldPos: {x: 11, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 11, y: 9}
+    worldPos: {x: 11, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 11, y: 10}
+    worldPos: {x: 11, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 12, y: 5}
+    worldPos: {x: 12, y: 5}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 12, y: 6}
+    worldPos: {x: 12, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 12, y: 7}
+    worldPos: {x: 12, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 12, y: 8}
+    worldPos: {x: 12, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 12, y: 9}
+    worldPos: {x: 12, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 12, y: 10}
+    worldPos: {x: 12, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 13, y: 6}
+    worldPos: {x: 13, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 13, y: 7}
+    worldPos: {x: 13, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 13, y: 8}
+    worldPos: {x: 13, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 13, y: 9}
+    worldPos: {x: 13, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 13, y: 10}
+    worldPos: {x: 13, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 14, y: 6}
+    worldPos: {x: 14, y: 6}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 14, y: 7}
+    worldPos: {x: 14, y: 7}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 14, y: 8}
+    worldPos: {x: 14, y: 8}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 14, y: 9}
+    worldPos: {x: 14, y: 9}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
+    daySinceDug: -1
+    seedID: -1
+  - gridPos: {x: 14, y: 10}
+    worldPos: {x: 14, y: 10}
+    diggable: 0
+    itemDroppable: 0
+    thingPlacable: 0
+    isWatered: 0
+    isOccupied: 1
     daySinceDug: -1
     seedID: -1
   - gridPos: {x: 4, y: -15}
@@ -10724,98 +11273,8 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  - gridPos: {x: 4, y: 6}
-    worldPos: {x: 4, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 4, y: 7}
-    worldPos: {x: 4, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 4, y: 8}
-    worldPos: {x: 4, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 4, y: 9}
-    worldPos: {x: 4, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 4, y: 10}
-    worldPos: {x: 4, y: 10}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
   - gridPos: {x: 5, y: -15}
     worldPos: {x: 5, y: -15}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 5, y: 6}
-    worldPos: {x: 5, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 5, y: 7}
-    worldPos: {x: 5, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 5, y: 8}
-    worldPos: {x: 5, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 5, y: 9}
-    worldPos: {x: 5, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 5, y: 10}
-    worldPos: {x: 5, y: 10}
     diggable: 0
     itemDroppable: 0
     thingPlacable: 0
@@ -10841,51 +11300,6 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  - gridPos: {x: 6, y: 6}
-    worldPos: {x: 6, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 6, y: 7}
-    worldPos: {x: 6, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 6, y: 8}
-    worldPos: {x: 6, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 6, y: 9}
-    worldPos: {x: 6, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 6, y: 10}
-    worldPos: {x: 6, y: 10}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
   - gridPos: {x: 7, y: -16}
     worldPos: {x: 7, y: -16}
     diggable: 0
@@ -10897,60 +11311,6 @@ MonoBehaviour:
     seedID: -1
   - gridPos: {x: 7, y: -15}
     worldPos: {x: 7, y: -15}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 7, y: 5}
-    worldPos: {x: 7, y: 5}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 7, y: 6}
-    worldPos: {x: 7, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 7, y: 7}
-    worldPos: {x: 7, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 7, y: 8}
-    worldPos: {x: 7, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 7, y: 9}
-    worldPos: {x: 7, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 7, y: 10}
-    worldPos: {x: 7, y: 10}
     diggable: 0
     itemDroppable: 0
     thingPlacable: 0
@@ -10976,60 +11336,6 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  - gridPos: {x: 8, y: 5}
-    worldPos: {x: 8, y: 5}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 8, y: 6}
-    worldPos: {x: 8, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 8, y: 7}
-    worldPos: {x: 8, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 8, y: 8}
-    worldPos: {x: 8, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 8, y: 9}
-    worldPos: {x: 8, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 8, y: 10}
-    worldPos: {x: 8, y: 10}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
   - gridPos: {x: 9, y: -16}
     worldPos: {x: 9, y: -16}
     diggable: 0
@@ -11041,60 +11347,6 @@ MonoBehaviour:
     seedID: -1
   - gridPos: {x: 9, y: -15}
     worldPos: {x: 9, y: -15}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 9, y: 5}
-    worldPos: {x: 9, y: 5}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 9, y: 6}
-    worldPos: {x: 9, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 9, y: 7}
-    worldPos: {x: 9, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 9, y: 8}
-    worldPos: {x: 9, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 9, y: 9}
-    worldPos: {x: 9, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 9, y: 10}
-    worldPos: {x: 9, y: 10}
     diggable: 0
     itemDroppable: 0
     thingPlacable: 0
@@ -11120,60 +11372,6 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  - gridPos: {x: 10, y: 5}
-    worldPos: {x: 10, y: 5}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 10, y: 6}
-    worldPos: {x: 10, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 10, y: 7}
-    worldPos: {x: 10, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 10, y: 8}
-    worldPos: {x: 10, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 10, y: 9}
-    worldPos: {x: 10, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 10, y: 10}
-    worldPos: {x: 10, y: 10}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
   - gridPos: {x: 11, y: -16}
     worldPos: {x: 11, y: -16}
     diggable: 0
@@ -11185,60 +11383,6 @@ MonoBehaviour:
     seedID: -1
   - gridPos: {x: 11, y: -15}
     worldPos: {x: 11, y: -15}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 11, y: 5}
-    worldPos: {x: 11, y: 5}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 11, y: 6}
-    worldPos: {x: 11, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 11, y: 7}
-    worldPos: {x: 11, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 11, y: 8}
-    worldPos: {x: 11, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 11, y: 9}
-    worldPos: {x: 11, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 11, y: 10}
-    worldPos: {x: 11, y: 10}
     diggable: 0
     itemDroppable: 0
     thingPlacable: 0
@@ -11264,60 +11408,6 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  - gridPos: {x: 12, y: 5}
-    worldPos: {x: 12, y: 5}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 12, y: 6}
-    worldPos: {x: 12, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 12, y: 7}
-    worldPos: {x: 12, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 12, y: 8}
-    worldPos: {x: 12, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 12, y: 9}
-    worldPos: {x: 12, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 12, y: 10}
-    worldPos: {x: 12, y: 10}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
   - gridPos: {x: 13, y: -16}
     worldPos: {x: 13, y: -16}
     diggable: 0
@@ -11336,51 +11426,6 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  - gridPos: {x: 13, y: 6}
-    worldPos: {x: 13, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 13, y: 7}
-    worldPos: {x: 13, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 13, y: 8}
-    worldPos: {x: 13, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 13, y: 9}
-    worldPos: {x: 13, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 13, y: 10}
-    worldPos: {x: 13, y: 10}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
   - gridPos: {x: 14, y: -16}
     worldPos: {x: 14, y: -16}
     diggable: 0
@@ -11392,51 +11437,6 @@ MonoBehaviour:
     seedID: -1
   - gridPos: {x: 14, y: -15}
     worldPos: {x: 14, y: -15}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 14, y: 6}
-    worldPos: {x: 14, y: 6}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 14, y: 7}
-    worldPos: {x: 14, y: 7}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 14, y: 8}
-    worldPos: {x: 14, y: 8}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 14, y: 9}
-    worldPos: {x: 14, y: 9}
-    diggable: 0
-    itemDroppable: 0
-    thingPlacable: 0
-    isWatered: 0
-    isOccupied: 0
-    daySinceDug: -1
-    seedID: -1
-  - gridPos: {x: 14, y: 10}
-    worldPos: {x: 14, y: 10}
     diggable: 0
     itemDroppable: 0
     thingPlacable: 0
@@ -11534,7 +11534,7 @@ MonoBehaviour:
     isOccupied: 0
     daySinceDug: -1
     seedID: -1
-  mapSize: {x: 49, y: 29}
+  mapSize: {x: 50, y: 29}
   mapOffset: {x: -23, y: -16}
   droppedItems:
   - itemID: 1003

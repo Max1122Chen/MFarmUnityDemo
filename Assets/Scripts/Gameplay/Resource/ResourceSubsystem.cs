@@ -64,13 +64,13 @@ public class ResourceSubsystem : Singleton<ResourceSubsystem>
         return generatedResources;
     }
 
-    public int RandomlyGenerateResourcesOnMap(List<ResourceGenerationInfo> generationInfo, string sceneName)
+    public int RandomlyGenerateResourcesOnMap(List<ResourceGenerationInfo> generationInfo, string sceneName, int numSamplesBeforeRejection = 30)
     {
         GameMapSaveData gameMapSaveData = GameMapSubsystem.Instance.GetGameMapSaveData(sceneName);
         int generatedCount = 0;
         if(gameMapSaveData != null)
         {
-            List<Vector2> randomPoints = PoissonDiskSampler.GeneratePoints(GameInstance.Instance.gameSettings.resourceGenerateRadius, new Vector2(gameMapSaveData.mapSize.x, gameMapSaveData.mapSize.y));
+            List<Vector2> randomPoints = PoissonDiskSampler.GeneratePoints(GameInstance.Instance.gameSettings.resourceGenerateRadius, new Vector2(gameMapSaveData.mapSize.x, gameMapSaveData.mapSize.y), numSamplesBeforeRejection);
             foreach (Vector2 point in randomPoints)
             {
                 Vector2Int gridPos = new Vector2Int(Mathf.FloorToInt(point.x) + gameMapSaveData.mapOffset.x, Mathf.FloorToInt(point.y) + gameMapSaveData.mapOffset.y);

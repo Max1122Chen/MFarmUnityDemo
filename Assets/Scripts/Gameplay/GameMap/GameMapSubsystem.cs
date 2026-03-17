@@ -7,6 +7,21 @@ using InventorySystem;
 using System.Data;
 using UnityEngine.Tilemaps;
 
+[System.Serializable]
+public struct BridgeToScene
+{
+    [SceneName] public string toScene;
+    public Vector2 fromPos;
+    public Vector2 toPos;
+}
+
+[System.Serializable]
+public class SceneAdjacency
+{
+    [SceneName] public string sceneName;
+    public List<BridgeToScene> bridgesToOtherScenes = new List<BridgeToScene>();
+}
+
 public class GameMapSubsystem : Singleton<GameMapSubsystem>
 {
 
@@ -27,14 +42,16 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     [SerializeField] private List<PersistentGameMapData_SO> persistentGameMapDataList = new List<PersistentGameMapData_SO>();
     public List<PersistentGameMapData_SO> PersistentGameMapDataList => persistentGameMapDataList;
 
-
+    // Need to be set in the inspector
+    public List<SceneAdjacency> sceneAdjacencies = new List<SceneAdjacency>();
+    public Dictionary<string, SceneAdjacency> sceneAdjacencyDict = new Dictionary<string, SceneAdjacency>();
 
 
     // Game Map Save Data for current save file
     public List<GameMapSaveData> gameMapSaveDataList = new List<GameMapSaveData>();
 
     // Key: sceneName, Value: GameMapSaveData
-    private Dictionary<string, GameMapSaveData> gameMapSaveDataDict = new Dictionary<string, GameMapSaveData>();
+    public Dictionary<string, GameMapSaveData> gameMapSaveDataDict = new Dictionary<string, GameMapSaveData>();
 
     public Dictionary<Vector2Int, TileInfo> currentTileInfoDict { get ; private set; } = new Dictionary<Vector2Int, TileInfo>();
     public Dictionary<string, Dictionary<Vector2Int, TileInfo>> allTileInfoDict = new Dictionary<string, Dictionary<Vector2Int, TileInfo>>();
@@ -67,7 +84,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
 
         // InitializeGameMapDataDict();
         InitializePlacablePrefabData();
-
+        InitializeSceneAdjacencyDict();
         // We dont load the scene here now
         // if(!string.IsNullOrEmpty(initialSceneName) && loadInitialScene)
         // {
@@ -92,8 +109,7 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
     {
         yield return SwitchScene(targetSceneName);
 
-        // Wait for the fade out and fade in to complete before moving the player, to avoid the player being visible at the original position or the new position during the transition.
-        yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration);
+        yield return new WaitForSeconds(GameInstance.Instance.gameSettings.transitionFadeDuration/2);
         player.transform.position = spawnPosition;
     }
 
@@ -175,6 +191,22 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
                 {
                     placableItemDataDict.Add(data.itemID, data.prefab);
                 }
+            }
+        }
+    }
+
+    private void InitializeSceneAdjacencyDict()
+    {
+        sceneAdjacencyDict.Clear();
+        foreach(var adjacency in sceneAdjacencies)
+        {
+            if(!sceneAdjacencyDict.ContainsKey(adjacency.sceneName))
+            {
+                sceneAdjacencyDict.Add(adjacency.sceneName, adjacency);
+            }
+            else
+            {
+                Debug.LogWarning($"Duplicate scene name {adjacency.sceneName} in scene adjacencies.");
             }
         }
     }
@@ -305,6 +337,31 @@ public class GameMapSubsystem : Singleton<GameMapSubsystem>
         }
         Vector3Int cellPos = currentGrid.WorldToCell(position);
         return GetTileInfoByGridPos((Vector2Int)cellPos);
+    }
+
+    public TileInfo GetTileInfoByWorldPos(Vector3 position, string sceneName)
+    {
+        if(allTileInfoDict.ContainsKey(sceneName))
+        {
+            Dictionary<Vector2Int, TileInfo> tileInfoDict = allTileInfoDict[sceneName];
+            if(currentGrid == null)
+            {
+                Debug.LogError($"Current Grid is null in scene {currentSceneName}. Cannot get tile info by world position.");
+                return null;
+            }
+            // We can use any "current" grid here since the grid position should be the same for the same world position regardless of which grid we use.
+            Vector3Int cellPos = currentGrid.WorldToCell(position);
+            if(tileInfoDict.ContainsKey((Vector2Int)cellPos))
+            {
+                return tileInfoDict[(Vector2Int)cellPos];
+            }
+            else
+            {
+                Debug.LogWarning($"No tile info found for world position {position} (cell position {(Vector2Int)cellPos}) in scene {sceneName}.");
+                return null;
+            }
+        }
+        return null;
     }
 
     public Vector3 GetWorldPositionByTileInfo(TileInfo tileInfo)

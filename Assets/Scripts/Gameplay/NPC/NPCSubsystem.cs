@@ -77,7 +77,7 @@ public class NPCSubsystem : Singleton<NPCSubsystem>
             GameObject npcPrefab = npcData.npcPrefab;
             GameObject newNPC = GameInstance.Instance.SpawnGameObjectInWorld(npcPrefab, npcSaveData.position, Quaternion.identity);
             NPCController npcController = newNPC.GetComponent<NPCController>();
-            npcController.Initialize(npcData);
+            npcController.Initialize(npcSaveData);
             RegisterNPC(npcController);
 
             //

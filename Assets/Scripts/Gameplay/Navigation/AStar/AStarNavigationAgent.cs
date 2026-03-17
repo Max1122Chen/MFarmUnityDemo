@@ -52,10 +52,6 @@ namespace Navigation.AStar
         // Debug
         public Action onNewRoundStarted;
 
-        public void GenerateNavigationData(Vector2Int startPos, string startScene, Vector2Int targetPos, string targetScene)
-        {
-            
-        }
 
         // Find a path in 
         public List<Node> FindPath(Vector2Int startPos, Vector2Int targetPos, string sceneName)
@@ -74,8 +70,18 @@ namespace Navigation.AStar
             openSet.Clear();
             closedSet.Clear();
 
-            Node startNode = !GameMapSubsystem.Instance.GetTileInfoByGridPos(startPos, sceneName).isOccupied ? new Node(startPos, true) : null;
-            Node targetNode = !GameMapSubsystem.Instance.GetTileInfoByGridPos(targetPos, sceneName).isOccupied ? new Node(targetPos, true) : null;
+            TileInfo startTileInfo = GameMapSubsystem.Instance.GetTileInfoByGridPos(startPos, sceneName);
+            TileInfo targetTileInfo = GameMapSubsystem.Instance.GetTileInfoByGridPos(targetPos, sceneName);
+            if(startTileInfo == null || targetTileInfo == null)
+            {
+                // If either the start or target position is out of bounds, we can't find a path.
+                Debug.LogWarning("Start or target position is out of bounds. Cannot find path.");
+                isFindingPath = false;
+                return null;
+            }
+
+            Node startNode = !startTileInfo.isOccupied ? new Node(startPos, true) : null;
+            Node targetNode = !targetTileInfo.isOccupied ? new Node(targetPos, true) : null;
 
             if(startNode == null || targetNode == null)
             {
@@ -174,7 +180,7 @@ namespace Navigation.AStar
             foreach(Vector2Int direction in directions)
             {
                 Vector2Int neighborPos = node.position + direction;
-                Vector2Int neighborArrayPos = neighborPos - GameMapSubsystem.Instance.currentGameMapSaveData.mapOffset;
+                Vector2Int neighborArrayPos = neighborPos - GameMapSubsystem.Instance.gameMapSaveDataDict[sceneName].mapOffset; // Here used to be a fatal bug, we forgot to use the actual scene where the npc is in's map offset when calculating the neighbor's array position, which caused all neighbors to be out of bounds and
 
                 // Check if the neighbor position is within the bounds of the grid
                 Vector2Int gridSize = GameMapSubsystem.Instance.GetGridSizeOfScene(sceneName);
@@ -182,7 +188,12 @@ namespace Navigation.AStar
                 {
                     // We dont handle ignorance of obstacles when getting neighbors here, preventing multiple responsibilities for a single function.
                     // TODO: in the future, we need to handle the case where the character can travel across the scene.
-                    bool walkable = !GameMapSubsystem.Instance.GetTileInfoByGridPos(neighborPos, sceneName).isOccupied;
+                    TileInfo neighborTileInfo = GameMapSubsystem.Instance.GetTileInfoByGridPos(neighborPos, sceneName);
+                    if(neighborTileInfo == null)
+                    {
+                        continue;
+                    }
+                    bool walkable = !neighborTileInfo.isOccupied;
 
                     if(allNodes.ContainsKey(neighborPos))
                     {

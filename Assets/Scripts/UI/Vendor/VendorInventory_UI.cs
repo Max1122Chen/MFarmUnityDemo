@@ -43,7 +43,7 @@ public class VendorInventory_UI : MonoBehaviour, IUIClosable
 
         if(npcData != null)
         {
-            vendorPortrait.sprite = npcData.npcPortrait;
+            // vendorPortrait.sprite = npcData.npcPortrait;
         }
 
         // Initialize the UI with the current commodities on sale
