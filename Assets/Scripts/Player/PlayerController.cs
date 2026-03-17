@@ -8,6 +8,9 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Portrait Data")]
+    public List<CharacterPortrait> portraits = new List<CharacterPortrait>();  // This is a list of character portraits for the player, which can be used to show different portraits based on the player's relative position to the NPC during dialogue. The index of the portrait in the list should correspond to the CharacterPortraitType enum value for easy lookup.
+
     // Player Data
     public PlayerSaveData playerSaveData = null;
     private PlayerIMC playerIMC;

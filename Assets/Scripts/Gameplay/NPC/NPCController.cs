@@ -19,14 +19,21 @@ public class NPCController : MonoBehaviour
 
     // NPC Data Reference
     private NPCData npcData;
+    public NPCData NPCData => npcData;  // Expose NPCData as a public read-only property, so other classes can access the NPC's data without being able to modify it.
+    public NPCState currentState = NPCState.Idle;
     public string NPCName => npcData != null ? npcData.npcName : "Unknown NPC";
+
+    // NPC Schedule
+    HashSet<int> completedScheduleIndices = new HashSet<int>();  // To track which schedules have been completed for the current day, so we don't repeat the same schedule multiple times in the same day.
+    bool isExecutingSchedule = false;  // To track whether the NPC is currently executing a schedule, so we don't interrupt it with another schedule until it's done.
+    int currentScheduleIndex = -1;  // To track the current active schedule for the NPC, -1 means no active schedule.
 
     // Movement Parameters
     [SerializeField] private float moveSpeed = 4f;
     private bool isMoving = false;
     public Vector2 movementInput;
 
-    int currentScheduleIndex = -1;  // To track the current active schedule for the NPC, -1 means no active schedule.
+
 
     // Scene and Position Tracking
     private string currentScene;
@@ -38,6 +45,7 @@ public class NPCController : MonoBehaviour
         npcABP = GetComponentInChildren<NPCAnimationBlueprint>();
         navigationAgent = GetComponent<AStarNavigationAgent>();
 
+        TimeSubsystem.Instance.onDayPassed += (currentDay) => completedScheduleIndices.Clear();  // Clear the completed schedule indices at the end of each day to allow schedules to be executed again the next day.
         GameMapSubsystem.Instance.onNewSceneLoaded += HandleNewSceneLoaded;
     }
 
@@ -51,25 +59,59 @@ public class NPCController : MonoBehaviour
 
     public void Update()
     {
-
         isMoving = rb.velocity.magnitude > 0.1f;
 
+        EvaluateSchedules();
+    }
+
+    private void EvaluateSchedules()
+    {
         GameTime currentGameTime = TimeSubsystem.Instance.GetCurrentGameTime();
+
         for(int i = 0; i < npcData.scheduleList.Count; i++)
         {
             if(i == currentScheduleIndex)
             {
                 // If the current schedule is still active, we don't need to check the rest of the schedules.
-                break;
+                // Since the npc should only do one thing at a time
+                if(isExecutingSchedule)
+                {
+                    break;
+                }
+                else
+                {
+                    // If the schedule is no longer active, we can mark it as completed and check for the next schedule.
+                    completedScheduleIndices.Add(currentScheduleIndex);
+                    currentScheduleIndex = -1;  // Reset current schedule index to allow checking for the next schedule in the next update cycle.
+                }
             }
             var schedule = npcData.scheduleList[i];
+
 
             if(schedule.activeSeason == currentGameTime.season &&
                (schedule.startDay == 0 || (currentGameTime.day >= schedule.startDay && currentGameTime.day <= schedule.endDay)) &&
                (currentGameTime.hour > schedule.startHour || (currentGameTime.hour == schedule.startHour && currentGameTime.minute >= schedule.startMinute)))
             {
+                isExecutingSchedule = true;
                 currentScheduleIndex = i;
-                MoveAsScheduled(schedule);
+
+                switch(schedule.state)
+                {
+                    case NPCState.Idle:
+                        currentState = NPCState.Idle;
+                        // Do nothing for now
+                        break;
+                    case NPCState.Walking:
+                        currentState = NPCState.Walking;
+                        MoveAsScheduled(schedule);
+                        break;
+                    case NPCState.Working:
+                        currentState = NPCState.Working;
+                        // TODO: Implement working behavior, which could include playing working animation and maybe preventing movement for a certain duration to simulate working.
+                        WorkAsScheduled();
+                        break;
+                }
+
                 break;  // We can break here since we assume the schedules are non-overlapping,
             }
         }
@@ -93,8 +135,18 @@ public class NPCController : MonoBehaviour
         rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
     }
 
+
+    // NPC behavior methods based on schedules
+    // Traveling behavior
     public void MoveAsScheduled(NPCScheduleDefinition schedule)
     {
+        // Check if we are already in the target scene and close enough to the target position, if so, we don't need to move.
+        if(currentScene == schedule.targetScene && Vector2.Distance(transform.position, schedule.targetPosition) < 0.5f)
+        {
+            return;
+        }
+
+
         List<BridgeToScene> bridgeRoute = PlanARouteToTarget(schedule.targetScene, schedule.targetPosition);
         if (bridgeRoute != null)
         {
@@ -197,7 +249,7 @@ public class NPCController : MonoBehaviour
             yield break;  // If we can't reach the target position, we stop the coroutine.
         }
 
-        currentScheduleIndex = -1;  // After reaching the target position, we can reset the current schedule index to allow checking for the next schedule in the next update cycle.
+        isExecutingSchedule = false;  // Mark the schedule as completed after reaching the target position.
     }
 
     private List<BridgeToScene> PlanARouteToTarget(string targetScene, Vector2 targetPosition)
@@ -268,6 +320,26 @@ public class NPCController : MonoBehaviour
         return null; // No route found
     }
 
+    // Working behavior
+    public void WorkAsScheduled()
+    {
+        // For now, we will just simulate working by waiting for the duration of the schedule, and we can play working animation in the meantime. We will also prevent the NPC from doing any other actions during this time to simulate working.
+        StartCoroutine(WorkAsScheduledCoroutine());
+    }
+
+    private IEnumerator WorkAsScheduledCoroutine()
+    {
+        int lastGameMinute = TimeSubsystem.Instance.GetCurrentGameTime().minute;
+        int timeAccumulated = 0;
+        while (timeAccumulated < npcData.scheduleList[currentScheduleIndex].durationInMinutes)
+        {
+            timeAccumulated += TimeSubsystem.Instance.GetCurrentGameTime().minute - lastGameMinute;
+            lastGameMinute = TimeSubsystem.Instance.GetCurrentGameTime().minute;
+            yield return null;
+        }
+        isExecutingSchedule = false;  // Mark the schedule as completed after working for the specified duration.
+        yield break;
+    }
     private void HandleNewSceneLoaded(string newSceneName)
     {
         if (currentScene == newSceneName)

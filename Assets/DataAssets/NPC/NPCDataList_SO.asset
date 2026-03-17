@@ -19,16 +19,44 @@ MonoBehaviour:
     initialScene: 01 Farm
     initialPosition: {x: 3, y: 3}
     scheduleList: []
+    dialogSnippets: []
   - npcName: Girl01
-    portraits: []
+    portraits:
+    - portraitType: 0
+      portraitSprite: {fileID: 21300000, guid: bcb4accdbcb044b98bc839a4ab34d0f6, type: 3}
+    - portraitType: 1
+      portraitSprite: {fileID: 21300000, guid: 954616e3c701f4e22bd74bbccd87ccc2, type: 3}
     npcPrefab: {fileID: 2849035663605844587, guid: 4f9ab9e97aa096b45981931944f82f91, type: 3}
     initialScene: 01 Farm
-    initialPosition: {x: 25, y: 7}
+    initialPosition: {x: 0, y: 0}
     scheduleList:
-    - targetScene: 03 Town
+    - scheduleName: 
+      state: 1
+      targetScene: 03 Town
       targetPosition: {x: 62, y: 12}
       activeSeason: 0
       startDay: 0
       endDay: 0
-      startHour: 0
+      startHour: 9
       startMinute: 0
+      durationInMinutes: 0
+    - scheduleName: 
+      state: 2
+      targetScene: 03 Town
+      targetPosition: {x: 62, y: 12}
+      activeSeason: 0
+      startDay: 0
+      endDay: 0
+      startHour: 9
+      startMinute: 0
+      durationInMinutes: 300
+    dialogSnippets:
+    - requiredNPCState: 1
+      portraitType: 0
+      dialogText: How's going on?
+    - requiredNPCState: 2
+      portraitType: 1
+      dialogText: Nice to meet you!
+    - requiredNPCState: 0
+      portraitType: 1
+      dialogText: Nice to meet you!

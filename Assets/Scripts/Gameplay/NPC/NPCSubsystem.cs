@@ -16,6 +16,21 @@ public class NPCSubsystem : Singleton<NPCSubsystem>
     // Key: NPC Name, Value: NPCController instance in the world. This is used for quick lookup of NPC instances by their name.
     private Dictionary<string, NPCController> npcInstancesDict = new Dictionary<string, NPCController>();
 
+
+    [Header("Dialog Box")]
+    public DialogBox_UI dialogBoxUI = null;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+    }
+
+    public void Start()
+    {
+        dialogBoxUI = GameObject.FindGameObjectWithTag("DialogBox").GetComponent<DialogBox_UI>();
+    }
+
     public void Initialize()
     {
         // Initialize the NPC data dictionary for quick lookup by NPC name

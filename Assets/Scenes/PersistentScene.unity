@@ -331,6 +331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad2164aea3fcb741a152ef541c51a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portraits:
+  - portraitType: 0
+    portraitSprite: {fileID: 21300000, guid: 9250cb0d0524f439fb2e48d5ecc828e5, type: 3}
+  - portraitType: 1
+    portraitSprite: {fileID: 21300000, guid: e62c299aa3fef458f9f46e8a98fc0608, type: 3}
   playerSaveData:
     playerName: 
     position: {x: 0, y: 0}
@@ -985,6 +990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcDataList: {fileID: 11400000, guid: 46e289d552296274ea057f9beeb191d3, type: 2}
+  dialogBoxUI: {fileID: 0}
 --- !u!1 &1286934112
 GameObject:
   m_ObjectHideFlags: 0
